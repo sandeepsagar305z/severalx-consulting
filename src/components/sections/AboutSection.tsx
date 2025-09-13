@@ -98,7 +98,7 @@ export function AboutSection() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-8 text-foreground text-left">
-              About Several X Consulting
+              About Severalx Consulting
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               Leading technology consulting firm specializing in business management solutions
