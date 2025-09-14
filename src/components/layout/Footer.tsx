@@ -3,45 +3,35 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Twitter, Linkedin, Github, Youtube } from "lucide-react";
 
 const footerSections = [
   {
-    title: "Platform",
+    title: "Quick Links",
     links: [
-      { name: "Features", href: "#features" },
-      { name: "Pricing", href: "#pricing" },
-      { name: "Security", href: "#security" },
-      { name: "Integrations", href: "#integrations" },
+      { name: "Products", href: "#products" },
+      { name: "Services", href: "#services" },
+      { name: "About Us", href: "#about" },
+      { name: "Insights", href: "#insights" },
+      { name: "Contact Us", href: "#contact" },
     ],
   },
   {
     title: "Services",
     links: [
-      { name: "Consulting", href: "#consulting" },
-      { name: "Implementation", href: "#implementation" },
-      { name: "Training", href: "#training" },
-      { name: "Support", href: "#support" },
+      { name: "Software Assurance", href: "#software-assurance" },
+      { name: "Professional Services", href: "#professional-services" },
+      { name: "Training Programs", href: "#training" },
+      { name: "Technical Support", href: "#support" },
     ],
   },
   {
-    title: "Resources",
+    title: "Solutions",
     links: [
-      { name: "Documentation", href: "#docs" },
-      { name: "Blog", href: "#blog" },
-      { name: "Case Studies", href: "#case-studies" },
-      { name: "Webinars", href: "#webinars" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { name: "About", href: "#about" },
-      { name: "Careers", href: "#careers" },
-      { name: "Contact", href: "#contact" },
-      { name: "Partners", href: "#partners" },
+      { name: "Digital Transformation", href: "#digital-transformation" },
+      { name: "Business Management", href: "#business-management" },
+      { name: "Process Automation", href: "#automation" },
+      { name: "Client Management", href: "#client-management" },
     ],
   },
 ];
@@ -57,13 +47,13 @@ export function Footer() {
   return (
     <footer className="bg-muted/50 border-t">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-2"
+            className="md:col-span-2 lg:col-span-2"
           >
             <Link href="/" className="flex items-center mb-4">
               <Image
@@ -76,8 +66,8 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
-              Empowering businesses with cutting-edge technology solutions and expert consulting services.
-              Transform your operations with our comprehensive platform.
+              Optimizing supply chains across Asia, South America, and the United States.
+              Expert technology consulting for digital transformation and business growth.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
@@ -100,6 +90,7 @@ export function Footer() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="flex flex-col"
             >
               <h3 className="font-semibold mb-4">{section.title}</h3>
               <ul className="space-y-2">
@@ -116,44 +107,30 @@ export function Footer() {
               </ul>
             </motion.div>
           ))}
-        </div>
 
-        {/* Newsletter Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 pt-8 border-t"
-        >
-          <div className="max-w-md mx-auto lg:mx-0">
-            <h3 className="font-semibold mb-2">Stay Updated</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Get the latest insights on technology trends and platform updates.
-            </p>
-            <div className="flex space-x-2">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1"
-              />
-              <Button className="bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </motion.div>
+        </div>
 
         {/* Bottom Section */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-12 pt-8 border-t flex flex-col sm:flex-row justify-between items-center"
+          className="mt-12 pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0"
         >
-          <p className="text-sm text-muted-foreground">
-            © 2025 Severalx Consulting. All rights reserved.
-          </p>
-          <div className="flex space-x-6 mt-4 sm:mt-0">
+          <div className="flex items-center gap-2">
+            <Image
+              src="/logo.png"
+              alt="Severalx Consulting"
+              width={16}
+              height={16}
+              className="object-contain"
+              unoptimized
+            />
+            <p className="text-sm text-muted-foreground">
+              © 2025 Severalx Consulting. All rights reserved.
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center sm:justify-end space-x-6 mt-0">
             <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
             </Link>

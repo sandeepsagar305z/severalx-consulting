@@ -1,42 +1,38 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import { Building2 } from "lucide-react";
+import Image from "next/image";
 
 const partneredCompanies = [
   {
     name: "Company 1",
-    description: "Leading technology solutions provider",
-    color: "from-gray-600 to-gray-800"
+    logo: "/company-1-logo.png"
   },
   {
     name: "Company 2",
-    description: "Innovative business consulting firm",
-    color: "from-gray-700 to-gray-900"
+    logo: "/company-2-logo.png"
   },
   {
     name: "Company 3",
-    description: "Digital transformation experts",
-    color: "from-gray-500 to-gray-700"
+    logo: "/company-3-logo.png"
   },
   {
     name: "Company 4",
-    description: "Enterprise software specialists",
-    color: "from-gray-800 to-gray-900"
+    logo: "/company-4-logo.png"
   },
   {
     name: "Company 5",
-    description: "Strategic partnership solutions",
-    color: "from-gray-600 to-gray-800"
+    logo: "/company-5-logo.png"
   }
 ];
 
+// Duplicate logos for seamless scrolling
+const scrollingLogos = [...partneredCompanies, ...partneredCompanies];
+
 export function PartneredCompaniesSection() {
   return (
-    <section id="partnered-companies" className="py-20 bg-muted/30">
+    <section id="partnered-companies" className="py-16 bg-muted/30" style={{ boxShadow: 'inset 0 0 35px rgba(97, 178, 128, 0.03)' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -45,63 +41,84 @@ export function PartneredCompaniesSection() {
           transition={{ duration: 0.6 }}
           className="text-left mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ textShadow: '0 2px 4px rgba(97, 178, 128, 0.08)' }}>
             Partnered Companies
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+          <p className="text-lg text-muted-foreground max-w-2xl" style={{ textShadow: '0 1px 2px rgba(97, 178, 128, 0.05)' }}>
             Trusted partnerships with industry-leading companies to deliver exceptional solutions and services.
           </p>
         </motion.div>
 
-        {/* Companies Carousel */}
+        {/* Scrolling Logos */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="relative"
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden"
         >
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 3000,
-                stopOnInteraction: false,
-                stopOnMouseEnter: true,
-              }),
-            ]}
-            className="w-full max-w-5xl mx-auto"
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {partneredCompanies.map((company, index) => (
-                <CarouselItem key={company.name} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                  >
-                    <Card className="h-full hover:shadow-lg transition-all duration-300 border-0 bg-background/50 backdrop-blur-sm">
-                      <CardContent className="p-6 text-center">
-                        <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${company.color} flex items-center justify-center mx-auto mb-4`}>
-                          <Building2 className="w-8 h-8 text-white" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2">{company.name}</h3>
-                        <p className="text-muted-foreground text-sm">
-                          {company.description}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
+          {/* Gradient overlays for smooth fade effect */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/30 to-transparent z-10"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/30 to-transparent z-10"></div>
+
+          {/* Scrolling container */}
+          <div className="flex animate-scroll">
+            {scrollingLogos.map((company, index) => (
+              <motion.div
+                key={`${company.name}-${index}`}
+                className="flex-shrink-0 mx-8 group"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                <div
+                  className="w-32 h-20 md:w-40 md:h-24 lg:w-48 lg:h-28 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-lg shadow-lg border border-gray-200/50 transition-all duration-300 group-hover:shadow-xl group-hover:bg-white/90"
+                  style={{
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(97, 178, 128, 0.12)',
+                    border: '1px solid rgba(97, 178, 128, 0.08)'
+                  }}
+                >
+                  <div className="relative w-full h-full flex items-center justify-center p-3">
+                    <Image
+                      src={company.logo}
+                      alt={`${company.name} logo`}
+                      width={120}
+                      height={60}
+                      className="w-full h-full object-contain transition-all duration-300 group-hover:scale-110 filter group-hover:brightness-110"
+                      onError={(e) => {
+                        // Fallback to icon if logo fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const fallback = target.parentElement?.querySelector('.fallback-icon');
+                        if (fallback) (fallback as HTMLElement).style.display = 'flex';
+                      }}
+                    />
+                    <Building2 className="fallback-icon w-8 h-8 md:w-10 md:h-10 text-gray-500 transition-all duration-300 group-hover:scale-110 hidden items-center justify-center" />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
+
       </div>
+
+      <style jsx>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-100% / 2));
+          }
+        }
+
+        .animate-scroll {
+          animation: scroll 40s linear infinite;
+        }
+
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
   );
 }

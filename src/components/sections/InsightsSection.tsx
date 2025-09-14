@@ -27,46 +27,83 @@ const caseStudies = [
 
 export function InsightsSection() {
   return (
-    <section id="insights" className="py-24 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="insights" className="pt-4 pb-16 bg-white dark:bg-gray-900" style={{ boxShadow: 'inset 0 0 35px rgba(97, 178, 128, 0.03)', scrollMarginTop: '80px' }}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8" style={{ boxShadow: '0 0 28px rgba(97, 178, 128, 0.05)' }}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-left mb-16"
+          className="text-left mb-16 p-6"
+          style={{ boxShadow: '0 0 25px rgba(97, 178, 128, 0.06)' }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-foreground" style={{ textShadow: '0 2px 4px rgba(97, 178, 128, 0.08)' }}>
             Insights
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+          <p className="text-lg text-muted-foreground max-w-2xl" style={{ textShadow: '0 1px 2px rgba(97, 178, 128, 0.05)' }}>
             Explore our latest case studies and insights from successful digital transformation projects.
           </p>
         </motion.div>
 
         {/* Case Studies Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 p-4" style={{ perspective: '1200px', boxShadow: 'inset 0 0 25px rgba(97, 178, 128, 0.02)' }}>
           {caseStudies.map((study, index) => (
             <motion.div
               key={study.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
               viewport={{ once: true }}
+              className="group"
+              style={{
+                transformStyle: 'preserve-3d'
+              }}
+              whileHover={{
+                rotateY: 1,
+                rotateX: -1,
+                y: -4,
+                transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }
+              }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300 border-gray-200 dark:border-gray-800">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-lg mb-4">
-                    <study.icon className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+              <Card
+                className="h-full hover:shadow-lg transition-all duration-500 ease-out border-gray-200 dark:border-gray-700"
+                style={{
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(97, 178, 128, 0.12), 0 0 20px rgba(97, 178, 128, 0.06)',
+                  transform: 'translateZ(0)',
+                  transformStyle: 'preserve-3d',
+                  border: '1px solid rgba(97, 178, 128, 0.08)'
+                }}
+              >
+                <CardContent className="p-6 transition-all duration-500 ease-out">
+                  <div
+                    className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-800 dark:to-green-700 rounded-lg mb-4 transition-all duration-500 ease-out group-hover:shadow-lg"
+                    style={{
+                      transform: 'translateZ(4px)',
+                      boxShadow: '0 2px 8px rgba(97, 178, 128, 0.15)'
+                    }}
+                  >
+                    <study.icon className="w-6 h-6 text-green-600 dark:text-green-400 transition-transform duration-300 group-hover:scale-105" />
                   </div>
-                  <div className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2">
+                  <div
+                    className="text-sm font-medium text-green-600 dark:text-green-400 mb-2 transition-all duration-500 ease-out"
+                    style={{ transform: 'translateZ(2px)' }}
+                  >
                     {study.category}
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3">
+                  <h3
+                    className="text-xl font-semibold text-foreground mb-3 transition-all duration-500 ease-out"
+                    style={{
+                      transform: 'translateZ(2px)',
+                      textShadow: '0 1px 2px rgba(97, 178, 128, 0.06)'
+                    }}
+                  >
                     {study.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p
+                    className="text-muted-foreground leading-relaxed transition-all duration-500 ease-out"
+                    style={{ transform: 'translateZ(1px)' }}
+                  >
                     {study.description}
                   </p>
                 </CardContent>

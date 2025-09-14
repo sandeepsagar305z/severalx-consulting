@@ -50,13 +50,13 @@ export function Header() {
             className="hidden md:flex items-center space-x-8"
           >
             {navigation.map((item) => (
-              <Link
+              <a
                 key={item.name}
                 href={item.href}
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
           </motion.nav>
 
@@ -71,7 +71,7 @@ export function Header() {
               Sign In
             </Button>
             <Link href="#contact">
-              <Button size="sm" className="bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black">
+              <Button size="sm" className="bg-gradient-to-r from-black to-black hover:from-green-700 hover:to-green-600">
                 Contact Us
               </Button>
             </Link>
@@ -88,21 +88,21 @@ export function Header() {
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <div className="flex flex-col space-y-4 mt-4">
                 {navigation.map((item) => (
-                  <Link
+                  <a
                     key={item.name}
                     href={item.href}
                     className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.name}
-                  </Link>
+                  </a>
                 ))}
                 <div className="flex flex-col space-y-2 pt-4 border-t">
                   <Button variant="ghost" className="justify-start">
                     Sign In
                   </Button>
                   <Link href="#contact" onClick={() => setIsOpen(false)}>
-                    <Button className="justify-start bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black">
+                    <Button className="justify-start bg-gradient-to-r from-black to-black hover:from-green-700 hover:to-green-600">
                       Contact Us
                     </Button>
                   </Link>
