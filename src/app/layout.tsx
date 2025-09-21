@@ -34,8 +34,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-black bg-gradient-to-br from-black via-gray-900/80 to-black relative`}
       >
+        {/* Enhanced Background Pattern */}
+        <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(99,181,131,0.08),transparent_70%)] pointer-events-none"></div>
+        <div className="fixed inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(99,181,131,0.06),transparent_70%)] pointer-events-none"></div>
+        <div className="fixed inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(99,181,131,0.04),transparent_80%)] pointer-events-none"></div>
+        <div className="fixed inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
+
+        {/* Floating background elements */}
+        <div className="fixed top-1/4 left-1/4 w-64 h-64 bg-[#63b583]/5 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
+        <div className="fixed bottom-1/3 right-1/3 w-48 h-48 bg-[#63b583]/3 rounded-full blur-2xl animate-pulse animation-delay-2000 pointer-events-none"></div>
         <Header />
         <main className="flex-1">
           {children}

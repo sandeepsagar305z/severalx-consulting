@@ -27,7 +27,7 @@ const caseStudies = [
 
 export function InsightsSection() {
   return (
-    <section id="insights" className="pt-4 pb-16 bg-white dark:bg-gray-900" style={{ boxShadow: 'inset 0 0 35px rgba(97, 178, 128, 0.03)', scrollMarginTop: '80px' }}>
+    <section id="insights" className="py-16" style={{ boxShadow: 'inset 0 0 35px rgba(97, 178, 128, 0.03)', scrollMarginTop: '80px' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8" style={{ boxShadow: '0 0 28px rgba(97, 178, 128, 0.05)' }}>
         {/* Section Header */}
         <motion.div
@@ -35,13 +35,13 @@ export function InsightsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-left mb-16 p-6"
+          className="text-left mb-12 p-6"
           style={{ boxShadow: '0 0 25px rgba(97, 178, 128, 0.06)' }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-foreground" style={{ textShadow: '0 2px 4px rgba(97, 178, 128, 0.08)' }}>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white" style={{ textShadow: '0 2px 4px rgba(97, 178, 128, 0.08)' }}>
             Insights
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl" style={{ textShadow: '0 1px 2px rgba(97, 178, 128, 0.05)' }}>
+          <p className="text-base text-white max-w-2xl" style={{ textShadow: '0 1px 2px rgba(97, 178, 128, 0.05)' }}>
             Explore our latest case studies and insights from successful digital transformation projects.
           </p>
         </motion.div>
