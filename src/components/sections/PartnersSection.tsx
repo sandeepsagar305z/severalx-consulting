@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Quote, Star } from "lucide-react";
+import { ExternalLink, Quote } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
@@ -33,12 +33,8 @@ const inspirationalQuotes = [
     author: "Sam Keen"
   },
   {
-    quote: "Alone we can do so little; together we can do so much.",
+    quote: "Consulting is not giving the right answer; it's providing the right guidance.",
     author: "Helen Keller"
-  },
-  {
-    quote: "The best way to predict the future is to create it together.",
-    author: "Peter Drucker"
   }
 ];
 
@@ -48,48 +44,33 @@ const testimonials = [
     position: "CEO, TechCorp",
     company: "TechCorp Solutions",
     content: "Working with SeveralX has transformed our business operations. Their innovative solutions and dedicated support team have helped us achieve unprecedented growth.",
-    rating: 5,
-    avatar: "SJ"
+    rating: 5
   },
   {
     name: "Michael Chen",
     position: "CTO, DataFlow",
     company: "DataFlow Analytics",
     content: "The partnership with SeveralX has been exceptional. Their expertise in digital transformation has positioned us as industry leaders in data analytics.",
-    rating: 5,
-    avatar: "MC"
+    rating: 5
   },
   {
     name: "Emma Rodriguez",
     position: "Director, CloudSecure",
     company: "CloudSecure Systems",
     content: "SeveralX's commitment to excellence and innovative approach has helped us deliver world-class cybersecurity solutions to our clients globally.",
-    rating: 5,
-    avatar: "ER"
+    rating: 5
   },
   {
     name: "David Thompson",
     position: "VP Operations, InnovateNow",
     company: "InnovateNow Inc",
     content: "The collaboration with SeveralX has exceeded our expectations. Their strategic insights and technical expertise have been invaluable to our success.",
-    rating: 5,
-    avatar: "DT"
+    rating: 5
   }
 ];
 
 export function PartnersSection() {
-  const [currentQuote, setCurrentQuote] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    const quoteInterval = setInterval(() => {
-      setCurrentQuote((prev) => (prev + 1) % inspirationalQuotes.length);
-    }, 7000);
-
-    return () => {
-      clearInterval(quoteInterval);
-    };
-  }, []);
 
   // Create extended testimonials array for seamless scrolling (duplicate testimonials)
   const extendedTestimonials = [...testimonials, ...testimonials, ...testimonials];
@@ -203,50 +184,47 @@ export function PartnersSection() {
               </p>
             </div>
 
-            <motion.div
-              key={currentQuote}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5 }}
-              className="relative"
-            >
-              <Card className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-[#61b280]/40 transition-all duration-500 relative overflow-hidden group"
-              >
-                {/* Subtle gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#61b280]/5 via-transparent to-[#4a9666]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative h-96 overflow-hidden">
+              <div className="flex flex-col space-y-4">
+                {inspirationalQuotes.map((quote, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                    className="relative flex-shrink-0"
+                  >
+                    <Card className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-[#61b280]/40 transition-all duration-500 relative overflow-hidden group p-6"
+                    >
+                      {/* Subtle gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#61b280]/5 via-transparent to-[#4a9666]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                <CardContent className="p-8 relative z-10">
-                  <div className="flex justify-center mb-6">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#61b280]/20 to-[#4a9666]/20 flex items-center justify-center">
-                      <Quote className="w-6 h-6 text-[#61b280]" />
-                    </div>
-                  </div>
+                      <div className="relative z-10">
+                        {/* Star Rating */}
+                        <div className="flex justify-center mb-3">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#61b280]/20 to-[#4a9666]/20 flex items-center justify-center">
+                            <Quote className="w-4 h-4 text-[#61b280]" />
+                          </div>
+                        </div>
 
-                  <blockquote className="text-xl md:text-2xl font-medium text-white leading-relaxed text-center mb-6 italic">
-                    &ldquo;{inspirationalQuotes[currentQuote].quote}&rdquo;
-                  </blockquote>
+                        {/* Quote Content */}
+                        <blockquote className="text-sm text-gray-200 leading-relaxed text-center mb-3 italic">
+                          &ldquo;{quote.quote}&rdquo;
+                        </blockquote>
 
-                  <cite className="text-[#61b280] font-semibold text-lg block text-center">
-                    — {inspirationalQuotes[currentQuote].author}
-                  </cite>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Quote Navigation Dots */}
-            <div className="flex justify-center space-x-2">
-              {inspirationalQuotes.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentQuote(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentQuote
-                      ? 'bg-[#61b280] scale-125'
-                      : 'bg-gray-600 hover:bg-gray-500'
-                  }`}
-                />
-              ))}
+                        {/* Author Info */}
+                        <div className="flex items-center justify-center space-x-3">
+                          <div className="text-center">
+                            <div className="font-semibold text-[#61b280] text-sm">
+                              — {quote.author}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -296,33 +274,21 @@ export function PartnersSection() {
                       <div className="absolute inset-0 bg-gradient-to-br from-[#61b280]/5 via-transparent to-[#4a9666]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                       <div className="relative z-10">
-                        {/* Star Rating */}
-                        <div className="flex justify-center mb-4">
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                          ))}
-                        </div>
-
                         {/* Testimonial Content */}
                         <blockquote className="text-sm text-gray-200 leading-relaxed text-center mb-4 italic">
                           &ldquo;{testimonial.content}&rdquo;
                         </blockquote>
 
                         {/* Client Info */}
-                        <div className="flex items-center justify-center space-x-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#61b280] to-[#4a9666] flex items-center justify-center text-white font-bold text-sm">
-                            {testimonial.avatar}
+                        <div className="text-center">
+                          <div className="font-semibold text-white text-sm">
+                            {testimonial.name}
                           </div>
-                          <div className="text-left">
-                            <div className="font-semibold text-white text-sm">
-                              {testimonial.name}
-                            </div>
-                            <div className="text-xs text-gray-400">
-                              {testimonial.position}
-                            </div>
-                            <div className="text-xs text-[#61b280]">
-                              {testimonial.company}
-                            </div>
+                          <div className="text-xs text-gray-400">
+                            {testimonial.position}
+                          </div>
+                          <div className="text-xs text-[#61b280]">
+                            {testimonial.company}
                           </div>
                         </div>
                       </div>

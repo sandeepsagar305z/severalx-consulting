@@ -293,7 +293,7 @@ export function ContactSection() {
                   <div>
                     <label htmlFor="name" className="flex items-center text-sm font-medium mb-2 text-white">
                       <User className="w-4 h-4 mr-2 text-[#63b583]" />
-                      Name <span className="text-red-500">*</span>
+                      Name <span className="text-white">*</span>
                     </label>
                     <Input
                       type="text"
@@ -309,7 +309,7 @@ export function ContactSection() {
                   <div>
                     <label htmlFor="email" className="flex items-center text-sm font-medium mb-2 text-white">
                       <Mail className="w-4 h-4 mr-2 text-[#63b583]" />
-                      Email <span className="text-red-500">*</span>
+                      Email <span className="text-white">*</span>
                     </label>
                       <Input
                       type="email"
@@ -354,12 +354,16 @@ export function ContactSection() {
                       className="w-full bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 rounded-md px-3 py-2 appearance-none pr-10"
                     >
                       <option value="" className="bg-black text-white">Select a service</option>
-                      <option value="Entity Setup, Taxation and Regulatory Compliance" className="bg-black text-white">
-                        Entity Setup, Taxation and Regulatory Compliance
+                      <option value="Marketing Technology Stack" className="bg-black text-white">
+                        Marketing Technology Stack
                       </option>
-                      <option value="3PL Logistics Setup" className="bg-black text-white">3PL Logistics Setup</option>
-                      <option value="Consolidation Warehouse Setup" className="bg-black text-white">Consolidation Warehouse Setup</option>
-                      <option value="Strategic Acquisitions" className="bg-black text-white">Strategic Acquisitions</option>
+                      <option value="Data Analytics & Insights" className="bg-black text-white">Data Analytics & Insights</option>
+                      <option value="Customer Experience Design" className="bg-black text-white">Customer Experience Design</option>
+                      <option value="Growth Marketing Strategy" className="bg-black text-white">Growth Marketing Strategy</option>
+                      <option value="Project Management" className="bg-black text-white">Project Management</option>
+                      <option value="Finance Management" className="bg-black text-white">Finance Management</option>
+                      <option value="Client Management" className="bg-black text-white">Client Management</option>
+                      <option value="Digital Transformation" className="bg-black text-white">Digital Transformation</option>
                     </select>
                     {/* Dropdown arrow icon */}
                     <svg
@@ -379,7 +383,7 @@ export function ContactSection() {
                 <div>
                     <label htmlFor="message" className="flex items-center text-sm font-medium mb-2 text-white">
                       <MessageSquare className="w-4 h-4 mr-2 text-[#63b583]" />
-                    How can we help you? <span className="text-red-500">*</span>
+                    How can we help you? <span className="text-white">*</span>
                     </label>
                       <Textarea
                         id="message"

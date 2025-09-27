@@ -10,19 +10,22 @@ const resources = [
     title: "Software Assurance & Support",
     description: "24/7 technical support, security updates, and system maintenance to keep your software running smoothly and securely.",
     icon: Shield,
-    color: "from-black to-green-700"
+    color: "from-black to-green-700",
+    buttonText: "Get Support"
   },
   {
     title: "Professional Resources",
     description: "Expert consulting, implementation, and customization services to maximize your technology investments.",
     icon: Briefcase,
-    color: "from-green-700 to-black"
+    color: "from-green-700 to-black",
+    buttonText: "Explore Resources"
   },
   {
     title: "Training",
     description: "Comprehensive training programs to empower your team with the skills needed to effectively use our solutions.",
     icon: GraduationCap,
-    color: "from-black to-green-600"
+    color: "from-black to-green-600",
+    buttonText: "Start Training"
   }
 ];
 
@@ -78,7 +81,7 @@ export function ResourcesSection() {
               viewport={{ once: true }}
               className="group"
             >
-              <Card className="h-full bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#63b583]/30 hover:bg-white/10 transition-all duration-500 hover:shadow-2xl hover:shadow-[#63b583]/10 hover:-translate-y-2 relative overflow-hidden">
+              <Card className="h-full bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#63b583]/30 hover:bg-white/10 transition-all duration-500 hover:shadow-2xl hover:shadow-[#63b583]/10 hover:-translate-y-2 relative overflow-hidden flex flex-col">
                 {/* Subtle gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#63b583]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
@@ -93,9 +96,9 @@ export function ResourcesSection() {
                     {service.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="pt-0 relative z-10">
+                <CardContent className="pt-0 pb-6 mt-auto relative z-10">
                   <Button className="w-full bg-gradient-to-r from-[#63b583] to-[#4a9666] hover:from-[#4a9666] hover:to-[#63b583] text-white border-0 shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-500 group-hover:-translate-y-1 group/button">
-                    Learn More
+                    {service.buttonText}
                     <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover/button:translate-x-1" />
                   </Button>
                 </CardContent>
