@@ -15,12 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Severalx Consulting - Technology Platform & Consulting Services",
+  title: "Severalx Consulting - Technology Platform & Consulting Resources",
   description: "Empower your business with cutting-edge technology solutions and expert consulting services. Transform operations with our comprehensive platform.",
   keywords: "technology consulting, digital transformation, software solutions, business consulting, tech platform",
   authors: [{ name: "Severalx Consulting" }],
   openGraph: {
-    title: "Severalx Consulting - Technology Platform & Consulting Services",
+    title: "Severalx Consulting - Technology Platform & Consulting Resources",
     description: "Empower your business with cutting-edge technology solutions and expert consulting services.",
     type: "website",
   },

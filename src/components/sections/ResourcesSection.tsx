@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Shield, Briefcase, GraduationCap, ArrowRight } from "lucide-react";
 
-const services = [
+const resources = [
   {
     title: "Software Assurance & Support",
     description: "24/7 technical support, security updates, and system maintenance to keep your software running smoothly and securely.",
@@ -13,7 +13,7 @@ const services = [
     color: "from-black to-green-700"
   },
   {
-    title: "Professional Services",
+    title: "Professional Resources",
     description: "Expert consulting, implementation, and customization services to maximize your technology investments.",
     icon: Briefcase,
     color: "from-green-700 to-black"
@@ -26,9 +26,9 @@ const services = [
   }
 ];
 
-export function ServicesSection() {
+export function ResourcesSection() {
   return (
-    <section id="services" className="py-16 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
+    <section id="resources" className="py-16 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#63b583]/5 via-transparent to-[#63b583]/5"></div>
 
@@ -48,7 +48,7 @@ export function ServicesSection() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
           >
-            Our Services
+            Resources
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -61,7 +61,7 @@ export function ServicesSection() {
           </motion.p>
         </motion.div>
 
-        {/* Services Grid */}
+        {/* Resources Grid */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ export function ServicesSection() {
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
           viewport={{ once: true }}
         >
-          {services.map((service, index) => (
+          {resources.map((service, index) => (
             <motion.div
               key={service.title}
               initial={{ opacity: 0, y: 20 }}

@@ -158,7 +158,7 @@ const managementTabs = [
 ];
 
 
-export function ProductsSection() {
+export function SolutionsSection() {
   return (
     <section id="products" className="py-16 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Background Pattern */}
@@ -175,7 +175,7 @@ export function ProductsSection() {
           className="text-left mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Our Products
+            Solutions
           </h2>
           <p className="text-lg text-white/80 max-w-3xl">
             Comprehensive business management solutions designed to streamline your operations and drive growth

@@ -9,18 +9,18 @@ const footerSections = [
   {
     title: "Quick Links",
     links: [
-      { name: "Products", href: "#products" },
-      { name: "Services", href: "#services" },
+      { name: "Solutions", href: "#products" },
+      { name: "Resources", href: "#resources" },
       { name: "About Us", href: "#about" },
       { name: "Insights", href: "#insights" },
       { name: "Contact Us", href: "#contact" },
     ],
   },
   {
-    title: "Services",
+    title: "Resources",
     links: [
       { name: "Software Assurance", href: "#software-assurance" },
-      { name: "Professional Services", href: "#professional-services" },
+      { name: "Professional Resources", href: "#professional-resources" },
       { name: "Training Programs", href: "#training" },
       { name: "Technical Support", href: "#support" },
     ],

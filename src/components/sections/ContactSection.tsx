@@ -1,40 +1,188 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Mail, Phone, Send, User, UserCheck, MessageSquare, FileText } from "lucide-react";
+import { Mail, Phone, Send, User, UserCheck, MessageSquare, FileText, CheckCircle, AlertCircle, Loader2, Linkedin } from "lucide-react";
 
 
-const profileCards = [
-  {
-    name: "Jesse Miller",
-    role: "CEO & Founder",
-    email: "Jesse@severalx.com",
-    phone: "+1 (555) 123-4567",
-    image: "/api/placeholder/150/150",
-    initials: "SJ"
-  },
-  {
-    name: "Michael Chen",
-    role: "Head of Consulting",
-    email: "michael@severalx.com",
-    phone: "+1 (555) 765-4321",
-    image: "/api/placeholder/150/150",
-    initials: "MC"
-  }
-];
+// Team Member interface
+interface TeamMemberProps {
+  imageSrc: string
+  name: string
+  title: string
+  location: string
+  email: string
+  linkedinUrl: string
+  quote: string
+}
+
+// Reusable Team Member Component
+const TeamMember = ({ imageSrc, name, title, location, email, linkedinUrl, quote }: TeamMemberProps) => (
+  <div className="relative flex flex-col md:flex-row bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#63b583]/30 hover:bg-white/10 rounded-2xl shadow-md w-full p-6 group hover:shadow-lg transition-shadow duration-200 items-center flex-1">
+    <Avatar className="w-24 h-24 ring-2 ring-[#63b583]/30 group-hover:ring-[#63b583]/60 transition-all duration-500 shadow-lg shadow-[#63b583]/20 group-hover:shadow-xl group-hover:shadow-[#63b583]/30 mb-2 md:mb-0 md:mr-4 flex-shrink-0">
+      <AvatarImage src={imageSrc} alt={name} className="object-cover" />
+      <AvatarFallback className="bg-gradient-to-br from-[#63b583] via-[#5aa676] to-[#4a9666] text-white font-bold text-lg">
+        {name.split(' ').map(n => n[0]).join('')}
+      </AvatarFallback>
+    </Avatar>
+    {/* Profile details */}
+    <div className="flex-1 flex flex-col items-center md:items-start w-full">
+      {/* Contact details */}
+      <div className="flex flex-col text-center md:text-left mb-4">
+        <div className="text-lg font-bold text-white">{name}</div>
+        <div className="text-base text-gray-300 font-semibold">{title}</div>
+        <div className="text-sm text-gray-400">{location}</div>
+        <a href={`mailto:${email}`} className="text-[#63b583] underline text-sm block mb-2 hover:text-[#5aa676] transition-colors">{email}</a>
+        {/* Social media links */}
+        <div className="flex gap-2 justify-center md:justify-start mb-3">
+          <a
+            href={`mailto:${email}`}
+            className="bg-white/10 p-2 rounded-lg transition hover:bg-[#63b583]/20"
+            aria-label={`Email ${name}`}
+          >
+            <Mail className="h-5 w-5 text-[#63b583]" />
+          </a>
+          <a
+            href={linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white/10 p-2 rounded-lg transition hover:bg-[#63b583]/20"
+            aria-label={`${name} LinkedIn`}
+          >
+            <Linkedin className="h-5 w-5 text-[#63b583]" />
+          </a>
+        </div>
+      </div>
+      {/* Quote - positioned under profile info */}
+      <div className="w-full">
+        <p className="text-sm text-gray-300 italic text-center md:text-left leading-relaxed">
+          {quote}
+        </p>
+      </div>
+    </div>
+  </div>
+)
 
 export function ContactSection() {
+  // Form state management
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+    service: ''
+  })
+
+  // Form status state (loading, success, error)
+  const [formStatus, setFormStatus] = useState<{
+    loading: boolean
+    success: boolean
+    error: string | null
+  }>({
+    loading: false,
+    success: false,
+    error: null
+  })
+
+  /**
+   * Handle form submission
+   * Sends data to API endpoint and provides user feedback
+   */
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    // Reset status before submission
+    setFormStatus({ loading: true, success: false, error: null })
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      // Check if response is JSON before parsing
+      const contentType = response.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        // If we get an HTML response instead of JSON, it's likely a server error
+        const text = await response.text()
+        console.error('Received non-JSON response:', text.substring(0, 200))
+        throw new Error('Server error occurred. Please try again later or contact support if the problem persists.')
+      }
+
+      let data
+      try {
+        data = await response.json()
+      } catch (parseError) {
+        console.error('Failed to parse JSON response:', parseError)
+        throw new Error('Invalid server response. Please try again later.')
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      // Success - clear form and show success message
+      setFormStatus({ loading: false, success: true, error: null })
+
+      // Clear form fields
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+        service: ''
+      })
+
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setFormStatus(prev => ({ ...prev, success: false }))
+      }, 5000)
+
+    } catch (error: any) {
+      // Error handling - show error message
+      setFormStatus({
+        loading: false,
+        success: false,
+        error: error.message || 'Something went wrong. Please try again.'
+      })
+
+      // Clear error message after 5 seconds
+      setTimeout(() => {
+        setFormStatus(prev => ({ ...prev, error: null }))
+      }, 5000)
+    }
+  }
+
+  /**
+   * Handle form input changes
+   * Updates form data and clears any existing errors
+   */
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+
+    // Clear any existing errors when user starts typing
+    if (formStatus.error) {
+      setFormStatus(prev => ({ ...prev, error: null }))
+    }
+  }
+
   return (
-    <section id="contact" className="py-16 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
+    <section id="contact" className="py-12 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#63b583]/3 to-[#63b583]/5"></div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,217 +211,209 @@ export function ContactSection() {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Team Section */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8 pt-4"
-            viewport={{ once: true }}
-          >
-            <h3 className="text-3xl font-bold text-white mb-8">Meet Our Team</h3>
+        <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+          {/* Left Section: Team Member Information */}
+          <div className="flex flex-col gap-4 flex-1 justify-between h-full">
+            <div className="flex flex-col gap-4 h-full justify-between">
+              {/* Jesse Miller - Managing Director Profile */}
+              <TeamMember
+                imageSrc="/profile-jesse-miller.jpg"
+                name="Jesse Miller"
+                title="Managing Director"
+                location="San Francisco, USA"
+                email="jesse@severalmillers.com"
+                linkedinUrl="https://www.linkedin.com/in/jesse-miller-67711030"
+                quote="Specializes in AI development and system implementation, helping businesses leverage advanced automation."
+              />
 
-            <div className="space-y-8">
-              {profileCards.map((profile, index) => (
-                <motion.div
-                  key={profile.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="group"
-                >
-                  <Card className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#63b583]/30 hover:bg-white/10 transition-all duration-500 hover:shadow-xl hover:shadow-[#63b583]/10 hover:-translate-y-1">
-                    <CardContent className="p-8">
-                      <div className="flex items-center space-x-4">
-                        <Avatar className="w-16 h-16 ring-2 ring-[#63b583]/20 group-hover:ring-[#63b583]/40 transition-all duration-300">
-                          <AvatarImage src={profile.image} alt={profile.name} />
-                          <AvatarFallback className="bg-gradient-to-br from-[#63b583] to-[#4a9666] text-white font-semibold">
-                            {profile.initials}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-lg mb-1 text-white group-hover:text-[#63b583] transition-colors duration-300">{profile.name}</h4>
-                          <p className="text-gray-400 mb-3 text-sm">{profile.role}</p>
-                          <div className="space-y-2">
-                            <div className="flex items-center space-x-2 text-sm text-gray-300">
-                              <Mail className="w-4 h-4 text-[#63b583]" />
-                              <span className="hover:text-[#63b583] transition-colors duration-300">{profile.email}</span>
-                            </div>
-                            <div className="flex items-center space-x-2 text-sm text-gray-300">
-                              <Phone className="w-4 h-4 text-[#63b583]" />
-                              <span className="hover:text-[#63b583] transition-colors duration-300">{profile.phone}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+              {/* Placeholder Profile */}
+              <TeamMember
+                imageSrc="/api/placeholder/150/150"
+                name="Jane Smith"
+                title="Operations Director"
+                location="New York, USA"
+                email="jane@severalx.com"
+                linkedinUrl="https://www.linkedin.com/in/jane-smith"
+                quote="Experienced operations leader with a passion for process optimization and team development."
+              />
             </div>
-          </motion.div>
+          </div>
 
-          {/* Contact Form */}
+          {/* Right Section: Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="pt-4"
             viewport={{ once: true }}
+            className="relative bg-white/10 backdrop-blur-xl border border-white/30 rounded-3xl shadow-2xl w-full max-w-xl flex-1 flex flex-col justify-center self-stretch min-h-full p-0 overflow-hidden ring-1 ring-white/20"
           >
-            <Card className="bg-white/10 backdrop-blur-xl border border-white/30 shadow-2xl shadow-black/20 hover:shadow-3xl hover:shadow-black/30 transition-all duration-700 group">
-              <CardContent className="p-6 relative">
-                {/* Subtle inner glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/5 rounded-lg pointer-events-none"></div>
-                <h3 className="text-2xl font-bold mb-4 text-white">Send Us a Message</h3>
-                <motion.form
-                  className="space-y-5"
-                  initial="hidden"
-                  animate="visible"
-                  variants={{
-                    hidden: {},
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.1,
-                      },
-                    },
-                  }}
-                >
-                  <motion.div
-                    className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                    variants={{
-                      hidden: { opacity: 0, y: 20 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-                    }}
-                  >
-                    <motion.div
-                      variants={{
-                        hidden: { opacity: 0, x: -20 },
-                        visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
-                      }}
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <label htmlFor="firstName" className="flex items-center text-sm font-medium mb-2 text-white">
-                        <User className="w-4 h-4 mr-2 text-[#63b583]" />
-                        First Name
-                      </label>
-                      <div className="relative">
-                        <Input
-                          id="firstName"
-                          type="text"
-                          placeholder="Your first name"
-                          className="bg-white/5 border-white/20 text-white !placeholder-gray-200 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 pl-4 pr-4 shadow-sm focus:shadow-lg focus:shadow-[#63b583]/20"
-                        />
-                      </div>
-                    </motion.div>
-                    <motion.div
-                      variants={{
-                        hidden: { opacity: 0, x: 20 },
-                        visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
-                      }}
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <label htmlFor="lastName" className="flex items-center text-sm font-medium mb-2 text-white">
-                        <UserCheck className="w-4 h-4 mr-2 text-[#63b583]" />
-                        Last Name
-                      </label>
-                      <div className="relative">
-                        <Input
-                          id="lastName"
-                          type="text"
-                          placeholder="Your last name"
-                          className="bg-white/5 border-white/20 text-white !placeholder-gray-200 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 pl-4 pr-4 shadow-sm focus:shadow-lg focus:shadow-[#63b583]/20"
-                        />
-                      </div>
-                    </motion.div>
-                  </motion.div>
+            {/* Form Header */}
+            <div className="px-3 py-2 flex flex-col gap-2">
+              <div className="flex items-center gap-3 mb-1">
+                <h3 className="text-2xl font-bold text-white mb-0">
+                  Schedule Your Free Consultation
+                </h3>
+              </div>
 
+              <p className="text-sm text-gray-300 mb-4">
+                Connect with our marketing technology experts today. We&apos;ll help you build, implement, and optimize marketing stacks that drive growth and deliver exceptional customer experiences.
+              </p>
+
+              {/* Form Status Messages (Success/Error) */}
+              <AnimatePresence mode="wait">
+                {formStatus.success && (
                   <motion.div
-                    variants={{
-                      hidden: { opacity: 0, y: 20 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
-                    }}
-                    whileHover={{ scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl flex items-center gap-2"
                   >
+                    <CheckCircle className="h-5 w-5 flex-shrink-0" />
+                    <span>Message sent successfully! We&apos;ll be in touch soon.</span>
+                  </motion.div>
+                )}
+
+                {formStatus.error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl flex items-center gap-2"
+                  >
+                    <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                    <span>{formStatus.error}</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Contact Form Fields */}
+              <form onSubmit={handleSubmit} className="space-y-3 mt-1">
+                {/* Name and Email Fields */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+                  <div>
+                    <label htmlFor="name" className="flex items-center text-sm font-medium mb-2 text-white">
+                      <User className="w-4 h-4 mr-2 text-[#63b583]" />
+                      Name <span className="text-red-500">*</span>
+                    </label>
+                    <Input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300"
+                      placeholder="Your Name"
+                      required
+                    />
+                  </div>
+                  <div>
                     <label htmlFor="email" className="flex items-center text-sm font-medium mb-2 text-white">
                       <Mail className="w-4 h-4 mr-2 text-[#63b583]" />
-                      Email
+                      Email <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
                       <Input
+                      type="email"
                         id="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        className="bg-white/5 border-white/20 text-white !placeholder-gray-200 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 pl-4 pr-4 shadow-sm focus:shadow-lg focus:shadow-[#63b583]/20"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300"
+                      placeholder="you@email.com"
+                      required
                       />
                     </div>
-                  </motion.div>
+                </div>
 
-                  <motion.div
-                    variants={{
-                      hidden: { opacity: 0, y: 20 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.3 } },
-                    }}
-                    whileHover={{ scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <label htmlFor="subject" className="flex items-center text-sm font-medium mb-2 text-white">
-                      <FileText className="w-4 h-4 mr-2 text-[#63b583]" />
-                      Subject
+                {/* Phone and Service Fields */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+                  <div>
+                    <label htmlFor="phone" className="flex items-center text-sm font-medium mb-2 text-white">
+                      <Phone className="w-4 h-4 mr-2 text-[#63b583]" />
+                      Phone Number
                     </label>
-                    <div className="relative">
-                      <Input
-                        id="subject"
-                        type="text"
-                        placeholder="How can we help you?"
-                        className="bg-white/5 border-white/20 text-white !placeholder-gray-200 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 pl-4 pr-4 shadow-sm focus:shadow-lg focus:shadow-[#63b583]/20"
-                      />
+                    <Input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300"
+                      placeholder="(555) 987-6543"
+                    />
+                  </div>
+                  <div className="relative">
+                    <label htmlFor="service" className="flex items-center text-sm font-medium mb-2 text-white">
+                      <FileText className="w-4 h-4 mr-2 text-[#63b583]" />
+                      Service Interest
+                    </label>
+                    <select
+                      id="service"
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      className="w-full bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 rounded-md px-3 py-2 appearance-none pr-10"
+                    >
+                      <option value="" className="bg-black text-white">Select a service</option>
+                      <option value="Entity Setup, Taxation and Regulatory Compliance" className="bg-black text-white">
+                        Entity Setup, Taxation and Regulatory Compliance
+                      </option>
+                      <option value="3PL Logistics Setup" className="bg-black text-white">3PL Logistics Setup</option>
+                      <option value="Consolidation Warehouse Setup" className="bg-black text-white">Consolidation Warehouse Setup</option>
+                      <option value="Strategic Acquisitions" className="bg-black text-white">Strategic Acquisitions</option>
+                    </select>
+                    {/* Dropdown arrow icon */}
+                    <svg
+                      className="pointer-events-none absolute right-4 bottom-2 w-5 h-5 text-[#63b583]"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+                    </svg>
+                  </div>
                     </div>
-                  </motion.div>
 
-                  <motion.div
-                    variants={{
-                      hidden: { opacity: 0, y: 20 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.4 } },
-                    }}
-                    whileHover={{ scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                {/* Message Field */}
+                <div>
                     <label htmlFor="message" className="flex items-center text-sm font-medium mb-2 text-white">
                       <MessageSquare className="w-4 h-4 mr-2 text-[#63b583]" />
-                      Message
+                    How can we help you? <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
                       <Textarea
                         id="message"
-                        placeholder="Tell us about your project or inquiry..."
-                        className="bg-white/5 border-white/20 text-white !placeholder-gray-200 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 min-h-[120px] resize-none pl-4 pr-4 shadow-sm focus:shadow-lg focus:shadow-[#63b583]/20"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 min-h-[120px] resize-none"
+                    rows={3}
+                    placeholder="Tell us about your project, challenge, or question..."
+                    required
                       />
                     </div>
-                  </motion.div>
 
-                  <motion.div
-                    variants={{
-                      hidden: { opacity: 0, y: 20 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.5 } },
-                    }}
-                  >
-                    <Button className="w-full bg-gradient-to-r from-[#63b583] via-[#5aa676] to-[#4a9666] hover:from-[#4a9666] hover:via-[#5aa676] hover:to-[#63b583] text-white border-0 shadow-lg shadow-[#63b583]/25 hover:shadow-2xl hover:shadow-[#63b583]/40 transition-all duration-500 hover:-translate-y-1 group relative overflow-hidden">
-                      <span className="relative z-10 flex items-center justify-center">
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  disabled={formStatus.loading}
+                  className="w-full bg-gradient-to-r from-[#63b583] via-[#5aa676] to-[#4a9666] hover:from-[#4a9666] hover:via-[#5aa676] hover:to-[#63b583] text-white border-0 shadow-lg shadow-[#63b583]/25 hover:shadow-2xl hover:shadow-[#63b583]/40 transition-all duration-500 hover:-translate-y-1 group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {formStatus.loading ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:translate-x-1" />
                         Send Message
-                        <Send className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                      </span>
+                    </>
+                  )}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
                     </Button>
-                  </motion.div>
-                </motion.form>
-              </CardContent>
-            </Card>
+              </form>
+            </div>
           </motion.div>
         </div>
       </div>

@@ -162,7 +162,7 @@ export function AboutSection() {
             viewport={{ once: true }}
             className="space-y-12"
           >
-            {/* Our Impact */}
+            {/* Impact */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -170,7 +170,7 @@ export function AboutSection() {
               viewport={{ once: true }}
               className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl"
             >
-              <h3 className="text-2xl font-bold mb-8 text-white text-left">Our Impact</h3>
+              <h3 className="text-2xl font-bold mb-8 text-white text-left">Impact</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {impactMetrics.map((metric, index) => (
                   <motion.div

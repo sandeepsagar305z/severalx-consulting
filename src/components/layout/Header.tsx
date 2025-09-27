@@ -9,8 +9,9 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 
 const navigation = [
-  { name: "Products", href: "#products" },
-  { name: "Services", href: "#services" },
+  { name: "Solutions", href: "#products" },
+  { name: "Partners", href: "#partners" },
+  { name: "Resources", href: "#resources" },
   { name: "About Us", href: "#about" },
   { name: "Insights", href: "#insights" },
   { name: "Contact Us", href: "#contact" },
@@ -72,7 +73,7 @@ export function Header() {
             </Button>
             <Link href="#contact">
               <Button size="sm" className="bg-gradient-to-r from-black to-black hover:from-green-700 hover:to-green-600">
-                Contact Us
+                Book a Demo
               </Button>
             </Link>
           </motion.div>
@@ -103,7 +104,7 @@ export function Header() {
                   </Button>
                   <Link href="#contact" onClick={() => setIsOpen(false)}>
                     <Button className="justify-start bg-gradient-to-r from-black to-black hover:from-green-700 hover:to-green-600">
-                      Contact Us
+                      Book a Demo
                     </Button>
                   </Link>
                 </div>
