@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Menu } from "lucide-react";
 
 const navigation = [
@@ -19,6 +20,7 @@ const navigation = [
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDemoDialogOpen, setIsDemoDialogOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white">
@@ -71,11 +73,21 @@ export function Header() {
             <Button variant="ghost" size="sm">
               Sign In
             </Button>
-            <Link href="#contact">
-              <Button size="sm" className="bg-gradient-to-r from-black to-black hover:from-green-700 hover:to-green-600">
-                Book a Demo
-              </Button>
-            </Link>
+            <Dialog open={isDemoDialogOpen} onOpenChange={setIsDemoDialogOpen}>
+              <DialogTrigger asChild>
+                <Button size="sm" className="bg-gradient-to-r from-black to-black hover:from-green-700 hover:to-green-600">
+                  Book a Demo
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl h-[80vh] p-0">
+                <iframe
+                  src="https://outlook.office.com/book/SeveralInnovations1@severalmillers.com"
+                  className="w-full h-full rounded-lg"
+                  title="Book a Demo"
+                  allow="fullscreen"
+                />
+              </DialogContent>
+            </Dialog>
           </motion.div>
 
           {/* Mobile menu button */}
@@ -102,11 +114,24 @@ export function Header() {
                   <Button variant="ghost" className="justify-start">
                     Sign In
                   </Button>
-                  <Link href="#contact" onClick={() => setIsOpen(false)}>
-                    <Button className="justify-start bg-gradient-to-r from-black to-black hover:from-green-700 hover:to-green-600">
-                      Book a Demo
-                    </Button>
-                  </Link>
+                  <Dialog open={isDemoDialogOpen} onOpenChange={setIsDemoDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button
+                        className="justify-start bg-gradient-to-r from-black to-black hover:from-green-700 hover:to-green-600"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Book a Demo
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl h-[80vh] p-0">
+                      <iframe
+                        src="https://outlook.office.com/book/SeveralInnovations1@severalmillers.com"
+                        className="w-full h-full rounded-lg"
+                        title="Book a Demo"
+                        allow="fullscreen"
+                      />
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
             </SheetContent>

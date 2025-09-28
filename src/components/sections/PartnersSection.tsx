@@ -10,20 +10,20 @@ const partnerWebsites = [
   {
     name: "Company One",
     logo: "/company-1-logo.png",
-    description: "Innovative technology solutions powering businesses with cutting-edge digital transformation.",
-    url: "https://company-one.com"
+    description: "Supply Chain Automation Consulting: AI native consulting for fast moving companies.",
+    url: "https://severalmillers.com/"
   },
   {
     name: "Company Two",
     logo: "/company-2-logo.png",
-    description: "Advanced analytics and data intelligence platform for modern enterprise needs.",
-    url: "https://company-two.com"
+    description: "Cross-Border Trade Solutions: Optimizing supply chains across Asia, South America, and the United States.",
+    url: "https://severalroutes.com/"
   },
   {
     name: "Company Three",
     logo: "/company-3-logo.png",
-    description: "Comprehensive cloud infrastructure and security solutions for scalable growth.",
-    url: "https://company-three.com"
+    description: "Your Global Innovation Lab: Delivering innovative technology solutions across Nairobi, Bangalore, and San Francisco.",
+    url: "https://severalinnovations.com/"
   }
 ];
 

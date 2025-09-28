@@ -34,23 +34,23 @@ const impactMetrics = [
 const serviceHighlights = [
   {
     icon: CheckCircle,
-    title: "FTA Savings",
-    description: "Cut costs with Peru's free trade agreements.",
+    title: "Digital Transformation",
+    description: "Modernize your business with cutting-edge technology solutions.",
   },
   {
     icon: Target,
-    title: "End-to-End",
-    description: "We manage your supply chain, start to finish.",
+    title: "Strategic Consulting",
+    description: "End-to-end technology strategy and implementation guidance.",
   },
   {
     icon: Users,
-    title: "3PL & Warehouse",
-    description: "Logistics and consolidation, handled.",
+    title: "Team Training",
+    description: "Empower your workforce with technology skills and best practices.",
   },
   {
     icon: Zap,
-    title: "Automation",
-    description: "Faster, smarter, automated supply chain.",
+    title: "Process Automation",
+    description: "Streamline operations with intelligent automation solutions.",
   },
 ];
 
@@ -63,27 +63,33 @@ const whyChoosePoints = [
 
 const strategyCards = [
   {
-    title: "FTZ Strategy",
-    description: "Leverage Peru's Free Trade Zones and Free Trade Agreements.",
+    title: "Cloud Migration",
+    description: "Seamlessly transition to cloud infrastructure for scalability and cost efficiency.",
   },
   {
-    title: "3PL Planning",
-    description: "Pick the best partners. Ship fast.",
+    title: "Data Analytics",
+    description: "Transform data into actionable insights with advanced analytics solutions.",
   },
   {
-    title: "Warehousing",
-    description: "Consolidate. Distribute. Save costs.",
+    title: "Cybersecurity",
+    description: "Protect your business with comprehensive security strategies and solutions.",
   },
   {
-    title: "Automation",
-    description: "Automate for speed and control.",
+    title: "AI Integration",
+    description: "Implement artificial intelligence to enhance productivity and decision-making.",
   },
 ];
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-16 lg:py-24 bg-gray-50" style={{ scrollMarginTop: '80px' }}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-16 lg:py-24 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
+      {/* Enhanced Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/60 to-black"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(99,181,131,0.1),transparent_70%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(74,150,102,0.08),transparent_70%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,181,131,0.05),transparent_80%)]"></div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-start">
           
           {/* Left Column */}
@@ -94,13 +100,11 @@ export function AboutSection() {
               transition={{ duration: 0.7, ease: "easeOut" }}
               viewport={{ once: true, margin: "-50px" }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                About Several Routes
+              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                About Severalx Consulting
               </h2>
-              <p className="mt-4 text-lg text-gray-600 max-w-xl">
-                Experts in cross-border supply chains spanning Asia, South America, and the
-                United States. We simplify import/export, logistics, and compliance so you can
-                focus on growth.
+              <p className="mt-4 text-lg text-gray-300 max-w-xl">
+                Technology consulting experts specializing in digital transformation, business process optimization, and innovative technology solutions. We help companies leverage cutting-edge technologies to drive growth and competitive advantage.
               </p>
             </motion.div>
 
@@ -120,12 +124,12 @@ export function AboutSection() {
                         }}
                         className="flex items-start space-x-4"
                     >
-                        <div className="flex-shrink-0 text-gray-700 mt-1">
+                        <div className="flex-shrink-0 text-gray-300 mt-1">
                              <service.icon className="w-6 h-6" />
                         </div>
                         <div>
-                            <h3 className="text-base font-bold text-gray-800">{service.title}</h3>
-                            <p className="text-sm text-gray-600 mt-1">{service.description}</p>
+                            <h3 className="text-base font-bold text-white">{service.title}</h3>
+                            <p className="text-sm text-gray-300 mt-1">{service.description}</p>
                         </div>
                     </motion.div>
                 ))}
@@ -139,14 +143,14 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
               viewport={{ once: true, margin: "-50px" }}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-sm border border-white/20"
             >
-              <h3 className="text-xl font-bold text-gray-800 mb-5">Our Impact</h3>
+              <h3 className="text-xl font-bold text-white mb-5">Our Impact</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
                 {impactMetrics.map((metric) => (
                   <div key={metric.label} className="text-center sm:text-left">
-                    <p className="text-2xl lg:text-3xl font-bold text-gray-900">{metric.value}</p>
-                    <p className="text-xs text-gray-600 mt-1">{metric.label}</p>
+                    <p className="text-2xl lg:text-3xl font-bold text-white">{metric.value}</p>
+                    <p className="text-xs text-gray-300 mt-1">{metric.label}</p>
                   </div>
                 ))}
               </div>
@@ -157,14 +161,14 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
               viewport={{ once: true, margin: "-50px" }}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-sm border border-white/20"
             >
-              <h3 className="text-xl font-bold text-gray-800 mb-5">Why Choose Several Routes?</h3>
+              <h3 className="text-xl font-bold text-white mb-5">Why Choose Severalx Consulting?</h3>
               <ul className="space-y-3">
                 {whyChoosePoints.map((point, index) => (
                   <li key={index} className="flex items-start">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-gray-600">{point}</span>
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-gray-300">{point}</span>
                   </li>
                 ))}
               </ul>
@@ -188,10 +192,10 @@ export function AboutSection() {
                     visible: { opacity: 1, y: 0 }
                 }}
              >
-                <Card className="bg-white rounded-xl p-6 h-full shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 ease-in-out">
+                <Card className="bg-white/10 backdrop-blur-sm rounded-xl p-6 h-full shadow-sm border border-white/20 hover:bg-white/15 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 ease-in-out">
                     <CardContent className="p-0">
-                        <h4 className="text-base font-bold text-gray-800 mb-2">{card.title}</h4>
-                        <p className="text-sm text-gray-600">{card.description}</p>
+                        <h4 className="text-base font-bold text-white mb-2">{card.title}</h4>
+                        <p className="text-sm text-gray-300">{card.description}</p>
                     </CardContent>
                 </Card>
             </motion.div>

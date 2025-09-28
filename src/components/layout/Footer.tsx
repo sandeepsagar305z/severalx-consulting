@@ -10,6 +10,7 @@ const footerSections = [
     title: "Quick Links",
     links: [
       { name: "Solutions", href: "#products" },
+      { name: "Partners", href: "#partners" },
       { name: "Resources", href: "#resources" },
       { name: "About Us", href: "#about" },
       { name: "Insights", href: "#insights" },
@@ -28,10 +29,9 @@ const footerSections = [
   {
     title: "Solutions",
     links: [
-      { name: "Digital Transformation", href: "#digital-transformation" },
-      { name: "Business Management", href: "#business-management" },
-      { name: "Process Automation", href: "#automation" },
-      { name: "Client Management", href: "#client-management" },
+      { name: "Project Management", href: "#products" },
+      { name: "Finance Management", href: "#products" },
+      { name: "Client Management", href: "#products" },
     ],
   },
 ];
