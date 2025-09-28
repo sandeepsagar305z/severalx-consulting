@@ -146,12 +146,12 @@ export function ContactSection() {
         setFormStatus(prev => ({ ...prev, success: false }))
       }, 5000)
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Error handling - show error message
       setFormStatus({
         loading: false,
         success: false,
-        error: error.message || 'Something went wrong. Please try again.'
+        error: error instanceof Error ? error.message : 'Something went wrong. Please try again.'
       })
 
       // Clear error message after 5 seconds

@@ -6,6 +6,103 @@ import { Input } from "@/components/ui/input";
 import { Send, Building2, Brain, Users, Target } from "lucide-react";
 import { useState } from "react";
 
+// Animated background components
+const FloatingShape = ({ delay = 0, duration = 20, size = 60, color = "rgba(99,181,131,0.1)" }) => (
+  <motion.div
+    className="absolute rounded-full blur-sm"
+    style={{
+      width: size,
+      height: size,
+      background: color,
+    }}
+    animate={{
+      x: [0, 100, -50, 0],
+      y: [0, -80, 60, 0],
+      scale: [1, 1.2, 0.8, 1],
+      rotate: [0, 180, 360],
+    }}
+    transition={{
+      duration: duration,
+      repeat: Infinity,
+      delay: delay,
+      ease: "linear",
+    }}
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+  />
+);
+
+const CircuitLine = ({ delay = 0 }) => (
+  <motion.div
+    className="absolute h-px bg-gradient-to-r from-transparent via-green-400/30 to-transparent"
+    style={{
+      width: "200px",
+      top: "50%",
+      left: "50%",
+      transformOrigin: "left center",
+    }}
+    animate={{
+      scaleX: [0, 1, 0],
+      opacity: [0, 1, 0],
+    }}
+    transition={{
+      duration: 3,
+      repeat: Infinity,
+      delay: delay,
+      ease: "easeInOut",
+    }}
+  />
+);
+
+const ParticleField = () => {
+  const particles = Array.from({ length: 20 }, (_, i) => i);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {particles.map((i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 bg-green-400/40 rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            y: [-20, -100],
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0],
+          }}
+          transition={{
+            duration: 4 + Math.random() * 4,
+            repeat: Infinity,
+            delay: Math.random() * 4,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+const GradientWave = ({ delay = 0 }) => (
+  <motion.div
+    className="absolute inset-0 opacity-20"
+    style={{
+      background: "radial-gradient(circle at 20% 50%, rgba(99,181,131,0.1) 0%, transparent 50%)",
+    }}
+    animate={{
+      scale: [1, 1.2, 1],
+      opacity: [0.1, 0.3, 0.1],
+    }}
+    transition={{
+      duration: 8,
+      repeat: Infinity,
+      delay: delay,
+      ease: "easeInOut",
+    }}
+  />
+);
 
 export function HeroSection() {
   const [inputValue, setInputValue] = useState("");
@@ -19,17 +116,78 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* Enhanced Background Pattern */}
+      {/* Enhanced Animated Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/50 to-black"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(99,181,131,0.08),transparent_70%)]"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(99,181,131,0.06),transparent_70%)]"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(99,181,131,0.04),transparent_80%)]"></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
 
-      {/* Floating geometric elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-[#63b583]/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute bottom-32 right-16 w-24 h-24 bg-[#63b583]/8 rounded-full blur-lg animate-pulse animation-delay-2000"></div>
-      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-[#63b583]/6 rounded-full blur-md animate-pulse animation-delay-4000"></div>
+      {/* Animated Background Elements */}
+      {/* Animated gradient waves */}
+      <GradientWave delay={0} />
+      <GradientWave delay={2} />
+      <GradientWave delay={4} />
+
+      {/* Floating geometric shapes */}
+      <FloatingShape delay={0} duration={25} size={80} color="rgba(99,181,131,0.08)" />
+      <FloatingShape delay={2} duration={30} size={60} color="rgba(74,150,102,0.06)" />
+      <FloatingShape delay={4} duration={35} size={100} color="rgba(99,181,131,0.05)" />
+      <FloatingShape delay={6} duration={28} size={70} color="rgba(74,150,102,0.07)" />
+
+      {/* Circuit-like lines */}
+      <div className="absolute top-1/4 left-1/4">
+        <CircuitLine delay={0} />
+      </div>
+      <div className="absolute top-3/4 right-1/4">
+        <CircuitLine delay={1.5} />
+      </div>
+      <div className="absolute top-1/2 left-3/4">
+        <CircuitLine delay={3} />
+      </div>
+
+      {/* Particle field effect */}
+      <ParticleField />
+
+      {/* Original floating elements with enhanced animation */}
+      <motion.div
+        className="absolute top-20 left-10 w-32 h-32 bg-[#63b583]/10 rounded-full blur-xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-32 right-16 w-24 h-24 bg-[#63b583]/8 rounded-full blur-lg"
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.08, 0.15, 0.08],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          delay: 2,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/4 w-16 h-16 bg-[#63b583]/6 rounded-full blur-md"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.06, 0.12, 0.06],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          delay: 4,
+          ease: "easeInOut",
+        }}
+      />
 
       {/* Main Hero Content */}
       <div className="flex-1 flex items-center justify-center relative z-10">

@@ -29,7 +29,7 @@ async function createTransporter() {
     ? process.env.SMTP_SECURE === 'true'
     : port === 465
 
-  const config: any = {
+  const config = {
     host: process.env.SMTP_HOST,
     port,
     secure,
@@ -53,7 +53,8 @@ async function createTransporter() {
     logger: process.env.SMTP_DEBUG === 'true',
   }
 
-  return nodemailer.createTransport(config)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return nodemailer.createTransport(config as any)
 }
 
 export async function POST(request: NextRequest) {
@@ -77,12 +78,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Server configuration error. Please contact support.' }, { status: 500 })
     }
 
-    const transporter = await createTransporter()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const transporter = await createTransporter() as any
 
     try {
       await transporter.verify()
-    } catch (e: any) {
-      console.error('SMTP verification failed:', e.message)
+    } catch (e: unknown) {
+      console.error('SMTP verification failed:', e instanceof Error ? e.message : String(e))
       console.error('SMTP config:', {
         host: process.env.SMTP_HOST,
         port: process.env.SMTP_PORT,
@@ -147,8 +149,8 @@ export async function POST(request: NextRequest) {
       success: true,
       message: 'Your message has been sent successfully! We will be in touch soon.'
     })
-  } catch (error: any) {
-    console.error('Contact form error:', error)
+  } catch (error: unknown) {
+    console.error('Contact form error:', error instanceof Error ? error.message : String(error))
     return NextResponse.json({ error: 'An unexpected error occurred. Please try again later.' }, { status: 500 })
   }
 }
