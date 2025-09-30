@@ -4,14 +4,15 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   CheckCircle,
-  Users,
-  DollarSign,
-  TrendingUp,
-  Clock,
   Target,
+  Users,
   Zap
 } from "lucide-react";
+import { BACKGROUND_GRADIENTS, COMMON_STYLES } from "@/lib/constants";
 
+/**
+ * Key impact metrics showcasing company achievements
+ */
 const impactMetrics = [
   {
     value: "15+",
@@ -29,8 +30,11 @@ const impactMetrics = [
     value: "99%",
     label: "Client Satisfaction",
   },
-];
+] as const;
 
+/**
+ * Main service offerings with icons and descriptions
+ */
 const serviceHighlights = [
   {
     icon: CheckCircle,
@@ -52,15 +56,21 @@ const serviceHighlights = [
     title: "Process Automation",
     description: "Streamline operations with intelligent automation solutions.",
   },
-];
+] as const;
 
+/**
+ * Reasons why clients choose Severalx Consulting
+ */
 const whyChoosePoints = [
   "Comprehensive business advisory approach",
   "Regulatory compliance and risk management",
   "Ongoing relationship and regular business reviews",
   "Transparent fee structure with no hidden costs",
-];
+] as const;
 
+/**
+ * Technology strategy focus areas
+ */
 const strategyCards = [
   {
     title: "Cloud Migration",
@@ -78,16 +88,19 @@ const strategyCards = [
     title: "AI Integration",
     description: "Implement artificial intelligence to enhance productivity and decision-making.",
   },
-];
+] as const;
 
+/**
+ * About section component showcasing company information and services
+ */
 export function AboutSection() {
   return (
-    <section id="about" className="py-16 lg:py-24 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
-      {/* Enhanced Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/60 to-black"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(99,181,131,0.1),transparent_70%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(74,150,102,0.08),transparent_70%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,181,131,0.05),transparent_80%)]"></div>
+    <section id="about" className={`${COMMON_STYLES.section}`} style={{ scrollMarginTop: '80px' }}>
+      {/* Background Effects */}
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-start">
@@ -115,7 +128,7 @@ export function AboutSection() {
                 transition={{ staggerChildren: 0.15, delayChildren: 0.2 }}
                 className="grid sm:grid-cols-2 gap-x-6 gap-y-8"
             >
-                {serviceHighlights.map((service, index) => (
+                {serviceHighlights.map((service) => (
                     <motion.div
                         key={service.title}
                         variants={{

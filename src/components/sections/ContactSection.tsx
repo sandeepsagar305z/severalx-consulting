@@ -2,71 +2,12 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Mail, Phone, Send, User, UserCheck, MessageSquare, FileText, CheckCircle, AlertCircle, Loader2, Linkedin } from "lucide-react";
-
-
-// Team Member interface
-interface TeamMemberProps {
-  imageSrc: string
-  name: string
-  title: string
-  location: string
-  email: string
-  linkedinUrl: string
-  quote: string
-}
-
-// Reusable Team Member Component
-const TeamMember = ({ imageSrc, name, title, location, email, linkedinUrl, quote }: TeamMemberProps) => (
-  <div className="relative flex flex-col md:flex-row bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#63b583]/30 hover:bg-white/10 rounded-2xl shadow-md w-full p-6 group hover:shadow-lg transition-shadow duration-200 items-center flex-1">
-    <Avatar className="w-24 h-24 ring-2 ring-[#63b583]/30 group-hover:ring-[#63b583]/60 transition-all duration-500 shadow-lg shadow-[#63b583]/20 group-hover:shadow-xl group-hover:shadow-[#63b583]/30 mb-2 md:mb-0 md:mr-4 flex-shrink-0">
-      <AvatarImage src={imageSrc} alt={name} className="object-cover" />
-      <AvatarFallback className="bg-gradient-to-br from-[#63b583] via-[#5aa676] to-[#4a9666] text-white font-bold text-lg">
-        {name.split(' ').map(n => n[0]).join('')}
-      </AvatarFallback>
-    </Avatar>
-    {/* Profile details */}
-    <div className="flex-1 flex flex-col items-center md:items-start w-full">
-      {/* Contact details */}
-      <div className="flex flex-col text-center md:text-left mb-4">
-        <div className="text-lg font-bold text-white">{name}</div>
-        <div className="text-base text-gray-300 font-semibold">{title}</div>
-        <div className="text-sm text-gray-400">{location}</div>
-        <a href={`mailto:${email}`} className="text-[#63b583] underline text-sm block mb-2 hover:text-[#5aa676] transition-colors">{email}</a>
-        {/* Social media links */}
-        <div className="flex gap-2 justify-center md:justify-start mb-3">
-          <a
-            href={`mailto:${email}`}
-            className="bg-white/10 p-2 rounded-lg transition hover:bg-[#63b583]/20"
-            aria-label={`Email ${name}`}
-          >
-            <Mail className="h-5 w-5 text-[#63b583]" />
-          </a>
-          <a
-            href={linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white/10 p-2 rounded-lg transition hover:bg-[#63b583]/20"
-            aria-label={`${name} LinkedIn`}
-          >
-            <Linkedin className="h-5 w-5 text-[#63b583]" />
-          </a>
-        </div>
-      </div>
-      {/* Quote - positioned under profile info */}
-      <div className="w-full">
-        <p className="text-sm text-gray-300 italic text-center md:text-left leading-relaxed">
-          {quote}
-        </p>
-      </div>
-    </div>
-  </div>
-)
+import { Mail, Phone, Send, User, MessageSquare, FileText, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { TeamMember } from "@/components/ui/team-member";
+import { BRAND_COLORS, BACKGROUND_GRADIENTS } from "@/lib/constants";
 
 export function ContactSection() {
   // Form state management
@@ -179,8 +120,11 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="py-12 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
-      {/* Subtle background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#63b583]/3 to-[#63b583]/5"></div>
+      {/* Background Effects */}
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
 
       <div className="container mx-auto px-3 sm:px-4 lg:px-6 relative z-10">
         {/* Header */}
@@ -401,7 +345,7 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   disabled={formStatus.loading}
-                  className="w-full bg-gradient-to-r from-[#63b583] via-[#5aa676] to-[#4a9666] hover:from-[#4a9666] hover:via-[#5aa676] hover:to-[#63b583] text-white border-0 shadow-lg shadow-[#63b583]/25 hover:shadow-2xl hover:shadow-[#63b583]/40 transition-all duration-500 hover:-translate-y-1 group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={`w-full ${BRAND_COLORS.gradient.primary} text-white border-0 shadow-lg shadow-[#63b583]/25 hover:shadow-2xl hover:shadow-[#63b583]/40 transition-all duration-500 hover:-translate-y-1 group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
                   {formStatus.loading ? (
                     <>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -17,8 +18,11 @@ import {
   Play,
   Settings
 } from "lucide-react";
+import { BACKGROUND_GRADIENTS } from "@/lib/constants";
 
-// Interface for management images
+/**
+ * Interface for management platform images
+ */
 interface ManagementImage {
   id: number;
   title: string;
@@ -161,9 +165,11 @@ const managementTabs = [
 export function SolutionsSection() {
   return (
     <section id="products" className="py-16 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,181,131,0.1),transparent_70%)]"></div>
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
+      {/* Background Effects */}
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
@@ -234,9 +240,11 @@ export function SolutionsSection() {
                         {managementImages[tab.id as keyof typeof managementImages].map((image: ManagementImage, index: number) => (
                           <CarouselItem key={image.id} className="h-full">
                             <div className="relative w-full h-full group">
-                              <img
+                              <Image
                                 src={image.image}
                                 alt={image.title}
+                                width={800}
+                                height={500}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                               />
 

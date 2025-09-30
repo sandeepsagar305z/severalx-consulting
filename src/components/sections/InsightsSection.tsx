@@ -3,7 +3,11 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileText, TrendingUp, Users } from "lucide-react";
+import { BACKGROUND_GRADIENTS } from "@/lib/constants";
 
+/**
+ * Case studies showcasing successful projects and implementations
+ */
 const caseStudies = [
   {
     title: "Digital Transformation Success",
@@ -23,12 +27,22 @@ const caseStudies = [
     icon: Users,
     category: "Client Success",
   },
-];
+] as const;
 
+/**
+ * Insights section component displaying case studies and success stories
+ */
 export function InsightsSection() {
   return (
-    <section id="insights" className="py-16" style={{ boxShadow: 'inset 0 0 35px rgba(97, 178, 128, 0.03)', scrollMarginTop: '80px' }}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8" style={{ boxShadow: '0 0 28px rgba(97, 178, 128, 0.05)' }}>
+    <section id="insights" className="py-16 relative overflow-hidden" style={{
+      scrollMarginTop: '80px'
+    }}>
+      {/* Background gradient */}
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

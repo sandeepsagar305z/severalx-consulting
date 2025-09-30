@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Twitter, Linkedin, Github, Youtube } from "lucide-react";
 
+// Footer navigation sections with links to different parts of the site
 const footerSections = [
   {
     title: "Quick Links",
@@ -36,6 +37,7 @@ const footerSections = [
   },
 ];
 
+// Social media links (currently placeholder URLs)
 const socialLinks = [
   { name: "Twitter", icon: Twitter, href: "#" },
   { name: "LinkedIn", icon: Linkedin, href: "#" },
@@ -43,6 +45,9 @@ const socialLinks = [
   { name: "YouTube", icon: Youtube, href: "#" },
 ];
 
+/**
+ * Footer component with company information, navigation links, and social media
+ */
 export function Footer() {
   return (
     <footer className="bg-white border-t">

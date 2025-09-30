@@ -1,10 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink, Quote } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { BACKGROUND_GRADIENTS, BRAND_COLORS } from "@/lib/constants";
 
+/**
+ * Partner website information
+ */
 const partnerWebsites = [
   {
     name: "Company One",
@@ -24,8 +29,11 @@ const partnerWebsites = [
     description: "Your Global Innovation Lab: Delivering innovative technology solutions across Nairobi, Bangalore, and San Francisco.",
     url: "https://severalinnovations.com/"
   }
-];
+] as const;
 
+/**
+ * Inspirational quotes about partnerships and consulting
+ */
 const inspirationalQuotes = [
   {
     quote: "Partnerships are not about finding the perfect person, but learning to see an imperfect person perfectly.",
@@ -43,18 +51,19 @@ const inspirationalQuotes = [
     quote: "The strength of the team is each individual member. The strength of each member is the team.",
     author: "Phil Jackson"
   }
-];
+] as const;
 
-
+/**
+ * Partners section component displaying partner websites and inspirational quotes
+ */
 export function PartnersSection() {
-
   return (
     <section id="partners" className="py-20 relative overflow-hidden">
-      {/* Enhanced Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/60 to-black"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(99,181,131,0.1),transparent_70%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(74,150,102,0.08),transparent_70%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,181,131,0.05),transparent_80%)]"></div>
+      {/* Background Effects */}
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -105,9 +114,11 @@ export function PartnersSection() {
               >
                 <CardHeader className="flex justify-center">
                   <div className="w-36 h-20 flex items-center justify-center">
-                    <img
+                    <Image
                       src={website.logo}
                       alt={`${website.name} logo`}
+                      width={144}
+                      height={80}
                       className="w-full h-full object-contain transition-all duration-300 group-hover:scale-110"
                     />
                   </div>
@@ -121,7 +132,7 @@ export function PartnersSection() {
                   <Button
                     asChild
                     size="sm"
-                    className="bg-gradient-to-r from-[#61b280] to-[#4a9666] hover:from-[#4a9666] hover:to-[#61b280] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    className={`${BRAND_COLORS.gradient.secondary} text-white shadow-lg hover:shadow-xl transition-all duration-300`}
                   >
                     <a
                       href={website.url}

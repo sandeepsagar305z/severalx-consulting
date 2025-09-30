@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Menu } from "lucide-react";
 
+// Navigation menu items with their corresponding section IDs
 const navigation = [
   { name: "Solutions", href: "#products" },
   { name: "Partners", href: "#partners" },
@@ -18,6 +19,10 @@ const navigation = [
   { name: "Contact Us", href: "#contact" },
 ];
 
+/**
+ * Header component with navigation, logo, and demo booking functionality
+ * Includes responsive mobile menu and animated elements
+ */
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDemoDialogOpen, setIsDemoDialogOpen] = useState(false);

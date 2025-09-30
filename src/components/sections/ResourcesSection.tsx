@@ -4,7 +4,11 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Shield, Briefcase, GraduationCap, ArrowRight } from "lucide-react";
+import { COMMON_STYLES, BACKGROUND_GRADIENTS } from "@/lib/constants";
 
+/**
+ * Resource offerings with icons and descriptions
+ */
 const resources = [
   {
     title: "Software Assurance & Support",
@@ -27,13 +31,19 @@ const resources = [
     color: "from-black to-green-600",
     buttonText: "Start Training"
   }
-];
+] as const;
 
+/**
+ * Resources section component showcasing support services and training
+ */
 export function ResourcesSection() {
   return (
-    <section id="resources" className="py-16 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
-      {/* Subtle background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#63b583]/5 via-transparent to-[#63b583]/5"></div>
+    <section id="resources" className={`${COMMON_STYLES.section}`} style={{ scrollMarginTop: '80px' }}>
+      {/* Background Effects */}
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}

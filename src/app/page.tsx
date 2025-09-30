@@ -6,6 +6,10 @@ import { ResourcesSection } from "@/components/sections/ResourcesSection";
 import { InsightsSection } from "@/components/sections/InsightsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 
+/**
+ * Main homepage component that renders all sections of the consulting website
+ * Sections are arranged in a logical flow: hero, solutions, partners, resources, about, insights, contact
+ */
 export default function Home() {
   return (
     <div className="min-h-screen">
