@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { ExternalLink, Quote } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
 
 const partnerWebsites = [
   {
@@ -35,45 +34,19 @@ const inspirationalQuotes = [
   {
     quote: "Consulting is not giving the right answer; it's providing the right guidance.",
     author: "Helen Keller"
+  },
+  {
+    quote: "Alone we can do so little; together we can do so much.",
+    author: "Helen Keller"
+  },
+  {
+    quote: "The strength of the team is each individual member. The strength of each member is the team.",
+    author: "Phil Jackson"
   }
 ];
 
-const testimonials = [
-  {
-    name: "Sarah Johnson",
-    position: "CEO, TechCorp",
-    company: "TechCorp Solutions",
-    content: "Working with SeveralX has transformed our business operations. Their innovative solutions and dedicated support team have helped us achieve unprecedented growth.",
-    rating: 5
-  },
-  {
-    name: "Michael Chen",
-    position: "CTO, DataFlow",
-    company: "DataFlow Analytics",
-    content: "The partnership with SeveralX has been exceptional. Their expertise in digital transformation has positioned us as industry leaders in data analytics.",
-    rating: 5
-  },
-  {
-    name: "Emma Rodriguez",
-    position: "Director, CloudSecure",
-    company: "CloudSecure Systems",
-    content: "SeveralX's commitment to excellence and innovative approach has helped us deliver world-class cybersecurity solutions to our clients globally.",
-    rating: 5
-  },
-  {
-    name: "David Thompson",
-    position: "VP Operations, InnovateNow",
-    company: "InnovateNow Inc",
-    content: "The collaboration with SeveralX has exceeded our expectations. Their strategic insights and technical expertise have been invaluable to our success.",
-    rating: 5
-  }
-];
 
 export function PartnersSection() {
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Create extended testimonials array for seamless scrolling (duplicate testimonials)
-  const extendedTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
   return (
     <section id="partners" className="py-20 relative overflow-hidden">
@@ -166,136 +139,62 @@ export function PartnersSection() {
           ))}
         </motion.div>
 
-        {/* Main Content - Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-          {/* Left Column - Inspirational Quotes */}
+        {/* Main Content - Client Testimonials Section */}
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            <div className="text-center lg:text-left mb-8">
+            <div className="text-center mb-8">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Quotes
+                Client Testimonials
               </h3>
               <p className="text-gray-400">
                 Inspiring quotes about the power of partnerships
               </p>
             </div>
 
-            <div className="relative h-96 overflow-hidden">
-              <div className="flex flex-col space-y-4">
-                {inspirationalQuotes.map((quote, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                    className="relative flex-shrink-0"
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {inspirationalQuotes.map((quote, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  className="relative flex-shrink-0"
+                >
+                  <Card className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-[#61b280]/40 transition-all duration-500 relative overflow-hidden group p-6 h-full"
                   >
-                    <Card className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-[#61b280]/40 transition-all duration-500 relative overflow-hidden group p-6"
-                    >
-                      {/* Subtle gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#61b280]/5 via-transparent to-[#4a9666]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    {/* Subtle gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#61b280]/5 via-transparent to-[#4a9666]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                      <div className="relative z-10">
-                        {/* Star Rating */}
-                        <div className="flex justify-center mb-3">
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#61b280]/20 to-[#4a9666]/20 flex items-center justify-center">
-                            <Quote className="w-4 h-4 text-[#61b280]" />
-                          </div>
-                        </div>
-
-                        {/* Quote Content */}
-                        <blockquote className="text-sm text-gray-200 leading-relaxed text-center mb-3 italic">
-                          &ldquo;{quote.quote}&rdquo;
-                        </blockquote>
-
-                        {/* Author Info */}
-                        <div className="flex items-center justify-center space-x-3">
-                          <div className="text-center">
-                            <div className="font-semibold text-[#61b280] text-sm">
-                              — {quote.author}
-                            </div>
-                          </div>
+                    <div className="relative z-10">
+                      {/* Star Rating */}
+                      <div className="flex justify-center mb-3">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#61b280]/20 to-[#4a9666]/20 flex items-center justify-center">
+                          <Quote className="w-4 h-4 text-[#61b280]" />
                         </div>
                       </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
 
-          {/* Right Column - Scrolling Testimonials */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
-          >
-            <div className="text-center lg:text-left mb-8">
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Client Testimonials
-              </h3>
-              <p className="text-gray-400">
-                What our partners say about working with us
-              </p>
-            </div>
+                      {/* Quote Content */}
+                      <blockquote className="text-sm text-gray-200 leading-relaxed text-center mb-3 italic">
+                        &ldquo;{quote.quote}&rdquo;
+                      </blockquote>
 
-            <div
-              className="relative h-96 overflow-hidden"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <motion.div
-                className="flex flex-col space-y-4"
-                animate={{
-                  y: isHovered ? 0 : [-20, -100, -180, -260, -340, -420, -500]
-                }}
-                transition={{
-                  duration: isHovered ? 0 : 20,
-                  repeat: isHovered ? 0 : Infinity,
-                  ease: "linear"
-                }}
-              >
-                {extendedTestimonials.map((testimonial, index) => (
-                  <motion.div
-                    key={`${testimonial.name}-${index}`}
-                    className="flex-shrink-0"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                  >
-                    <Card className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-[#61b280]/40 transition-all duration-500 relative overflow-hidden group p-6"
-                    >
-                      {/* Subtle gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#61b280]/5 via-transparent to-[#4a9666]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                      <div className="relative z-10">
-                        {/* Testimonial Content */}
-                        <blockquote className="text-sm text-gray-200 leading-relaxed text-center mb-4 italic">
-                          &ldquo;{testimonial.content}&rdquo;
-                        </blockquote>
-
-                        {/* Client Info */}
+                      {/* Author Info */}
+                      <div className="flex items-center justify-center space-x-3">
                         <div className="text-center">
-                          <div className="font-semibold text-white text-sm">
-                            {testimonial.name}
-                          </div>
-                          <div className="text-xs text-gray-400">
-                            {testimonial.position}
-                          </div>
-                          <div className="text-xs text-[#61b280]">
-                            {testimonial.company}
+                          <div className="font-semibold text-[#61b280] text-sm">
+                            — {quote.author}
                           </div>
                         </div>
                       </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </motion.div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>

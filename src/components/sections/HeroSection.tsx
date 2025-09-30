@@ -16,13 +16,13 @@ const FloatingShape = ({ delay = 0, duration = 20, size = 60, color = "rgba(99,1
       background: color,
     }}
     animate={{
-      x: [0, 100, -50, 0],
-      y: [0, -80, 60, 0],
-      scale: [1, 1.2, 0.8, 1],
-      rotate: [0, 180, 360],
+      x: [0, 150, -80, 0],
+      y: [0, -120, 90, 0],
+      scale: [1, 1.4, 0.7, 1],
+      rotate: [0, 270, 540],
     }}
     transition={{
-      duration: duration,
+      duration: duration * 0.8,
       repeat: Infinity,
       delay: delay,
       ease: "linear",
@@ -35,19 +35,19 @@ const FloatingShape = ({ delay = 0, duration = 20, size = 60, color = "rgba(99,1
 
 const CircuitLine = ({ delay = 0 }) => (
   <motion.div
-    className="absolute h-px bg-gradient-to-r from-transparent via-green-400/30 to-transparent"
+    className="absolute h-px bg-gradient-to-r from-transparent via-green-400/40 to-transparent"
     style={{
-      width: "200px",
+      width: "250px",
       top: "50%",
       left: "50%",
       transformOrigin: "left center",
     }}
     animate={{
-      scaleX: [0, 1, 0],
+      scaleX: [0, 1.2, 0],
       opacity: [0, 1, 0],
     }}
     transition={{
-      duration: 3,
+      duration: 2.2,
       repeat: Infinity,
       delay: delay,
       ease: "easeInOut",
@@ -56,27 +56,27 @@ const CircuitLine = ({ delay = 0 }) => (
 );
 
 const ParticleField = () => {
-  const particles = Array.from({ length: 20 }, (_, i) => i);
+  const particles = Array.from({ length: 25 }, (_, i) => i);
 
   return (
     <div className="absolute inset-0 overflow-hidden">
       {particles.map((i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-green-400/40 rounded-full"
+          className="absolute w-1 h-1 bg-green-400/50 rounded-full"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
           }}
           animate={{
-            y: [-20, -100],
+            y: [-30, -140],
             opacity: [0, 1, 0],
-            scale: [0, 1, 0],
+            scale: [0, 1.3, 0],
           }}
           transition={{
-            duration: 4 + Math.random() * 4,
+            duration: 3 + Math.random() * 3,
             repeat: Infinity,
-            delay: Math.random() * 4,
+            delay: Math.random() * 3,
             ease: "easeOut",
           }}
         />
@@ -87,16 +87,16 @@ const ParticleField = () => {
 
 const GradientWave = ({ delay = 0 }) => (
   <motion.div
-    className="absolute inset-0 opacity-20"
+    className="absolute inset-0 opacity-25"
     style={{
-      background: "radial-gradient(circle at 20% 50%, rgba(99,181,131,0.1) 0%, transparent 50%)",
+      background: "radial-gradient(circle at 20% 50%, rgba(99,181,131,0.12) 0%, transparent 50%)",
     }}
     animate={{
-      scale: [1, 1.2, 1],
-      opacity: [0.1, 0.3, 0.1],
+      scale: [1, 1.4, 1],
+      opacity: [0.12, 0.4, 0.12],
     }}
     transition={{
-      duration: 8,
+      duration: 6,
       repeat: Infinity,
       delay: delay,
       ease: "easeInOut",
@@ -151,40 +151,40 @@ export function HeroSection() {
 
       {/* Original floating elements with enhanced animation */}
       <motion.div
-        className="absolute top-20 left-10 w-32 h-32 bg-[#63b583]/10 rounded-full blur-xl"
+        className="absolute top-20 left-10 w-32 h-32 bg-[#63b583]/12 rounded-full blur-xl"
         animate={{
-          scale: [1, 1.2, 1],
+          scale: [1, 1.4, 1],
+          opacity: [0.12, 0.25, 0.12],
+        }}
+        transition={{
+          duration: 3.2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-32 right-16 w-24 h-24 bg-[#63b583]/10 rounded-full blur-lg"
+        animate={{
+          scale: [1, 1.3, 1],
           opacity: [0.1, 0.2, 0.1],
         }}
         transition={{
           duration: 4,
           repeat: Infinity,
+          delay: 1.5,
           ease: "easeInOut",
         }}
       />
       <motion.div
-        className="absolute bottom-32 right-16 w-24 h-24 bg-[#63b583]/8 rounded-full blur-lg"
+        className="absolute top-1/2 left-1/4 w-16 h-16 bg-[#63b583]/8 rounded-full blur-md"
         animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.08, 0.15, 0.08],
+          scale: [1, 1.5, 1],
+          opacity: [0.08, 0.16, 0.08],
         }}
         transition={{
-          duration: 5,
+          duration: 4.8,
           repeat: Infinity,
-          delay: 2,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/4 w-16 h-16 bg-[#63b583]/6 rounded-full blur-md"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.06, 0.12, 0.06],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          delay: 4,
+          delay: 3,
           ease: "easeInOut",
         }}
       />
