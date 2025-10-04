@@ -154,12 +154,12 @@ export function SolutionsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-12"
+          className="text-left mb-8 sm:mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Solutions
           </h2>
-          <p className="text-lg text-white/80 max-w-3xl">
+          <p className="text-base sm:text-lg text-white/80 max-w-3xl">
             Comprehensive business management solutions designed to streamline your operations and drive growth
           </p>
         </motion.div>
@@ -172,14 +172,14 @@ export function SolutionsSection() {
           className="max-w-7xl mx-auto"
         >
           <Tabs defaultValue="project-management" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8 h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl">
+            <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-6 sm:mb-8 h-auto sm:h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-2 sm:p-0 gap-2 sm:gap-0">
               {managementTabs.map((tab) => (
-                <TabsTrigger 
-                  key={tab.id} 
+                <TabsTrigger
+                  key={tab.id}
                   value={tab.id}
-                  className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 font-medium text-base h-12 rounded-xl transition-all duration-300"
+                  className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 font-medium text-sm sm:text-base h-12 rounded-xl transition-all duration-300 flex items-center justify-center sm:justify-start"
                 >
-                  <tab.icon className="w-5 h-5 mr-2" />
+                  <tab.icon className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
                   {tab.title}
                 </TabsTrigger>
               ))}
@@ -199,101 +199,59 @@ export function SolutionsSection() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="relative w-full h-[80vh] overflow-hidden rounded-2xl shadow-2xl bg-black/20 backdrop-blur-sm"
+                    className="relative w-full overflow-hidden rounded-2xl shadow-2xl bg-white/5 backdrop-blur-sm border border-white/10"
                   >
 
-                    <Carousel className="w-full h-full">
-                      <CarouselContent className="h-full">
+                    <Carousel className="w-full">
+                      <CarouselContent>
                         {managementImages[tab.id as keyof typeof managementImages].map((image: ManagementImage, index: number) => (
-                          <CarouselItem key={image.id} className="h-full">
-                            <div className="relative w-full h-full group">
-                              <Image
-                                src={image.image}
-                                alt={image.title}
-                                width={800}
-                                height={500}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                              />
+                          <CarouselItem key={image.id}>
+                            <div className="flex flex-col">
+                              {/* Image Container */}
+                              <div className="relative w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden group">
+                                <Image
+                                  src={image.image}
+                                  alt={image.title}
+                                  width={800}
+                                  height={500}
+                                  className="w-full h-full object-cover"
+                                />
 
-                              {/* Gradient Overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-
-                              {/* Prominent Heading Overlay */}
-                              <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                                <motion.div
-                                  initial={{ opacity: 0, y: 30 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ duration: 0.6, delay: 0.3 }}
-                                  className="max-w-2xl"
-                                >
-                                  <h4 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4 leading-tight drop-shadow-lg">
-                                    {image.title}
-                                  </h4>
-                                  <p className="text-xl md:text-2xl text-black/90 leading-relaxed mb-6 drop-shadow-md">
-                                    {image.description}
-                                  </p>
-
-                                  {/* Action Buttons */}
-                                  {tab.id !== "finance-management" && (
-                                    <div className="flex flex-col sm:flex-row gap-4">
-                                      <Button
-                                        size="lg"
-                                        className={`bg-gradient-to-r ${tab.color} hover:opacity-90 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 text-lg px-8 py-3`}
-                                      >
-                                        <Play className="w-5 h-5 mr-3" />
-                                        View Live Demo
-                                      </Button>
-                                      <Button
-                                        variant="outline"
-                                        size="lg"
-                                        className="bg-white/10 backdrop-blur-md border-white/30 text-white hover:bg-white/20 hover:border-white/50 text-lg px-8 py-3"
-                                      >
-                                        <Settings className="w-5 h-5 mr-3" />
-                                        Customize Interface
-                                      </Button>
-                                    </div>
-                                  )}
-
-                                  {/* Spacer for consistent alignment when no buttons */}
-                                  {tab.id === "finance-management" && (
-                                    <div className="h-20"></div>
-                                  )}
-                                </motion.div>
                               </div>
 
-                              {/* Image Counter */}
-                              <div className="absolute top-6 right-6 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-full text-lg font-medium border border-white/20">
-                                {index + 1} / {managementImages[tab.id as keyof typeof managementImages].length}
-                              </div>
-
-                              {/* Navigation Hints */}
-                              <div className="absolute bottom-6 right-6 flex space-x-2">
-                                <div className="bg-black/60 backdrop-blur-md text-white px-3 py-2 rounded-full text-sm border border-white/20">
-                                  ← Previous
-                                </div>
-                                <div className="bg-black/60 backdrop-blur-md text-white px-3 py-2 rounded-full text-sm border border-white/20">
-                                  Next →
-                                </div>
-                              </div>
+                              {/* Title and Description Below Image */}
+                              <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                                className="p-6 sm:p-8 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border-t border-white/10"
+                              >
+                                <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+                                  {image.title}
+                                </h4>
+                                <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed">
+                                  {image.description}
+                                </p>
+                              </motion.div>
                             </div>
                           </CarouselItem>
                         ))}
                       </CarouselContent>
 
                       {/* Enhanced Navigation Buttons */}
-                      <CarouselPrevious className="absolute left-6 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-md hover:bg-black/80 text-white border-white/30 h-14 w-14 shadow-xl" />
-                      <CarouselNext className="absolute right-6 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-md hover:bg-black/80 text-white border-white/30 h-14 w-14 shadow-xl" />
-                    </Carousel>
+                      <CarouselPrevious className="absolute left-2 sm:left-6 top-1/3 -translate-y-1/2 bg-black/5 backdrop-blur-sm hover:bg-black/15 text-blue-400 hover:text-blue-300 border-white/10 h-10 w-10 sm:h-14 sm:w-14 shadow-sm" />
+                      <CarouselNext className="absolute right-2 sm:right-6 top-1/3 -translate-y-1/2 bg-black/5 backdrop-blur-sm hover:bg-black/15 text-blue-400 hover:text-blue-300 border-white/10 h-10 w-10 sm:h-14 sm:w-14 shadow-sm" />
 
-                    {/* Enhanced Slideshow Indicators */}
-                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3 bg-black/40 backdrop-blur-md rounded-full px-4 py-2 border border-white/10">
-                      {managementImages[tab.id as keyof typeof managementImages].map((_: ManagementImage, index: number) => (
-                        <div
-                          key={index}
-                          className="w-3 h-3 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300 cursor-pointer hover:scale-125"
-                        ></div>
-                      ))}
-                    </div>
+                      {/* Enhanced Slideshow Indicators */}
+                      <div className="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 flex space-x-2 sm:space-x-3 bg-black/40 backdrop-blur-md rounded-full px-3 py-1 sm:px-4 sm:py-2 border border-white/10">
+                        {managementImages[tab.id as keyof typeof managementImages].map((_: ManagementImage, index: number) => (
+                          <div
+                            key={index}
+                            className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300 cursor-pointer hover:scale-125"
+                          ></div>
+                        ))}
+                      </div>
+                    </Carousel>
                   </motion.div>
                 </motion.div>
               </TabsContent>
