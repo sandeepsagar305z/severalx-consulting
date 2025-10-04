@@ -35,79 +35,55 @@ const managementImages: Record<string, ManagementImage[]> = {
   "project-management": [
     {
       id: 1,
-      title: "Project Dashboard Overview",
-      description: "Comprehensive project management dashboard with real-time analytics",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=500&fit=crop&crop=top"
+      title: "Project Management Dashboard",
+      description: "Comprehensive project management dashboard with real-time analytics and insights",
+      image: "/solutions/project-management-dashboard.png"
     },
     {
       id: 2,
-      title: "Task Management Interface",
-      description: "Intuitive task assignment and progress tracking system",
-      image: "https://images.unsplash.com/photo-1553028826-f4804a6dba3b?w=800&h=500&fit=crop&crop=center"
+      title: "Project Opportunities",
+      description: "Discover and track new project opportunities and potential deals",
+      image: "/solutions/project-management-opportunities.png"
     },
     {
       id: 3,
-      title: "Team Collaboration Tools",
-      description: "Advanced collaboration features for seamless teamwork",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=500&fit=crop&crop=center"
+      title: "Project Tasks",
+      description: "Organize and manage project tasks with advanced tracking capabilities",
+      image: "/solutions/project-management-tasks.png"
     },
     {
       id: 4,
-      title: "Timeline & Milestones",
-      description: "Visual project timelines with milestone tracking",
-      image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&h=500&fit=crop&crop=center"
+      title: "Project Notes",
+      description: "Collaborative note-taking and documentation for project management",
+      image: "/solutions/project-management-notes.png"
     }
   ],
   "finance-management": [
     {
       id: 1,
-      title: "Financial Dashboard",
-      description: "Complete financial overview with revenue and expense tracking",
-      image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&h=500&fit=crop&crop=center"
+      title: "Finance Management Dashboard",
+      description: "Comprehensive financial dashboard with real-time analytics and insights",
+      image: "/solutions/Finance-management-dashboard.png"
     },
     {
       id: 2,
-      title: "Invoice Management",
-      description: "Professional invoice generation and payment tracking",
-      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=500&fit=crop&crop=center"
-    },
-    {
-      id: 3,
-      title: "Budget Planning",
-      description: "Advanced budgeting tools with forecasting capabilities",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop&crop=center"
-    },
-    {
-      id: 4,
-      title: "Financial Reports",
-      description: "Detailed financial reporting and analytics dashboard",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop&crop=center"
+      title: "Finance Management Overview",
+      description: "Complete financial overview with revenue, expenses, and performance tracking",
+      image: "/solutions/Finance-management-overview.png"
     }
   ],
   "client-management": [
     {
       id: 1,
-      title: "CRM Dashboard",
-      description: "Comprehensive client relationship management interface",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop&crop=top"
+      title: "Client Management Dashboard",
+      description: "Comprehensive client relationship management dashboard with analytics and insights",
+      image: "/solutions/client-managent-dashboard.png"
     },
     {
       id: 2,
-      title: "Lead Management",
-      description: "Advanced lead tracking and conversion pipeline",
-      image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=800&h=500&fit=crop&crop=center"
-    },
-    {
-      id: 3,
-      title: "Client Communication",
-      description: "Integrated communication tools and history tracking",
-      image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&h=500&fit=crop&crop=center"
-    },
-    {
-      id: 4,
-      title: "Sales Analytics",
-      description: "Detailed sales performance and client analytics",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop&crop=top"
+      title: "Client Management Companies",
+      description: "Manage and organize client companies with detailed profiles and relationship tracking",
+      image: "/solutions/client-management-companies.png"
     }
   ]
 };
@@ -225,15 +201,6 @@ export function SolutionsSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="relative w-full h-[80vh] overflow-hidden rounded-2xl shadow-2xl bg-black/20 backdrop-blur-sm"
                   >
-                    {/* Section Title Overlay */}
-                    <div className="absolute top-6 left-6 z-20">
-                      <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                        {tab.title} Interface
-                      </h3>
-                      <p className="text-white/80 text-lg max-w-md">
-                        Explore our comprehensive {tab.title.toLowerCase()} dashboard and tools
-                      </p>
-                    </div>
 
                     <Carousel className="w-full h-full">
                       <CarouselContent className="h-full">
@@ -259,31 +226,38 @@ export function SolutionsSection() {
                                   transition={{ duration: 0.6, delay: 0.3 }}
                                   className="max-w-2xl"
                                 >
-                                  <h4 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                                  <h4 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4 leading-tight drop-shadow-lg">
                                     {image.title}
                                   </h4>
-                                  <p className="text-xl md:text-2xl text-white/90 leading-relaxed mb-6">
+                                  <p className="text-xl md:text-2xl text-black/90 leading-relaxed mb-6 drop-shadow-md">
                                     {image.description}
                                   </p>
 
                                   {/* Action Buttons */}
-                                  <div className="flex flex-col sm:flex-row gap-4">
-                                    <Button
-                                      size="lg"
-                                      className={`bg-gradient-to-r ${tab.color} hover:opacity-90 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 text-lg px-8 py-3`}
-                                    >
-                                      <Play className="w-5 h-5 mr-3" />
-                                      View Live Demo
-                                    </Button>
-                                    <Button
-                                      variant="outline"
-                                      size="lg"
-                                      className="bg-white/10 backdrop-blur-md border-white/30 text-white hover:bg-white/20 hover:border-white/50 text-lg px-8 py-3"
-                                    >
-                                      <Settings className="w-5 h-5 mr-3" />
-                                      Customize Interface
-                                    </Button>
-                                  </div>
+                                  {tab.id !== "finance-management" && (
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                      <Button
+                                        size="lg"
+                                        className={`bg-gradient-to-r ${tab.color} hover:opacity-90 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 text-lg px-8 py-3`}
+                                      >
+                                        <Play className="w-5 h-5 mr-3" />
+                                        View Live Demo
+                                      </Button>
+                                      <Button
+                                        variant="outline"
+                                        size="lg"
+                                        className="bg-white/10 backdrop-blur-md border-white/30 text-white hover:bg-white/20 hover:border-white/50 text-lg px-8 py-3"
+                                      >
+                                        <Settings className="w-5 h-5 mr-3" />
+                                        Customize Interface
+                                      </Button>
+                                    </div>
+                                  )}
+
+                                  {/* Spacer for consistent alignment when no buttons */}
+                                  {tab.id === "finance-management" && (
+                                    <div className="h-20"></div>
+                                  )}
                                 </motion.div>
                               </div>
 
