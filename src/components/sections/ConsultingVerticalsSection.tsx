@@ -54,9 +54,9 @@ const inspirationalQuotes = [
 ] as const;
 
 /**
- * Partners section component displaying partner websites and inspirational quotes
+ * Consulting Verticals section component displaying partner websites and inspirational quotes
  */
-export function PartnersSection() {
+export function ConsultingVerticalsSection() {
   return (
     <section id="partners" className="py-20 relative overflow-hidden">
       {/* Background Effects */}

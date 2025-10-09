@@ -81,17 +81,44 @@ const CircuitLine = ({ delay = 0 }: CircuitLineProps) => (
  * Particle field effect for dynamic background animation
  */
 const ParticleField = () => {
-  const particles = Array.from({ length: 25 }, (_, i) => i);
+  // Predefined particle positions to avoid hydration mismatch
+  const particlePositions = [
+    { left: "8.24%", top: "11.02%" },
+    { left: "74.15%", top: "90.34%" },
+    { left: "52.09%", top: "68.44%" },
+    { left: "19.36%", top: "90.08%" },
+    { left: "37.20%", top: "99.81%" },
+    { left: "39.28%", top: "77.21%" },
+    { left: "47.02%", top: "62.09%" },
+    { left: "52.63%", top: "57.41%" },
+    { left: "59.58%", top: "20.43%" },
+    { left: "26.38%", top: "43.44%" },
+    { left: "84.71%", top: "71.84%" },
+    { left: "73.38%", top: "29.57%" },
+    { left: "86.59%", top: "61.87%" },
+    { left: "38.64%", top: "90.79%" },
+    { left: "47.67%", top: "40.65%" },
+    { left: "87.03%", top: "10.35%" },
+    { left: "14.28%", top: "82.16%" },
+    { left: "58.49%", top: "27.20%" },
+    { left: "29.61%", top: "92.78%" },
+    { left: "33.36%", top: "53.72%" },
+    { left: "69.40%", top: "53.19%" },
+    { left: "54.74%", top: "24.30%" },
+    { left: "53.00%", top: "33.76%" },
+    { left: "7.06%", top: "35.15%" },
+    { left: "75.05%", top: "28.93%" },
+  ];
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {particles.map((i) => (
+      {particlePositions.map((position, i) => (
         <motion.div
           key={i}
           className="absolute w-1 h-1 bg-green-400/50 rounded-full"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: position.left,
+            top: position.top,
           }}
           animate={{
             y: [-30, -140],
@@ -99,9 +126,9 @@ const ParticleField = () => {
             scale: [0, 1.3, 0],
           }}
           transition={{
-            duration: 3 + Math.random() * 3,
+            duration: 3 + (i * 0.2) % 3,
             repeat: Infinity,
-            delay: Math.random() * 3,
+            delay: (i * 0.1) % 3,
             ease: "easeOut",
           }}
         />
