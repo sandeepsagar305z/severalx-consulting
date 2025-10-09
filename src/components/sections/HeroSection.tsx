@@ -239,12 +239,12 @@ export function HeroSection() {
               transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
               className="mb-6"
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6">
-                <span className="block bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
-                  Marketing Technology
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
+                <span className="block bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
+                  Technology to power your consulting business from
                 </span>
                 <span className="block bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
-                  Done Right
+                   End-to-End
                 </span>
               </h1>
             </motion.div>
@@ -254,7 +254,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-              className="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light"
+              className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light"
             >
               Build, implement, and optimize marketing technology stacks that drive measurable growth and exceptional customer experiences.
             </motion.p>
@@ -269,7 +269,7 @@ export function HeroSection() {
               <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-4 hover:bg-white/15 transition-all duration-300">
                 <div className="flex items-center gap-3">
                   <Input
-                    placeholder="Tell us about your marketing challenges and goals..."
+                    placeholder="Chat with our AI about your consulting business..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     className="flex-1 border-0 text-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 focus-visible:ring-0 bg-transparent"

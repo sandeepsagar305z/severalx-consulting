@@ -13,20 +13,20 @@ import { BACKGROUND_GRADIENTS, BRAND_COLORS } from "@/lib/constants";
 const partnerWebsites = [
   {
     name: "Company One",
-    logo: "/company-1-logo.png",
+    logo: "/severalmillers-logo.png",
     description: "Supply Chain Automation Consulting: AI native consulting for fast moving companies.",
     url: "https://severalmillers.com/"
   },
   {
     name: "Company Two",
-    logo: "/company-2-logo.png",
+    logo: "/severalroutes-logo.png",
     description: "Cross-Border Trade Solutions: Optimizing supply chains across Asia, South America, and the United States.",
     url: "https://severalroutes.com/"
   },
   {
     name: "Company Three",
-    logo: "/company-3-logo.png",
-    description: "Your Global Innovation Lab: Delivering innovative technology solutions across Nairobi, Bangalore, and San Francisco.",
+    logo: "/severalinnovations-logo.png",
+    description: "Your Global Innovation Lab: Delivering innovative technology solutions across Nairobi, Bangalore, and the United States.",
     url: "https://severalinnovations.com/"
   }
 ] as const;
@@ -74,7 +74,7 @@ export function PartnersSection() {
           className="text-left mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Partners
+            Consulting Verticals
           </h2>
 
           <motion.div
@@ -84,7 +84,7 @@ export function PartnersSection() {
             className="max-w-3xl"
           >
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-              Discover what our partners say about working with us. Real stories from real partnerships that drive innovation and success.
+            The Platform for 10x Consultants
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-[#61b280] to-[#4a9666] mt-6 rounded-full"></div>
           </motion.div>

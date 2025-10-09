@@ -10,13 +10,15 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CarouselDots,
 } from "@/components/ui/carousel";
 import {
   Database,
   DollarSign,
   Users,
   Play,
-  Settings
+  Settings,
+  ClipboardList
 } from "lucide-react";
 import { BACKGROUND_GRADIENTS } from "@/lib/constants";
 
@@ -35,55 +37,43 @@ const managementImages: Record<string, ManagementImage[]> = {
   "project-management": [
     {
       id: 1,
-      title: "Project Management Dashboard",
-      description: "Comprehensive project management dashboard with real-time analytics and insights",
-      image: "/solutions/project-management-dashboard.png"
+      title: "CRM Dashboard",
+      description: "Comprehensive CRM dashboard with real-time analytics and insights",
+      image: "/solutions/crm-dashboard.png"
     },
     {
       id: 2,
-      title: "Project Opportunities",
-      description: "Discover and track new project opportunities and potential deals",
-      image: "/solutions/project-management-opportunities.png"
+      title: "CRM Companies",
+      description: "Manage and organize client companies with detailed profiles and relationship tracking",
+      image: "/solutions/crm-companies.png"
     },
     {
       id: 3,
-      title: "Project Tasks",
-      description: "Organize and manage project tasks with advanced tracking capabilities",
-      image: "/solutions/project-management-tasks.png"
+      title: "CRM Opportunities",
+      description: "Discover and track new opportunities and potential deals",
+      image: "/solutions/crm-opportunities.png"
     },
     {
       id: 4,
-      title: "Project Notes",
-      description: "Collaborative note-taking and documentation for project management",
-      image: "/solutions/project-management-notes.png"
+      title: "CRM Tasks",
+      description: "Organize and manage tasks with advanced tracking capabilities",
+      image: "/solutions/crm-tasks.png"
     }
   ],
   "finance-management": [
     {
       id: 1,
-      title: "Finance Management Dashboard",
-      description: "Comprehensive financial dashboard with real-time analytics and insights",
-      image: "/solutions/Finance-management-dashboard.png"
-    },
-    {
-      id: 2,
-      title: "Finance Management Overview",
-      description: "Complete financial overview with revenue, expenses, and performance tracking",
-      image: "/solutions/Finance-management-overview.png"
+      title: "Project Management",
+      description: "Coming soon - Advanced project management tools and features",
+      image: "/solutions/comingsoon-projectmanagement.png"
     }
   ],
   "client-management": [
     {
       id: 1,
-      title: "Client Management Dashboard",
-      description: "Comprehensive client relationship management dashboard with analytics and insights",
-      image: "/solutions/client-managent-dashboard.png"
-    },
-    {
-      id: 2,
-      title: "Client Management Companies",
-      description: "Manage and organize client companies with detailed profiles and relationship tracking",
-      image: "/solutions/client-management-companies.png"
+      title: "Knowledge Base",
+      description: "Coming soon - Comprehensive knowledge management and documentation system",
+      image: "/solutions/comingsoon-knowledgebase.png"
     }
   ]
 };
@@ -92,8 +82,8 @@ const managementImages: Record<string, ManagementImage[]> = {
 const managementTabs = [
   {
     id: "project-management",
-    title: "Project Management",
-    icon: Database,
+    title: "CRM",
+    icon: Users,
     description: "Streamline project workflows with powerful task management and team collaboration tools",
     color: "from-blue-500 to-blue-600",
     features: [
@@ -106,9 +96,9 @@ const managementTabs = [
     ]
   },
   {
-    id: "finance-management", 
-    title: "Finance Management",
-    icon: DollarSign,
+    id: "finance-management",
+    title: "Project Management",
+    icon: ClipboardList,
     description: "Complete financial oversight with budgeting, invoicing, and expense tracking capabilities",
     color: "from-emerald-500 to-emerald-600",
     features: [
@@ -122,8 +112,8 @@ const managementTabs = [
   },
   {
     id: "client-management",
-    title: "Client Management", 
-    icon: Users,
+    title: "Knowledge Base",
+    icon: Database,
     description: "Comprehensive CRM solution for managing client relationships and sales processes",
     color: "from-purple-500 to-purple-600",
     features: [
@@ -193,18 +183,20 @@ export function SolutionsSection() {
                   transition={{ duration: 0.5 }}
                   className="space-y-6"
                 >
+                  {/* Only show slideshow if images exist for this tab */}
+                  {managementImages[tab.id] && managementImages[tab.id].length > 0 ? (
+                    <>
+                      {/* Full Screen Interface Images Slideshow */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="relative w-full overflow-hidden rounded-2xl shadow-2xl bg-white/5 backdrop-blur-sm border border-white/10"
+                      >
 
-                  {/* Full Screen Interface Images Slideshow */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="relative w-full overflow-hidden rounded-2xl shadow-2xl bg-white/5 backdrop-blur-sm border border-white/10"
-                  >
-
-                    <Carousel className="w-full">
-                      <CarouselContent>
-                        {managementImages[tab.id as keyof typeof managementImages].map((image: ManagementImage, index: number) => (
+                        <Carousel className="w-full">
+                          <CarouselContent>
+                            {managementImages[tab.id as keyof typeof managementImages].map((image: ManagementImage, index: number) => (
                           <CarouselItem key={image.id}>
                             <div className="flex flex-col">
                               {/* Image Container */}
@@ -238,21 +230,16 @@ export function SolutionsSection() {
                         ))}
                       </CarouselContent>
 
-                      {/* Enhanced Navigation Buttons */}
-                      <CarouselPrevious className="absolute left-2 sm:left-6 top-1/3 -translate-y-1/2 bg-black/5 backdrop-blur-sm hover:bg-black/15 text-blue-400 hover:text-blue-300 border-white/10 h-10 w-10 sm:h-14 sm:w-14 shadow-sm" />
-                      <CarouselNext className="absolute right-2 sm:right-6 top-1/3 -translate-y-1/2 bg-black/5 backdrop-blur-sm hover:bg-black/15 text-blue-400 hover:text-blue-300 border-white/10 h-10 w-10 sm:h-14 sm:w-14 shadow-sm" />
-
-                      {/* Enhanced Slideshow Indicators */}
-                      <div className="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 flex space-x-2 sm:space-x-3 bg-black/40 backdrop-blur-md rounded-full px-3 py-1 sm:px-4 sm:py-2 border border-white/10">
-                        {managementImages[tab.id as keyof typeof managementImages].map((_: ManagementImage, index: number) => (
-                          <div
-                            key={index}
-                            className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300 cursor-pointer hover:scale-125"
-                          ></div>
-                        ))}
+                      {/* Enhanced Slideshow Controls */}
+                      <div className="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 flex items-center space-x-4 bg-black/40 backdrop-blur-md rounded-full px-4 py-2 sm:px-6 sm:py-3 border border-white/10">
+                        <CarouselPrevious className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-8 w-8 sm:h-10 sm:w-10 shadow-sm" />
+                        <CarouselDots className="space-x-2 sm:space-x-3" />
+                        <CarouselNext className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-8 w-8 sm:h-10 sm:w-10 shadow-sm" />
                       </div>
                     </Carousel>
                   </motion.div>
+                    </>
+                  ) : null}
                 </motion.div>
               </TabsContent>
             ))}
