@@ -50,16 +50,16 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="bg-white border-t">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-12">
           {/* Brand Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="md:col-span-2 lg:col-span-2"
+            className="sm:col-span-2 lg:col-span-2"
           >
-            <Link href="/" className="flex items-center mb-4">
+            <Link href="/" className="flex items-center mb-3 sm:mb-4">
               <Image
                 src="/logo.png"
                 alt="Severalx Consulting"
@@ -69,10 +69,10 @@ export function Footer() {
                 unoptimized
               />
             </Link>
-            <p className="text-sm text-muted-foreground mb-6 max-w-sm">
+            <p className="text-sm text-muted-foreground mb-4 sm:mb-6 max-w-sm leading-relaxed">
               Technology consulting experts specializing in digital transformation, business process optimization, and innovative technology solutions. We help companies leverage cutting-edge technologies to drive growth and competitive advantage.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-3 sm:space-x-4">
               {socialLinks.map((social) => (
                 <Link
                   key={social.name}
@@ -118,7 +118,7 @@ export function Footer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-12 pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0"
+          className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0"
         >
           <div className="flex items-center gap-2">
             <Image
@@ -129,11 +129,11 @@ export function Footer() {
               className="object-contain"
               unoptimized
             />
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               © 2025 Severalx Consulting. All rights reserved.
             </p>
           </div>
-          <div className="flex flex-wrap justify-center sm:justify-end space-x-6 mt-0">
+          <div className="flex flex-wrap justify-center sm:justify-end gap-x-4 gap-y-2 sm:gap-x-6 sm:gap-y-0 mt-0">
             <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
             </Link>

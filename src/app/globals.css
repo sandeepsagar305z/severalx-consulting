@@ -124,6 +124,49 @@
   }
 }
 
+/* Mobile-first responsive utilities */
+@layer utilities {
+  /* Touch target minimum size for mobile accessibility */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Better mobile text sizing */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+
+  .text-responsive-base {
+    @apply text-base sm:text-lg;
+  }
+
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl;
+  }
+
+  /* Mobile-friendly spacing */
+  .space-responsive-x {
+    @apply space-x-2 sm:space-x-4;
+  }
+
+  .space-responsive-y {
+    @apply space-y-2 sm:space-y-4;
+  }
+
+  /* Container padding for mobile */
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+}
+
 /* Custom animations */
 @keyframes blob {
   0% {

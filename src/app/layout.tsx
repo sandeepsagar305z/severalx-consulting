@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -33,6 +33,13 @@ export const metadata: Metadata = {
     description: "Empower your business with cutting-edge technology solutions and expert consulting services.",
     type: "website",
   },
+};
+
+// Viewport configuration for mobile responsiveness
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 /**

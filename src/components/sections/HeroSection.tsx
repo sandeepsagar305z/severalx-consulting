@@ -257,16 +257,16 @@ export function HeroSection() {
 
       {/* Main Hero Content */}
       <div className="flex-1 flex items-center justify-center relative z-10">
-        <div className="container mx-auto px-6 sm:px-8 lg:px-12 py-16 text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16 text-center">
           <div className="max-w-6xl mx-auto">
             {/* Main Heading */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-              className="mb-6"
+              className="mb-4 sm:mb-6"
             >
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1] sm:leading-tight mb-4 sm:mb-6">
                 <span className="block bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
                   Technology to power your consulting business from
                 </span>
@@ -281,7 +281,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-              className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-2"
             >
               Build, implement, and optimize marketing technology stacks that drive measurable growth and exceptional customer experiences.
             </motion.p>
@@ -291,21 +291,21 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
-              className="max-w-2xl mx-auto mb-6"
+              className="max-w-2xl mx-auto mb-6 px-4"
             >
-              <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-4 hover:bg-white/15 transition-all duration-300">
-                <div className="flex items-center gap-3">
+              <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-3 sm:p-4 hover:bg-white/15 transition-all duration-300">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <Input
                     placeholder="Chat with our AI about your consulting business..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    className="flex-1 border-0 text-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 focus-visible:ring-0 bg-transparent"
+                    className="flex-1 border-0 text-base sm:text-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 focus-visible:ring-0 bg-transparent min-h-[44px] sm:min-h-0"
                   />
                   <Button
                     size="lg"
-                    className={`${BRAND_COLORS.gradient.primary} text-white rounded-xl px-6 shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1`}
+                    className={`${BRAND_COLORS.gradient.primary} text-white rounded-xl px-4 sm:px-6 shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1 min-h-[44px] sm:min-h-0`}
                   >
-                    <Send className="h-5 w-5" />
+                    <Send className="h-4 w-4 sm:h-5 sm:w-5" />
                   </Button>
                 </div>
               </div>
@@ -316,7 +316,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.7, ease: "easeOut" }}
-              className="flex flex-wrap items-center justify-center gap-4 mb-16"
+              className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-12 sm:mb-16 px-2"
             >
               {serviceSuggestions.map((service, index) => (
                 <motion.button
@@ -324,10 +324,10 @@ export function HeroSection() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.9 + index * 0.08, ease: "easeOut" }}
-                  className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-sm font-medium text-gray-300 hover:bg-white/10 hover:border-[#63b583]/30 hover:text-[#63b583] transition-all duration-300 hover:shadow-lg hover:shadow-[#63b583]/10 hover:-translate-y-1 group"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-xs sm:text-sm font-medium text-gray-300 hover:bg-white/10 hover:border-[#63b583]/30 hover:text-[#63b583] transition-all duration-300 hover:shadow-lg hover:shadow-[#63b583]/10 hover:-translate-y-1 group whitespace-nowrap"
                   onClick={() => setInputValue(`I need help with ${service.label.toLowerCase()}`)}
                 >
-                  <service.icon className="h-4 w-4 text-[#63b583]" />
+                  <service.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#63b583]" />
                   {service.label}
                 </motion.button>
               ))}

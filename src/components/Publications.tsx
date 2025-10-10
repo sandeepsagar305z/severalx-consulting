@@ -400,7 +400,7 @@ const Publications = () => {
   }
 
   return (
-    <section className={`py-16 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
+    <section id="insights" className={`py-16 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
       {/* Background overlays for depth */}
       <div className={BACKGROUND_GRADIENTS.radial.primary}></div>
       <div className={BACKGROUND_GRADIENTS.radial.secondary}></div>

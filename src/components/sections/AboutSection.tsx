@@ -103,7 +103,7 @@ export function AboutSection() {
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-start">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 xl:gap-16 items-start">
           
           {/* Left Column */}
           <div className="space-y-8">
@@ -126,7 +126,7 @@ export function AboutSection() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ staggerChildren: 0.15, delayChildren: 0.2 }}
-                className="grid sm:grid-cols-2 gap-x-6 gap-y-8"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-6 sm:gap-y-8"
             >
                 {serviceHighlights.map((service) => (
                     <motion.div
@@ -158,8 +158,8 @@ export function AboutSection() {
               viewport={{ once: true, margin: "-50px" }}
               className="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-sm border border-white/20"
             >
-              <h3 className="text-xl font-bold text-white mb-5">Our Impact</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-5">Our Impact</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
                 {impactMetrics.map((metric) => (
                   <div key={metric.label} className="text-center sm:text-left">
                     <p className="text-2xl lg:text-3xl font-bold text-white">{metric.value}</p>
@@ -195,7 +195,7 @@ export function AboutSection() {
              whileInView="visible"
              viewport={{ once: true, margin: "-100px" }}
              transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
-             className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-16"
+             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-12 sm:mt-16"
         >
           {strategyCards.map((card) => (
              <motion.div

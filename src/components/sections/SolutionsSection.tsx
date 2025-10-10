@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Carousel,
@@ -14,10 +13,7 @@ import {
 } from "@/components/ui/carousel";
 import {
   Database,
-  DollarSign,
   Users,
-  Play,
-  Settings,
   ClipboardList
 } from "lucide-react";
 import { BACKGROUND_GRADIENTS } from "@/lib/constants";
@@ -162,15 +158,15 @@ export function SolutionsSection() {
           className="max-w-7xl mx-auto"
         >
           <Tabs defaultValue="project-management" className="w-full">
-            <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-6 sm:mb-8 h-auto sm:h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-2 sm:p-0 gap-2 sm:gap-0">
+            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 mb-6 sm:mb-8 h-auto md:h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-2 md:p-0 gap-2 md:gap-0">
               {managementTabs.map((tab) => (
                 <TabsTrigger
                   key={tab.id}
                   value={tab.id}
-                  className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 font-medium text-sm sm:text-base h-12 rounded-xl transition-all duration-300 flex items-center justify-center sm:justify-start"
+                  className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 font-medium text-sm md:text-base h-12 rounded-xl transition-all duration-300 flex items-center justify-center md:justify-start px-3 md:px-4"
                 >
-                  <tab.icon className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
-                  {tab.title}
+                  <tab.icon className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-2 flex-shrink-0" />
+                  <span className="truncate">{tab.title}</span>
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -196,11 +192,11 @@ export function SolutionsSection() {
 
                         <Carousel className="w-full">
                           <CarouselContent>
-                            {managementImages[tab.id as keyof typeof managementImages].map((image: ManagementImage, index: number) => (
+                            {managementImages[tab.id as keyof typeof managementImages].map((image: ManagementImage) => (
                           <CarouselItem key={image.id}>
                             <div className="flex flex-col">
                               {/* Image Container */}
-                              <div className="relative w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden group">
+                              <div className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] overflow-hidden group">
                                 <Image
                                   src={image.image}
                                   alt={image.title}
@@ -231,10 +227,10 @@ export function SolutionsSection() {
                       </CarouselContent>
 
                       {/* Enhanced Slideshow Controls */}
-                      <div className="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 flex items-center space-x-4 bg-black/40 backdrop-blur-md rounded-full px-4 py-2 sm:px-6 sm:py-3 border border-white/10">
-                        <CarouselPrevious className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-8 w-8 sm:h-10 sm:w-10 shadow-sm" />
-                        <CarouselDots className="space-x-2 sm:space-x-3" />
-                        <CarouselNext className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-8 w-8 sm:h-10 sm:w-10 shadow-sm" />
+                      <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 left-1/2 -translate-x-1/2 flex items-center space-x-3 md:space-x-4 bg-black/40 backdrop-blur-md rounded-full px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 border border-white/10">
+                        <CarouselPrevious className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 shadow-sm" />
+                        <CarouselDots className="space-x-2 md:space-x-3" />
+                        <CarouselNext className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 shadow-sm" />
                       </div>
                     </Carousel>
                   </motion.div>

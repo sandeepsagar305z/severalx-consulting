@@ -155,10 +155,10 @@ export function ContactSection() {
           </motion.p>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+        <div className="flex flex-col xl:flex-row gap-6 lg:gap-8 items-stretch">
           {/* Left Section: Team Member Information */}
-          <div className="flex flex-col gap-4 flex-1 justify-between h-full">
-            <div className="flex flex-col gap-4 h-full justify-between">
+          <div className="flex flex-col gap-4 lg:gap-6 flex-1 justify-between h-full">
+            <div className="flex flex-col gap-4 lg:gap-6 h-full justify-between">
               {/* Jesse Miller - Managing Director Profile */}
               <TeamMember
                 imageSrc="/profile-jesse-miller.jpg"
@@ -194,12 +194,12 @@ export function ContactSection() {
             {/* Form Header */}
             <div className="px-3 py-2 flex flex-col gap-2">
               <div className="flex items-center gap-3 mb-1">
-                <h3 className="text-2xl font-bold text-white mb-0">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-0">
                   Schedule Your Free Consultation
                 </h3>
               </div>
 
-              <p className="text-sm text-gray-300 mb-4">
+              <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6">
                 Connect with our marketing technology experts today. We&apos;ll help you build, implement, and optimize marketing stacks that drive growth and deliver exceptional customer experiences.
               </p>
 
@@ -306,7 +306,7 @@ export function ContactSection() {
                     </select>
                     {/* Dropdown arrow icon */}
                     <svg
-                      className="pointer-events-none absolute right-4 bottom-2 w-5 h-5 text-[#63b583]"
+                      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#63b583]"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
@@ -330,7 +330,7 @@ export function ContactSection() {
                     value={formData.message}
                     onChange={handleChange}
                     className="bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 min-h-[120px] resize-none"
-                    rows={3}
+                    rows={4}
                     placeholder="Tell us about your project, challenge, or question..."
                     required
                       />
