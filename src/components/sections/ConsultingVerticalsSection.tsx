@@ -58,7 +58,7 @@ const inspirationalQuotes = [
  */
 export function ConsultingVerticalsSection() {
   return (
-    <section id="partners" className="py-20 relative overflow-hidden">
+    <section id="consulting-verticals" className="py-20 relative overflow-hidden">
       {/* Background Effects */}
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>

@@ -12,7 +12,7 @@ import { Menu } from "lucide-react";
 // Navigation menu items with their corresponding section IDs
 const navigation = [
   { name: "Solutions", href: "#products" },
-  { name: "Partners", href: "#partners" },
+  { name: "Consulting Verticals", href: "#consulting-verticals" },
   { name: "Resources", href: "#resources" },
   { name: "About Us", href: "#about" },
   { name: "Insights", href: "#insights" },

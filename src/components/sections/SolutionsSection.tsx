@@ -149,7 +149,7 @@ export function SolutionsSection() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Solutions
           </h2>
-          <p className="text-base sm:text-lg text-white/80 max-w-3xl">
+          <p className="text-base sm:text-lg text-white/80 max-w-4xl">
             Comprehensive business management solutions designed to streamline your operations and drive growth
           </p>
         </motion.div>

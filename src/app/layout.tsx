@@ -21,6 +21,13 @@ export const metadata: Metadata = {
   description: "Empower your business with cutting-edge technology solutions and expert consulting services. Transform operations with our comprehensive platform.",
   keywords: "technology consulting, digital transformation, software solutions, business consulting, tech platform",
   authors: [{ name: "Severalx Consulting" }],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "Severalx Consulting - Technology Platform & Consulting Resources",
     description: "Empower your business with cutting-edge technology solutions and expert consulting services.",

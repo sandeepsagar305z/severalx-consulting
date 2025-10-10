@@ -298,16 +298,11 @@ export function ContactSection() {
                       className="w-full bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 rounded-md px-3 py-2 appearance-none pr-10"
                     >
                       <option value="" className="bg-black text-white">Select a service</option>
-                      <option value="Marketing Technology Stack" className="bg-black text-white">
-                        Marketing Technology Stack
+                      <option value="CRM" className="bg-black text-white">
+                        CRM
                       </option>
-                      <option value="Data Analytics & Insights" className="bg-black text-white">Data Analytics & Insights</option>
-                      <option value="Customer Experience Design" className="bg-black text-white">Customer Experience Design</option>
-                      <option value="Growth Marketing Strategy" className="bg-black text-white">Growth Marketing Strategy</option>
                       <option value="Project Management" className="bg-black text-white">Project Management</option>
-                      <option value="Finance Management" className="bg-black text-white">Finance Management</option>
-                      <option value="Client Management" className="bg-black text-white">Client Management</option>
-                      <option value="Digital Transformation" className="bg-black text-white">Digital Transformation</option>
+                      <option value="Knowledge Base" className="bg-black text-white">Knowledge Base</option>
                     </select>
                     {/* Dropdown arrow icon */}
                     <svg

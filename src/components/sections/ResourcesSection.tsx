@@ -68,7 +68,7 @@ export function ResourcesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="text-lg text-gray-300 max-w-3xl leading-relaxed"
+            className="text-lg text-gray-300 max-w-4xl leading-relaxed"
           >
             Comprehensive solutions to support your business growth and ensure success with our products.
           </motion.p>

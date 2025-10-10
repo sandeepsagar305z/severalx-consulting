@@ -11,7 +11,7 @@ const footerSections = [
     title: "Quick Links",
     links: [
       { name: "Solutions", href: "#products" },
-      { name: "Partners", href: "#partners" },
+      { name: "Consulting Verticals", href: "#consulting-verticals" },
       { name: "Resources", href: "#resources" },
       { name: "About Us", href: "#about" },
       { name: "Insights", href: "#insights" },
@@ -21,18 +21,17 @@ const footerSections = [
   {
     title: "Resources",
     links: [
-      { name: "Software Assurance", href: "#software-assurance" },
-      { name: "Professional Resources", href: "#professional-resources" },
-      { name: "Training Programs", href: "#training" },
-      { name: "Technical Support", href: "#support" },
+      { name: "Software Assurance & Support", href: "#resources" },
+      { name: "Professional Resources", href: "#resources" },
+      { name: "Training", href: "#resources" },
     ],
   },
   {
     title: "Solutions",
     links: [
+      { name: "CRM", href: "#products" },
       { name: "Project Management", href: "#products" },
-      { name: "Finance Management", href: "#products" },
-      { name: "Client Management", href: "#products" },
+      { name: "Knowledge Base", href: "#products" },
     ],
   },
 ];
@@ -71,8 +70,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
-              Optimizing supply chains across Asia, South America, and the United States.
-              Expert technology consulting for digital transformation and business growth.
+              Technology consulting experts specializing in digital transformation, business process optimization, and innovative technology solutions. We help companies leverage cutting-edge technologies to drive growth and competitive advantage.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (

@@ -29,16 +29,16 @@ export function generateAdminEmailTemplate(data: AdminEmailData): string {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>New Contact Form Submission</title>
       <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
-        .header { background-color: #1a365d; color: white; padding: 20px; text-align: center; }
-        .content { background-color: white; padding: 30px; border-radius: 8px; margin: 20px 0; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #ffffff; margin: 0; padding: 0; background-color: #000000; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #000000; }
+        .header { background: linear-gradient(to right, #63b583, #4a9666); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { background-color: #0d0d0d; padding: 30px; border-radius: 0 0 8px 8px; margin: 0; border: 1px solid #333333; border-top: none; }
         .field { margin-bottom: 15px; }
-        .field-label { font-weight: bold; color: #1a365d; }
-        .field-value { background-color: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 5px; }
+        .field-label { font-weight: bold; color: #63b583; }
+        .field-value { background-color: #1a1a1a; color: #ffffff; padding: 10px; border-radius: 4px; margin-top: 5px; border: 1px solid #333333; }
         .message-section { margin-top: 20px; }
-        .message-content { background-color: #f8f9fa; padding: 15px; border-radius: 4px; white-space: pre-wrap; }
-        .footer { text-align: center; color: #666; font-size: 12px; margin-top: 20px; }
+        .message-content { background-color: #1a1a1a; color: #ffffff; padding: 15px; border-radius: 4px; white-space: pre-wrap; border: 1px solid #333333; }
+        .footer { text-align: center; color: #b3b3b3; font-size: 12px; margin-top: 20px; }
       </style>
     </head>
     <body>
@@ -93,20 +93,20 @@ export function generateAutoResponseTemplate(data: AutoResponseData): string {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Thank you for contacting Severalx Consulting</title>
       <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
-        .header { background-color: #1a365d; color: white; padding: 30px 20px; text-align: center; }
-        .content { background-color: white; padding: 30px; border-radius: 8px; margin: 20px 0; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #ffffff; margin: 0; padding: 0; background-color: #000000; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #000000; }
+        .header { background: linear-gradient(to right, #63b583, #4a9666); color: white; padding: 30px 20px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { background-color: #0d0d0d; color: #ffffff; padding: 30px; border-radius: 0 0 8px 8px; margin: 0; border: 1px solid #333333; border-top: none; }
         .welcome-message { font-size: 18px; margin-bottom: 20px; }
-        .response-info { background-color: #e6f3ff; padding: 20px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #1a365d; }
-        .contact-info { background-color: #f8f9fa; padding: 20px; border-radius: 6px; margin: 20px 0; }
+        .response-info { background-color: #1a1a1a; color: #ffffff; padding: 20px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #63b583; border: 1px solid #333333; }
+        .contact-info { background-color: #1a1a1a; color: #ffffff; padding: 20px; border-radius: 6px; margin: 20px 0; border: 1px solid #333333; }
         .contact-item { margin-bottom: 10px; }
-        .contact-label { font-weight: bold; color: #1a365d; }
-        .cta-button { display: inline-block; background-color: #1a365d; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
-        .footer { text-align: center; color: #666; font-size: 12px; margin-top: 20px; }
-        .original-message { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
-        .original-message h4 { color: #1a365d; margin-bottom: 10px; }
-        .message-content { background-color: #f8f9fa; padding: 15px; border-radius: 4px; white-space: pre-wrap; }
+        .contact-label { font-weight: bold; color: #63b583; }
+        .cta-button { display: inline-block; background: linear-gradient(to right, #63b583, #4a9666); color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 20px 0; border: none; }
+        .footer { text-align: center; color: #b3b3b3; font-size: 12px; margin-top: 20px; }
+        .original-message { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333333; }
+        .original-message h4 { color: #63b583; margin-bottom: 10px; }
+        .message-content { background-color: #1a1a1a; color: #ffffff; padding: 15px; border-radius: 4px; white-space: pre-wrap; border: 1px solid #333333; }
       </style>
     </head>
     <body>

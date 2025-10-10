@@ -166,8 +166,8 @@ const Publications = () => {
   const renderSectionHeader = () => (
     <>
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">Insights</h2>
-      <p className="text-lg text-gray-300 max-w-2xl mb-8">
-        Latest updates with featured supply chain tips, news, and guides.
+      <p className="text-lg text-gray-300 max-w-4xl mb-8">
+        Latest updates with featured consulting insights, technology trends, and industry best practices.
       </p>
     </>
   )
