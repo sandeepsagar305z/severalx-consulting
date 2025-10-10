@@ -48,7 +48,6 @@ const api = async (collection: string, limit?: number): Promise<GhostPostsRespon
 // Public API: Clean function calls (no URL/implementation knowledge)
 export const fetchFeaturedPublications = (limit?: number) => api('featured', limit)
 export const fetchRecentPublications = (limit?: number) => api('recent', limit)
-export const fetchCaseStudyPublications = (limit?: number) => api('case-studies', limit)
 
 // Utilities (can run on client or server)
 export const formatPostDate = (dateString: string): string => {

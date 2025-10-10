@@ -50,43 +50,32 @@ const Publications = () => {
   /**
    * Merges recent and featured posts while avoiding duplicates
    * Priority: Most recent post → Featured posts → Remaining recent posts
-   * @param recentPosts - Array of recent posts
-   * @param featuredPosts - Array of featured posts
-   * @param limit - Maximum number of posts to return
-   * @returns Merged and deduplicated posts array
    */
   const mergeAndDeduplicatePosts = (recentPosts: PostOrPage[], featuredPosts: PostOrPage[], limit: number) => {
-    const result: PostOrPage[] = []
     const usedIds = new Set<string>()
+    const result: PostOrPage[] = []
 
-    // Add most recent post first
-    if (recentPosts.length > 0 && result.length < limit) {
-      const mostRecentPost = recentPosts[0]
-      result.push(mostRecentPost)
-      usedIds.add(mostRecentPost.id)
+    // Helper to add unique posts up to limit
+    const addUnique = (posts: PostOrPage[]) => {
+      posts.forEach(post => {
+        if (!usedIds.has(post.id) && result.length < limit) {
+          result.push(post)
+          usedIds.add(post.id)
+        }
+      })
     }
 
-    // Add featured posts (excluding duplicates)
-    featuredPosts.forEach(post => {
-      if (!usedIds.has(post.id) && result.length < limit) {
-        result.push(post)
-        usedIds.add(post.id)
-      }
-    })
-
-    // Fill remaining slots with other recent posts
-    recentPosts.slice(1).forEach(post => {
-      if (!usedIds.has(post.id) && result.length < limit) {
-        result.push(post)
-        usedIds.add(post.id)
-      }
-    })
+    // Add most recent post first, then featured posts, then remaining recent posts
+    addUnique(recentPosts.slice(0, 1))
+    addUnique(featuredPosts)
+    addUnique(recentPosts.slice(1))
 
     return result
   }
 
   /**
    * Fetches posts from Ghost CMS via the internal API to keep credentials server-side
+   * Implements fallback strategies: featured posts → mixed content → recent posts only
    * HTTP-level retries are handled by ofetch in ghost-client.ts
    */
   const fetchPosts = useCallback(async () => {
@@ -114,7 +103,7 @@ const Publications = () => {
         console.warn('Recent publications returned fallback:', recentResponse.error)
       }
 
-      // Determine display strategy based on available content
+      // Determine content display strategy based on availability and success
       if (featuredPosts.length >= POSTS_LIMIT && hasFeaturedSuccess) {
         // Sufficient featured posts - show featured only
         setPosts(featuredPosts.slice(0, POSTS_LIMIT))

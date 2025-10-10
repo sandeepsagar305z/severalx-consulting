@@ -9,6 +9,20 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Menu } from "lucide-react";
 
+/**
+ * Reusable demo booking dialog content component to avoid duplication
+ */
+const DemoBookingDialogContent = () => (
+  <DialogContent className="max-w-4xl h-[80vh] p-0">
+    <iframe
+      src="https://outlook.office.com/book/SeveralInnovations1@severalmillers.com"
+      className="w-full h-full rounded-lg"
+      title="Book a Demo"
+      allow="fullscreen"
+    />
+  </DialogContent>
+);
+
 // Navigation menu items with their corresponding section IDs
 const navigation = [
   { name: "Solutions", href: "#products" },
@@ -84,14 +98,7 @@ export function Header() {
                   Book a Demo
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-4xl h-[80vh] p-0">
-                <iframe
-                  src="https://outlook.office.com/book/SeveralInnovations1@severalmillers.com"
-                  className="w-full h-full rounded-lg"
-                  title="Book a Demo"
-                  allow="fullscreen"
-                />
-              </DialogContent>
+              <DemoBookingDialogContent />
             </Dialog>
           </motion.div>
 
@@ -128,14 +135,7 @@ export function Header() {
                         Book a Demo
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-4xl h-[80vh] p-0">
-                      <iframe
-                        src="https://outlook.office.com/book/SeveralInnovations1@severalmillers.com"
-                        className="w-full h-full rounded-lg"
-                        title="Book a Demo"
-                        allow="fullscreen"
-                      />
-                    </DialogContent>
+                    <DemoBookingDialogContent />
                   </Dialog>
                 </div>
               </div>
