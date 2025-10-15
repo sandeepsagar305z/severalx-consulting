@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Send, Building2, Brain, Users, Target } from "lucide-react";
 import { useState } from "react";
 import { BACKGROUND_GRADIENTS, BRAND_COLORS } from "@/lib/constants";
+import { AuthModal } from "@/components/AuthModal";
 
 /**
  * Animated floating shape component for background decoration
@@ -178,6 +179,17 @@ const serviceSuggestions = [
  */
 export function HeroSection() {
   const [inputValue, setInputValue] = useState("");
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const handleChatAccess = () => {
+    setShowAuthModal(true);
+  };
+
+  const handleAuthSuccess = () => {
+    setShowAuthModal(false);
+    // Redirect to chat in new tab
+    window.open('https://chat.severalxconsulting.com', '_blank');
+  };
 
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
@@ -300,6 +312,7 @@ export function HeroSection() {
                   />
                   <Button
                     size="lg"
+                    onClick={handleChatAccess}
                     className={`${BRAND_COLORS.gradient.primary} text-white rounded-xl px-4 sm:px-6 shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1 min-h-[44px] sm:min-h-0`}
                   >
                     <Send className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -333,6 +346,12 @@ export function HeroSection() {
         </div>
       </div>
 
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={handleAuthSuccess}
+      />
     </section>
   );
 }
