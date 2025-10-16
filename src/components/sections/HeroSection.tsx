@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Send, Building2, Brain, Users, Target } from "lucide-react";
 import { useState } from "react";
 import { BACKGROUND_GRADIENTS, BRAND_COLORS } from "@/lib/constants";
+import { AuthModal } from "@/components/AuthModal";
 
 /**
  * Animated floating shape component for background decoration
@@ -178,6 +179,17 @@ const serviceSuggestions = [
  */
 export function HeroSection() {
   const [inputValue, setInputValue] = useState("");
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const handleChatAccess = () => {
+    setShowAuthModal(true);
+  };
+
+  const handleAuthSuccess = () => {
+    setShowAuthModal(false);
+    // Redirect to chat in new tab
+    window.open('https://chat.severalxconsulting.com', '_blank');
+  };
 
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
@@ -266,12 +278,9 @@ export function HeroSection() {
               transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
               className="mb-4 sm:mb-6"
             >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1] sm:leading-tight mb-4 sm:mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] sm:leading-tight mb-4 sm:mb-6">
                 <span className="block bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
-                  Technology to power your consulting business from
-                </span>
-                <span className="block bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
-                   End-to-End
+                  The Platform for 10x Consultants
                 </span>
               </h1>
             </motion.div>
@@ -283,7 +292,7 @@ export function HeroSection() {
               transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-2"
             >
-              Build, implement, and optimize marketing technology stacks that drive measurable growth and exceptional customer experiences.
+              Technology to power your consulting business from End-to-End
             </motion.p>
 
             {/* Interactive Input */}
@@ -303,6 +312,7 @@ export function HeroSection() {
                   />
                   <Button
                     size="lg"
+                    onClick={handleChatAccess}
                     className={`${BRAND_COLORS.gradient.primary} text-white rounded-xl px-4 sm:px-6 shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1 min-h-[44px] sm:min-h-0`}
                   >
                     <Send className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -336,6 +346,12 @@ export function HeroSection() {
         </div>
       </div>
 
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={handleAuthSuccess}
+      />
     </section>
   );
 }

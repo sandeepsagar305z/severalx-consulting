@@ -84,7 +84,7 @@ export function ConsultingVerticalsSection() {
             className="max-w-3xl"
           >
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-            The Platform for 10x Consultants
+            Our consulting verticals, powered by the Several X Platform
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-[#61b280] to-[#4a9666] mt-6 rounded-full"></div>
           </motion.div>

@@ -71,25 +71,3 @@ export const COMMON_STYLES = {
   },
 } as const;
 
-// Animation configurations
-export const ANIMATIONS = {
-  fadeInUp: {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-  },
-  staggerChildren: {
-    container: {
-      initial: 'hidden',
-      whileInView: 'visible',
-      viewport: { once: true, margin: '-50px' },
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-    },
-    item: {
-      variants: {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 },
-      },
-    },
-  },
-} as const;

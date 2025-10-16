@@ -42,9 +42,9 @@ export function TeamMember({
       <div className="flex-1 flex flex-col items-center md:items-start w-full">
         {/* Contact details */}
         <div className="flex flex-col text-center md:text-left mb-4">
-          <div className="text-lg font-bold text-white">{name}</div>
-          <div className="text-base text-gray-300 font-semibold">{title}</div>
-          <div className="text-sm text-gray-400">{location}</div>
+          <h3 className="text-lg font-bold text-white">{name}</h3>
+          <p className="text-base text-gray-300 font-semibold">{title}</p>
+          <p className="text-sm text-gray-400">{location}</p>
           <a
             href={`mailto:${email}`}
             className="text-[#63b583] underline text-sm block mb-2 hover:text-[#5aa676] transition-colors"
@@ -75,9 +75,9 @@ export function TeamMember({
 
         {/* Quote - positioned under profile info */}
         <div className="w-full">
-          <p className="text-sm text-gray-300 italic text-center md:text-left leading-relaxed">
-            {quote}
-          </p>
+          <blockquote className="text-sm text-gray-300 italic text-center md:text-left leading-relaxed">
+            &ldquo;{quote}&rdquo;
+          </blockquote>
         </div>
       </div>
     </div>
