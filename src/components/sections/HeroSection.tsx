@@ -7,6 +7,9 @@ import { Send, Building2, Brain, Users, Target } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BACKGROUND_GRADIENTS, BRAND_COLORS } from "@/lib/constants";
 import { AuthModal } from "@/components/AuthModal";
+import { useAuthModal } from "@/context/AuthModalContext";
+import { fetchLibreChatUser, persistAuthState, subscribeToAuthChanges } from "@/lib/librechatSession";
+import type { LibreChatUser } from "@/lib/librechatSession";
 
 /**
  * Animated floating shape component for background decoration
@@ -179,12 +182,26 @@ const serviceSuggestions = [
  */
 export function HeroSection() {
   const [inputValue, setInputValue] = useState("");
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const [hasLibreChatSession, setHasLibreChatSession] = useState<boolean | null>(null);
   const checkingPromise = useRef<Promise<boolean> | null>(null);
 
+  const {
+    isOpen: isAuthModalOpen,
+    openAuthModal,
+    closeAuthModal,
+    pendingQuestion,
+    setPendingQuestion,
+  } = useAuthModal();
+
   const chatUrl = process.env.NEXT_PUBLIC_LIBRECHAT_CHAT_URL ?? "";
-  const chatApiBase = process.env.NEXT_PUBLIC_LIBRECHAT_API_BASE ?? "";
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthChanges(({ user }) => {
+      setHasLibreChatSession(Boolean(user));
+    });
+
+    return unsubscribe;
+  }, []);
 
   const getBaseDomain = (hostname: string) => {
     if (hostname === "localhost" || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
@@ -225,9 +242,10 @@ export function HeroSection() {
   const redirectToChat = (question?: string) => {
     try {
       const target = new URL(chatUrl);
-      if (question && question.trim().length > 0) {
-        target.searchParams.set("q", question.trim());
-        persistPendingQuery(question.trim());
+      const sanitized = question?.trim();
+      if (sanitized && sanitized.length > 0) {
+        target.searchParams.set("q", sanitized);
+        persistPendingQuery(sanitized);
       }
       window.location.href = target.toString();
     } catch (error) {
@@ -241,47 +259,59 @@ export function HeroSection() {
     }
 
     const promise = (async () => {
-      try {
-        const response = await fetch(`${chatApiBase.replace(/\/$/, "")}/api/user`, {
-          method: "GET",
-          credentials: "include",
-        });
-
-        setHasLibreChatSession(response.ok);
-        return response.ok;
-      } catch (error) {
+      const result = await fetchLibreChatUser();
+      setHasLibreChatSession(result.ok);
+      return result.ok;
+    })()
+      .catch((error) => {
         console.warn("Unable to verify LibreChat session", error);
         setHasLibreChatSession(false);
         return false;
-      } finally {
+      })
+      .finally(() => {
         checkingPromise.current = null;
-      }
-    })();
+      });
 
     checkingPromise.current = promise;
     return promise;
-  }, [chatApiBase]);
+  }, []);
 
   useEffect(() => {
     checkSession();
   }, [checkSession]);
 
   const handleChatAccess = async () => {
-    const sessionActive = hasLibreChatSession ?? (await checkSession());
+    const trimmedQuestion = inputValue.trim();
+    let sessionActive = hasLibreChatSession;
+
+    if (sessionActive !== true) {
+      sessionActive = await checkSession();
+    }
 
     if (sessionActive) {
-      redirectToChat(inputValue);
+      redirectToChat(trimmedQuestion.length > 0 ? trimmedQuestion : undefined);
       return;
     }
 
-    setShowAuthModal(true);
+    openAuthModal(trimmedQuestion);
   };
 
-  const handleAuthSuccess = (question?: string) => {
-    setShowAuthModal(false);
-    setHasLibreChatSession(true);
-    redirectToChat(question ?? inputValue);
+  const handleAuthSuccess = (question?: string, nextUser?: LibreChatUser | null) => {
+    const sanitizedQuestion = question?.trim() || inputValue.trim();
+    const userProvided = typeof nextUser !== "undefined";
+    const userPayload = userProvided ? nextUser ?? null : undefined;
+
+    persistAuthState(userPayload);
+    if (userProvided) {
+      setHasLibreChatSession(Boolean(nextUser));
+    } else {
+      void checkSession();
+    }
+    closeAuthModal();
+    setPendingQuestion("");
     setInputValue("");
+
+    redirectToChat(sanitizedQuestion.length > 0 ? sanitizedQuestion : undefined);
   };
 
   return (
@@ -441,10 +471,10 @@ export function HeroSection() {
 
       {/* Auth Modal */}
       <AuthModal
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
+        isOpen={isAuthModalOpen}
+        onClose={closeAuthModal}
         onSuccess={handleAuthSuccess}
-        pendingQuestion={inputValue}
+        pendingQuestion={pendingQuestion}
       />
     </section>
   );

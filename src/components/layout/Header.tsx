@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -8,6 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Menu } from "lucide-react";
+import { useAuthModal } from "@/context/AuthModalContext";
+import {
+  LibreChatUser,
+  fetchLibreChatUser,
+  getFirstName,
+  readStoredUser,
+  subscribeToAuthChanges,
+} from "@/lib/librechatSession";
 
 /**
  * Reusable demo booking dialog content component to avoid duplication
@@ -40,6 +48,54 @@ const navigation = [
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDemoDialogOpen, setIsDemoDialogOpen] = useState(false);
+  const [user, setUser] = useState<LibreChatUser | null>(() => readStoredUser());
+
+  const { openAuthModal } = useAuthModal();
+
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      const result = await fetchLibreChatUser();
+      if (cancelled) {
+        return;
+      }
+      if (result.ok) {
+        setUser(result.user);
+      }
+      if (!result.ok && (result.status === 401 || result.status === 403)) {
+        setUser(null);
+      }
+    })();
+
+    const unsubscribe = subscribeToAuthChanges(({ user: detailUser }) => {
+      if (cancelled) {
+        return;
+      }
+      if (detailUser) {
+        setUser(detailUser);
+      }
+      if (!detailUser) {
+        setUser(null);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+      unsubscribe();
+    };
+  }, []);
+
+  const greeting = getFirstName(user);
+  const signInLabel = user ? `Hello, ${greeting ?? "there"}` : "Sign In";
+
+  const handleSignIn = () => {
+    if (user) {
+      return;
+    }
+
+    openAuthModal("");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white">
@@ -89,9 +145,15 @@ export function Header() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="hidden md:flex items-center space-x-4"
           >
-            <Button variant="ghost" size="sm">
-              Sign In
-            </Button>
+            {user ? (
+              <span className="text-sm font-medium text-muted-foreground px-3 py-2">
+                {signInLabel}
+              </span>
+            ) : (
+              <Button variant="ghost" size="sm" onClick={handleSignIn}>
+                {signInLabel}
+              </Button>
+            )}
             <Dialog open={isDemoDialogOpen} onOpenChange={setIsDemoDialogOpen}>
               <DialogTrigger asChild>
                 <Button size="sm" className="bg-gradient-to-r from-black to-black hover:from-green-700 hover:to-green-600">
@@ -123,9 +185,22 @@ export function Header() {
                   </a>
                 ))}
                 <div className="flex flex-col space-y-2 pt-4 border-t">
-                  <Button variant="ghost" className="justify-start">
-                    Sign In
-                  </Button>
+                  {user ? (
+                    <span className="px-3 py-2 text-left text-lg font-medium text-muted-foreground">
+                      {signInLabel}
+                    </span>
+                  ) : (
+                    <Button
+                      variant="ghost"
+                      className="justify-start"
+                      onClick={() => {
+                        setIsOpen(false);
+                        handleSignIn();
+                      }}
+                    >
+                      {signInLabel}
+                    </Button>
+                  )}
                   <Dialog open={isDemoDialogOpen} onOpenChange={setIsDemoDialogOpen}>
                     <DialogTrigger asChild>
                       <Button

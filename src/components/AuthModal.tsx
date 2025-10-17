@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BRAND_COLORS } from "@/lib/constants";
+import type { LibreChatUser } from "@/lib/librechatSession";
 
 const signUpSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -36,7 +37,7 @@ type LoginForm = z.infer<typeof loginSchema>;
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: (question?: string) => void;
+  onSuccess: (question?: string, user?: LibreChatUser | null) => void;
   pendingQuestion?: string;
 }
 
@@ -98,8 +99,17 @@ export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthM
       });
 
       if (response.ok) {
+        const payload = await response.json().catch(() => ({}));
+
+        if (payload?.twoFAPending) {
+          loginForm.setError("root", { message: "Two-factor authentication is not supported in this flow." });
+          return;
+        }
+
+        const user = payload?.user as LibreChatUser | undefined;
+
         loginForm.reset();
-        onSuccess(pendingQuestion);
+        onSuccess(pendingQuestion, user);
       } else {
         const error = await response.json().catch(() => ({}));
         loginForm.setError("root", { message: error?.message ?? "Invalid credentials" });
@@ -113,7 +123,14 @@ export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthM
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          onClose();
+        }
+      }}
+    >
       <DialogContent className="sm:max-w-md bg-gray-900/95 backdrop-blur-xl border border-white/20 shadow-2xl">
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">

@@ -24,7 +24,14 @@ export async function POST(request: NextRequest) {
     });
 
     const payload = await libreChatResponse.json().catch(() => ({}));
-    const response = NextResponse.json(payload, { status: libreChatResponse.status });
+    const sanitizedPayload =
+      payload && typeof payload === 'object' && payload !== null ? { ...payload } : payload;
+
+    if (sanitizedPayload && typeof sanitizedPayload === 'object') {
+      delete sanitizedPayload.token;
+    }
+
+    const response = NextResponse.json(sanitizedPayload ?? {}, { status: libreChatResponse.status });
 
     const headers = libreChatResponse.headers as unknown as { getSetCookie?: () => string[] };
     const setCookieHeaders = headers.getSetCookie?.();
