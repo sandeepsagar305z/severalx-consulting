@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const LIBRECHAT_API_BASE =
   process.env.LIBRECHAT_API_BASE ??
   process.env.NEXT_PUBLIC_LIBRECHAT_API_BASE ??
-  'http://localhost:3080';
+  '';
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +12,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Email and password are required' }, { status: 400 });
     }
 
-    const libreChatResponse = await fetch(`${LIBRECHAT_API_BASE}/api/auth/login`, {
+    if (!LIBRECHAT_API_BASE) {
+      throw new Error('LIBRECHAT_API_BASE is not configured');
+    }
+
+    const libreChatResponse = await fetch(`${LIBRECHAT_API_BASE.replace(/\/$/, '')}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

@@ -183,8 +183,8 @@ export function HeroSection() {
   const [hasLibreChatSession, setHasLibreChatSession] = useState<boolean | null>(null);
   const checkingPromise = useRef<Promise<boolean> | null>(null);
 
-  const chatUrl = process.env.NEXT_PUBLIC_LIBRECHAT_CHAT_URL ?? "http://localhost:3080";
-  const chatApiBase = process.env.NEXT_PUBLIC_LIBRECHAT_API_BASE ?? "http://localhost:3080";
+  const chatUrl = process.env.NEXT_PUBLIC_LIBRECHAT_CHAT_URL ?? "";
+  const chatApiBase = process.env.NEXT_PUBLIC_LIBRECHAT_API_BASE ?? "";
 
   const getBaseDomain = (hostname: string) => {
     if (hostname === "localhost" || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
