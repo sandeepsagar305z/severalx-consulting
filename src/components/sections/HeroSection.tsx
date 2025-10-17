@@ -309,9 +309,9 @@ export function HeroSection() {
     }
     closeAuthModal();
     setPendingQuestion("");
-    setInputValue("");
-
-    redirectToChat(sanitizedQuestion.length > 0 ? sanitizedQuestion : undefined);
+    if (sanitizedQuestion.length > 0) {
+      setInputValue(sanitizedQuestion);
+    }
   };
 
   return (

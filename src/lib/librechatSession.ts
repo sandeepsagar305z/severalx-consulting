@@ -128,3 +128,20 @@ export async function fetchLibreChatUser(): Promise<{
     return { ok: false, status: 0, user: null };
   }
 }
+
+export async function logoutFromLibreChat(): Promise<boolean> {
+  try {
+    const response = await fetch('/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include',
+      cache: 'no-store',
+    });
+
+    persistAuthState(null);
+    return response.ok;
+  } catch (error) {
+    console.warn('Unable to log out from LibreChat', error);
+    persistAuthState(null);
+    return false;
+  }
+}

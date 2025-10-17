@@ -1,23 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { appendSetCookieHeaders } from '@/app/api/auth/utils';
 
 const LIBRECHAT_API_BASE =
   process.env.LIBRECHAT_API_BASE ?? process.env.NEXT_PUBLIC_LIBRECHAT_API_BASE ?? '';
-
-function appendSetCookieHeaders(from: Response, to: NextResponse) {
-  const headers = from.headers as unknown as { getSetCookie?: () => string[] };
-  const cookies = headers.getSetCookie?.();
-  if (cookies && cookies.length > 0) {
-    cookies.forEach((cookie) => {
-      to.headers.append('set-cookie', cookie);
-    });
-    return;
-  }
-
-  const rawCookie = from.headers.get('set-cookie');
-  if (rawCookie) {
-    to.headers.append('set-cookie', rawCookie);
-  }
-}
 
 export async function GET(request: NextRequest) {
   if (!LIBRECHAT_API_BASE) {
