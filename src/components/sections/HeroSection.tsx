@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Building2, Brain, Users, Target } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BACKGROUND_GRADIENTS, BRAND_COLORS } from "@/lib/constants";
 import { AuthModal } from "@/components/AuthModal";
 
@@ -180,8 +180,11 @@ const serviceSuggestions = [
 export function HeroSection() {
   const [inputValue, setInputValue] = useState("");
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [hasLibreChatSession, setHasLibreChatSession] = useState<boolean | null>(null);
+  const checkingPromise = useRef<Promise<boolean> | null>(null);
 
   const chatUrl = process.env.NEXT_PUBLIC_LIBRECHAT_CHAT_URL ?? "http://localhost:3080";
+  const chatApiBase = process.env.NEXT_PUBLIC_LIBRECHAT_API_BASE ?? "http://localhost:3080";
 
   const getBaseDomain = (hostname: string) => {
     if (hostname === "localhost" || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
@@ -226,18 +229,57 @@ export function HeroSection() {
         target.searchParams.set("q", question.trim());
         persistPendingQuery(question.trim());
       }
-      window.open(target.toString(), "_blank", "noopener,noreferrer");
+      window.location.href = target.toString();
     } catch (error) {
       console.error("Unable to open chat window", error);
     }
   };
 
-  const handleChatAccess = () => {
+  const checkSession = useCallback(() => {
+    if (checkingPromise.current) {
+      return checkingPromise.current;
+    }
+
+    const promise = (async () => {
+      try {
+        const response = await fetch(`${chatApiBase.replace(/\/$/, "")}/api/user`, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        setHasLibreChatSession(response.ok);
+        return response.ok;
+      } catch (error) {
+        console.warn("Unable to verify LibreChat session", error);
+        setHasLibreChatSession(false);
+        return false;
+      } finally {
+        checkingPromise.current = null;
+      }
+    })();
+
+    checkingPromise.current = promise;
+    return promise;
+  }, [chatApiBase]);
+
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
+
+  const handleChatAccess = async () => {
+    const sessionActive = hasLibreChatSession ?? (await checkSession());
+
+    if (sessionActive) {
+      redirectToChat(inputValue);
+      return;
+    }
+
     setShowAuthModal(true);
   };
 
   const handleAuthSuccess = (question?: string) => {
     setShowAuthModal(false);
+    setHasLibreChatSession(true);
     redirectToChat(question ?? inputValue);
     setInputValue("");
   };
@@ -359,7 +401,7 @@ export function HeroSection() {
                     placeholder="Chat with our AI about your consulting business..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    className="flex-1 border-0 text-base sm:text-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 focus-visible:ring-0 bg-transparent min-h-[44px] sm:min-h-0"
+                    className="flex-1 border-0 text-base sm:text-lg text-white placeholder:text-white/60 focus-visible:ring-0 bg-transparent min-h-[44px] sm:min-h-0"
                   />
                   <Button
                     size="lg"
