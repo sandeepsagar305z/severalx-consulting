@@ -167,7 +167,7 @@ export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthM
                 <Input
                   {...signUpForm.register("name")}
                   placeholder="Enter your full name"
-                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
+                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
                 />
                 {signUpForm.formState.errors.name && (
                   <p className="text-sm text-red-400">{signUpForm.formState.errors.name.message}</p>
@@ -183,7 +183,7 @@ export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthM
                   {...signUpForm.register("email")}
                   type="email"
                   placeholder="Enter your email address"
-                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
+                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
                 />
                 {signUpForm.formState.errors.email && (
                   <p className="text-sm text-red-400">{signUpForm.formState.errors.email.message}</p>
@@ -198,7 +198,7 @@ export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthM
                 <Input
                   {...signUpForm.register("company")}
                   placeholder="Enter your company name"
-                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
+                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
                 />
                 {signUpForm.formState.errors.company && (
                   <p className="text-sm text-red-400">{signUpForm.formState.errors.company.message}</p>
@@ -215,7 +215,7 @@ export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthM
                     {...signUpForm.register("password")}
                     type={showPassword ? "text" : "password"}
                     placeholder="Create a secure password"
-                    className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300 pr-10"
+                    className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300 pr-10"
                   />
                   <button
                     type="button"
@@ -255,7 +255,7 @@ export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthM
                   {...loginForm.register("email")}
                   type="email"
                   placeholder="Enter your email address"
-                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
+                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
                 />
                 {loginForm.formState.errors.email && (
                   <p className="text-sm text-red-400">{loginForm.formState.errors.email.message}</p>
@@ -272,7 +272,7 @@ export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthM
                     {...loginForm.register("password")}
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300 pr-10"
+                    className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300 pr-10"
                   />
                   <button
                     type="button"
