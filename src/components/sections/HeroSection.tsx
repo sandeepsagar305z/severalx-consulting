@@ -247,7 +247,10 @@ export function HeroSection() {
         target.searchParams.set("q", sanitized);
         persistPendingQuery(sanitized);
       }
-      window.location.href = target.toString();
+      const opened = window.open(target.toString(), "_blank", "noopener,noreferrer");
+      if (!opened) {
+        console.warn("Popup blocked: enable popups to open SeveralX Chat in a new tab.");
+      }
     } catch (error) {
       console.error("Unable to open chat window", error);
     }
