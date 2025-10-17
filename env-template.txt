@@ -5,9 +5,8 @@ JWT_SECRET=your-super-secret-jwt-key-change-in-production-make-it-long-and-rando
 
 # App Configuration
 NEXT_PUBLIC_BASE_URL=http://localhost:3001
-NEXT_PUBLIC_LIBRECHAT_API_BASE=http://localhost:3080
-NEXT_PUBLIC_LIBRECHAT_CHAT_URL=http://localhost:3080
-NEXT_PUBLIC_LIBRECHAT_REDIRECT_URL=http://localhost:3080
+# Point this to your LibreChat host (e.g., https://chat.severalxconsulting.com)
+NEXT_PUBLIC_LIBRECHAT_URL=https://chat.yourdomain.com
 
 # SMTP Configuration (for email notifications)
 SMTP_HOST=smtp.gmail.com

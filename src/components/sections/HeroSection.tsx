@@ -193,7 +193,7 @@ export function HeroSection() {
     setPendingQuestion,
   } = useAuthModal();
 
-  const chatUrl = process.env.NEXT_PUBLIC_LIBRECHAT_CHAT_URL ?? "";
+  const chatUrl = process.env.NEXT_PUBLIC_LIBRECHAT_URL ?? "";
 
   useEffect(() => {
     const unsubscribe = subscribeToAuthChanges(({ user }) => {

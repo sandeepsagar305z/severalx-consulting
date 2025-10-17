@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 const LIBRECHAT_API_BASE =
   process.env.LIBRECHAT_API_BASE ??
-  process.env.NEXT_PUBLIC_LIBRECHAT_API_BASE ??
+  process.env.NEXT_PUBLIC_LIBRECHAT_URL ??
   '';
 
 async function createTransporter() {

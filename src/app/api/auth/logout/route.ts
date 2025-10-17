@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { appendSetCookieHeaders } from '@/app/api/auth/utils';
 
 const LIBRECHAT_API_BASE =
-  process.env.LIBRECHAT_API_BASE ?? process.env.NEXT_PUBLIC_LIBRECHAT_API_BASE ?? '';
+  process.env.LIBRECHAT_API_BASE ?? process.env.NEXT_PUBLIC_LIBRECHAT_URL ?? '';
 
 export async function POST(request: NextRequest) {
   if (!LIBRECHAT_API_BASE) {
