@@ -181,14 +181,65 @@ export function HeroSection() {
   const [inputValue, setInputValue] = useState("");
   const [showAuthModal, setShowAuthModal] = useState(false);
 
+  const chatUrl = process.env.NEXT_PUBLIC_LIBRECHAT_CHAT_URL ?? "http://localhost:3080";
+
+  const getBaseDomain = (hostname: string) => {
+    if (hostname === "localhost" || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
+      return hostname;
+    }
+    const segments = hostname.split(".");
+    if (segments.length <= 2) {
+      return hostname;
+    }
+    return segments.slice(-2).join(".");
+  };
+
+  const persistPendingQuery = (question: string) => {
+    try {
+      localStorage.setItem("pending_chat_query", question);
+    } catch (error) {
+      console.warn("Unable to store pending query in localStorage", error);
+    }
+
+    try {
+      const targetHost = new URL(chatUrl).hostname;
+      const currentHost = window.location.hostname;
+
+      if (targetHost === currentHost || targetHost === "localhost") {
+        document.cookie = `pending_chat_query=${encodeURIComponent(question)}; path=/; domain=${targetHost}; SameSite=Lax`;
+        return;
+      }
+
+      const baseDomain = getBaseDomain(targetHost);
+      if (baseDomain && currentHost.endsWith(baseDomain)) {
+        document.cookie = `pending_chat_query=${encodeURIComponent(question)}; path=/; domain=.${baseDomain}; SameSite=Lax`;
+      }
+    } catch (error) {
+      console.warn("Unable to set pending query cookie", error);
+    }
+  };
+
+  const redirectToChat = (question?: string) => {
+    try {
+      const target = new URL(chatUrl);
+      if (question && question.trim().length > 0) {
+        target.searchParams.set("q", question.trim());
+        persistPendingQuery(question.trim());
+      }
+      window.open(target.toString(), "_blank", "noopener,noreferrer");
+    } catch (error) {
+      console.error("Unable to open chat window", error);
+    }
+  };
+
   const handleChatAccess = () => {
     setShowAuthModal(true);
   };
 
-  const handleAuthSuccess = () => {
+  const handleAuthSuccess = (question?: string) => {
     setShowAuthModal(false);
-    // Redirect to chat in new tab
-    window.open('https://chat.severalxconsulting.com', '_blank');
+    redirectToChat(question ?? inputValue);
+    setInputValue("");
   };
 
   return (
@@ -351,6 +402,7 @@ export function HeroSection() {
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onSuccess={handleAuthSuccess}
+        pendingQuestion={inputValue}
       />
     </section>
   );
