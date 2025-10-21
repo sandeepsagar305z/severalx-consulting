@@ -119,7 +119,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-12 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
+    <section id="contact" className="py-8 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
@@ -132,7 +132,7 @@ export function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-12"
+          className="text-left mb-8"
           viewport={{ once: true }}
         >
           <motion.h2
@@ -140,7 +140,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
           >
             Contact Us
           </motion.h2>
@@ -155,10 +155,10 @@ export function ContactSection() {
           </motion.p>
         </motion.div>
 
-        <div className="flex flex-col xl:flex-row gap-6 lg:gap-8 items-stretch">
+        <div className="flex flex-col xl:flex-row gap-5 lg:gap-6 items-stretch">
           {/* Left Section: Team Member Information */}
-          <div className="flex flex-col gap-4 lg:gap-6 flex-1 justify-between h-full">
-            <div className="flex flex-col gap-4 lg:gap-6 h-full justify-between">
+          <div className="flex flex-col gap-4 lg:gap-5 flex-1 justify-between h-full">
+            <div className="flex flex-col gap-4 lg:gap-5 h-full justify-between">
               {/* Jesse Miller - Managing Director Profile */}
               <TeamMember
                 imageSrc="/profile-jesse-miller.jpg"
@@ -199,7 +199,7 @@ export function ContactSection() {
                 </h3>
               </div>
 
-              <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6">
+              <p className="text-sm sm:text-base text-gray-300 mb-3 sm:mb-4">
                 Connect with our marketing technology experts today. We&apos;ll help you build, implement, and optimize marketing stacks that drive growth and deliver exceptional customer experiences.
               </p>
 

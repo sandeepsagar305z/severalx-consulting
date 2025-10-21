@@ -62,7 +62,7 @@ export const BACKGROUND_GRADIENTS = {
 
 // Common styling classes
 export const COMMON_STYLES = {
-  section: 'py-16 lg:py-24 relative overflow-hidden',
+  section: 'py-8 lg:py-12 relative overflow-hidden',
   container: 'container mx-auto px-4 sm:px-6 lg:px-8 relative z-10',
   card: 'bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all duration-300',
   button: {

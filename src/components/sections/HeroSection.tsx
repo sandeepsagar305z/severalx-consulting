@@ -395,16 +395,16 @@ export function HeroSection() {
 
       {/* Main Hero Content */}
       <div className="flex-1 flex items-center justify-center relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16 text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-12 text-center">
           <div className="max-w-6xl mx-auto">
             {/* Main Heading */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-              className="mb-4 sm:mb-6"
+              className="mb-2 sm:mb-3"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] sm:leading-tight mb-4 sm:mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] sm:leading-tight mb-2 sm:mb-3">
                 <span className="block bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
                   The Platform for 10x Consultants
                 </span>
@@ -416,7 +416,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-2"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed font-light px-2"
             >
               Technology to power your consulting business from End-to-End
             </motion.p>
@@ -426,7 +426,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
-              className="max-w-2xl mx-auto mb-6 px-4"
+              className="max-w-2xl mx-auto mb-4 px-4"
             >
               <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-3 sm:p-4 hover:bg-white/15 transition-all duration-300">
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -452,7 +452,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.7, ease: "easeOut" }}
-              className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-12 sm:mb-16 px-2"
+              className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-8 px-2"
             >
               {serviceSuggestions.map((service, index) => (
                 <motion.button
