@@ -128,14 +128,14 @@ export function SolutionsSection() {
   return (
     <section id="products" className="py-6 lg:py-8 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800"></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
-
-      {/* Professional border blending */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-950/20 via-transparent to-transparent"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-950/20 via-transparent to-transparent"></div>
+      
+      {/* Seamless border blending - extended and ultra-subtle */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 

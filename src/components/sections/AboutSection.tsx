@@ -97,14 +97,14 @@ export function AboutSection() {
   return (
     <section id="about" className={`${COMMON_STYLES.section}`} style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800"></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
 
-      {/* Professional border blending */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-950/20 via-transparent to-transparent"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-950/20 via-transparent to-transparent"></div>
+      {/* Seamless border blending - extended and ultra-subtle */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-950/40 via-gray-950/10 to-transparent pointer-events-none"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-2 gap-6 md:gap-8 xl:gap-10 items-start">
@@ -120,7 +120,7 @@ export function AboutSection() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
                 About Severalx Consulting
               </h2>
-              <p className="mt-3 text-lg text-gray-300 max-w-xl">
+              <p className="mt-3 text-lg text-white/80 max-w-xl">
                 Technology consulting experts specializing in digital transformation, business process optimization, and innovative technology solutions. We help companies leverage cutting-edge technologies to drive growth and competitive advantage.
               </p>
             </motion.div>
@@ -146,7 +146,7 @@ export function AboutSection() {
                         </div>
                         <div>
                             <h3 className="text-base font-bold text-white">{service.title}</h3>
-                            <p className="text-sm text-gray-300 mt-1">{service.description}</p>
+                            <p className="text-sm text-white/80 mt-1">{service.description}</p>
                         </div>
                     </motion.div>
                 ))}
@@ -167,7 +167,7 @@ export function AboutSection() {
                 {impactMetrics.map((metric) => (
                   <div key={metric.label} className="text-center sm:text-left">
                     <p className="text-2xl lg:text-3xl font-bold text-white">{metric.value}</p>
-                    <p className="text-xs text-gray-300 mt-1">{metric.label}</p>
+                    <p className="text-xs text-white/80 mt-1">{metric.label}</p>
                   </div>
                 ))}
               </div>
@@ -185,7 +185,7 @@ export function AboutSection() {
                 {whyChoosePoints.map((point, index) => (
                   <li key={index} className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-gray-300">{point}</span>
+                    <span className="text-sm text-white/80">{point}</span>
                   </li>
                 ))}
               </ul>
@@ -209,12 +209,12 @@ export function AboutSection() {
                     visible: { opacity: 1, y: 0 }
                 }}
              >
-                <Card className="bg-white/10 backdrop-blur-sm rounded-xl p-5 h-full shadow-sm border border-white/20 hover:bg-white/15 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 ease-in-out">
-                    <CardContent className="p-0">
-                        <h4 className="text-xl font-bold text-white mb-2">{card.title}</h4>
-                        <p className="text-sm text-gray-300">{card.description}</p>
-                    </CardContent>
-                </Card>
+               <Card className="bg-white/10 backdrop-blur-sm rounded-xl p-5 h-full shadow-sm border border-white/20 hover:bg-white/15 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 ease-in-out">
+                   <CardContent className="p-0">
+                       <h4 className="text-xl font-bold text-white mb-2">{card.title}</h4>
+                       <p className="text-sm text-white/80">{card.description}</p>
+                   </CardContent>
+               </Card>
             </motion.div>
           ))}
         </motion.div>

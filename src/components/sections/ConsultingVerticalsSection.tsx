@@ -60,14 +60,14 @@ export function ConsultingVerticalsSection() {
   return (
     <section id="consulting-verticals" className="py-6 lg:py-8 relative overflow-hidden">
       {/* Background Effects */}
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.consultingVerticals.main}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.consultingVerticals.radial1}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.consultingVerticals.radial2}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.consultingVerticals.radial3}`}></div>
 
-      {/* Professional border blending */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-800/15 via-transparent to-transparent"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-800/15 via-transparent to-transparent"></div>
+      {/* Seamless border blending - extended and ultra-subtle */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-950/40 via-gray-950/10 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -87,7 +87,7 @@ export function ConsultingVerticalsSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="max-w-3xl"
           >
-            <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+            <p className="text-lg md:text-xl text-white leading-relaxed">
             Our consulting verticals, powered by the Several X Platform
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-[#61b280] to-[#4a9666] mt-6 rounded-full"></div>
@@ -166,7 +166,7 @@ export function ConsultingVerticalsSection() {
               <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
                 Client Testimonials
               </h3>
-              <p className="text-gray-400">
+              <p className="text-white/80">
                 Inspiring quotes about the power of partnerships
               </p>
             </div>

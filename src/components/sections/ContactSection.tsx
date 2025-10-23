@@ -121,14 +121,14 @@ export function ContactSection() {
   return (
     <section id="contact" className="py-4 lg:py-6 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.contact.main}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.contact.radial1}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.contact.radial2}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.contact.radial3}`}></div>
 
-      {/* Professional border blending */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-800/15 via-transparent to-transparent"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-800/15 via-transparent to-transparent"></div>
+      {/* Seamless border blending - extended and ultra-subtle */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
 
       <div className="container mx-auto px-3 sm:px-4 lg:px-6 relative z-10">
         {/* Header */}
@@ -153,7 +153,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="text-lg text-gray-300 max-w-3xl leading-relaxed"
+            className="text-lg text-white/80 max-w-3xl leading-relaxed"
           >
             Get in touch with our team. We&apos;re here to help you succeed.
           </motion.p>
@@ -203,7 +203,7 @@ export function ContactSection() {
                 </h3>
               </div>
 
-              <p className="text-sm sm:text-base text-gray-300 mb-3 sm:mb-4">
+              <p className="text-sm sm:text-base text-white/80 mb-3 sm:mb-4">
                 Connect with our marketing technology experts today. We&apos;ll help you build, implement, and optimize marketing stacks that drive growth and deliver exceptional customer experiences.
               </p>
 

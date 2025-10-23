@@ -40,14 +40,14 @@ export function ResourcesSection() {
   return (
     <section id="resources" className={`${COMMON_STYLES.section}`} style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.main}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.radial1}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.radial2}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.radial3}`}></div>
 
-      {/* Professional border blending */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-800/15 via-transparent to-transparent"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-800/15 via-transparent to-transparent"></div>
+      {/* Seamless border blending - extended and ultra-subtle */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -72,7 +72,7 @@ export function ResourcesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="text-lg text-gray-300 max-w-4xl leading-relaxed"
+            className="text-lg text-white/80 max-w-4xl leading-relaxed"
           >
             Comprehensive solutions to support your business growth and ensure success with our products.
           </motion.p>

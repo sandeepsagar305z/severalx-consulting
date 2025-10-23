@@ -25,7 +25,7 @@ const FloatingShape = ({
   delay = 0,
   duration = 20,
   size = 60,
-  color = "rgba(99,181,131,0.1)"
+  color = "rgba(148,163,184,0.12)"
 }: FloatingShapeProps) => (
   <motion.div
     className="absolute rounded-full blur-sm"
@@ -61,7 +61,7 @@ interface CircuitLineProps {
 
 const CircuitLine = ({ delay = 0 }: CircuitLineProps) => (
   <motion.div
-    className="absolute h-px bg-gradient-to-r from-transparent via-green-400/40 to-transparent"
+    className="absolute h-px bg-gradient-to-r from-transparent via-slate-400/40 to-transparent"
     style={{
       width: "250px",
       top: "50%",
@@ -119,7 +119,7 @@ const ParticleField = () => {
       {particlePositions.map((position, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-green-400/50 rounded-full"
+          className="absolute w-1 h-1 bg-slate-400/50 rounded-full"
           style={{
             left: position.left,
             top: position.top,
@@ -152,11 +152,11 @@ const GradientWave = ({ delay = 0 }: GradientWaveProps) => (
   <motion.div
     className="absolute inset-0 opacity-25"
     style={{
-      background: "radial-gradient(circle at 20% 50%, rgba(99,181,131,0.12) 0%, transparent 50%)",
+      background: "radial-gradient(circle at 20% 50%, rgba(148,163,184,0.15) 0%, transparent 50%)",
     }}
     animate={{
       scale: [1, 1.4, 1],
-      opacity: [0.12, 0.4, 0.12],
+      opacity: [0.15, 0.45, 0.15],
     }}
     transition={{
       duration: 6,
@@ -327,8 +327,8 @@ export function HeroSection() {
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.hero.radial4}`}></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
 
-      {/* Professional border blending */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-800/15 via-transparent to-transparent"></div>
+      {/* Seamless border blending - extended and ultra-subtle */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
 
       {/* Animated Background Elements */}
       {/* Gradient waves for depth */}
@@ -337,10 +337,10 @@ export function HeroSection() {
       <GradientWave delay={4} />
 
       {/* Floating geometric shapes */}
-      <FloatingShape delay={0} duration={25} size={80} color="rgba(99,181,131,0.08)" />
-      <FloatingShape delay={2} duration={30} size={60} color="rgba(74,150,102,0.06)" />
-      <FloatingShape delay={4} duration={35} size={100} color="rgba(99,181,131,0.05)" />
-      <FloatingShape delay={6} duration={28} size={70} color="rgba(74,150,102,0.07)" />
+      <FloatingShape delay={0} duration={25} size={80} color="rgba(148,163,184,0.10)" />
+      <FloatingShape delay={2} duration={30} size={60} color="rgba(100,116,139,0.08)" />
+      <FloatingShape delay={4} duration={35} size={100} color="rgba(148,163,184,0.07)" />
+      <FloatingShape delay={6} duration={28} size={70} color="rgba(100,116,139,0.09)" />
 
       {/* Circuit-like lines for tech aesthetic */}
       <div className="absolute top-1/4 left-1/4">
@@ -358,7 +358,7 @@ export function HeroSection() {
 
       {/* Additional floating elements */}
       <motion.div
-        className={`absolute top-20 left-10 w-32 h-32 bg-[${BRAND_COLORS.primary}]/12 rounded-full blur-xl`}
+        className="absolute top-20 left-10 w-32 h-32 bg-slate-400/12 rounded-full blur-xl"
         animate={{
           scale: [1, 1.4, 1],
           opacity: [0.12, 0.25, 0.12],
@@ -370,7 +370,7 @@ export function HeroSection() {
         }}
       />
       <motion.div
-        className={`absolute bottom-32 right-16 w-24 h-24 bg-[${BRAND_COLORS.primary}]/10 rounded-full blur-lg`}
+        className="absolute bottom-32 right-16 w-24 h-24 bg-slate-400/10 rounded-full blur-lg"
         animate={{
           scale: [1, 1.3, 1],
           opacity: [0.1, 0.2, 0.1],
@@ -383,7 +383,7 @@ export function HeroSection() {
         }}
       />
       <motion.div
-        className={`absolute top-1/2 left-1/4 w-16 h-16 bg-[${BRAND_COLORS.primary}]/8 rounded-full blur-md`}
+        className="absolute top-1/2 left-1/4 w-16 h-16 bg-slate-400/8 rounded-full blur-md"
         animate={{
           scale: [1, 1.5, 1],
           opacity: [0.08, 0.16, 0.08],
@@ -419,7 +419,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed font-light px-2"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed font-light px-2"
             >
               Technology to power your consulting business from End-to-End
             </motion.p>
@@ -431,7 +431,7 @@ export function HeroSection() {
               transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
               className="max-w-2xl mx-auto mb-4 px-4"
             >
-              <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-3 sm:p-4 hover:bg-white/15 transition-all duration-300">
+              <div className="relative bg-white/15 backdrop-blur-md rounded-2xl shadow-2xl border border-white/30 p-3 sm:p-4 hover:bg-white/20 transition-all duration-300">
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <Input
                     placeholder="Chat with our AI about your consulting business..."
@@ -463,7 +463,7 @@ export function HeroSection() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.9 + index * 0.08, ease: "easeOut" }}
-                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-xs sm:text-sm font-medium text-gray-300 hover:bg-white/10 hover:border-[#63b583]/30 hover:text-[#63b583] transition-all duration-300 hover:shadow-lg hover:shadow-[#63b583]/10 hover:-translate-y-1 group whitespace-nowrap"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white/8 backdrop-blur-sm border border-white/20 rounded-full text-xs sm:text-sm font-medium text-white hover:bg-white/15 hover:border-[#63b583]/30 hover:text-[#63b583] transition-all duration-300 hover:shadow-lg hover:shadow-[#63b583]/10 hover:-translate-y-1 group whitespace-nowrap"
                   onClick={() => setInputValue(`I need help with ${service.label.toLowerCase()}`)}
                 >
                   <service.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#63b583]" />
