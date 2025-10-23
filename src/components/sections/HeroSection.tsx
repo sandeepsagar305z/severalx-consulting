@@ -327,6 +327,9 @@ export function HeroSection() {
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.hero.radial4}`}></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
 
+      {/* Professional border blending */}
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-800/15 via-transparent to-transparent"></div>
+
       {/* Animated Background Elements */}
       {/* Gradient waves for depth */}
       <GradientWave delay={0} />
@@ -395,7 +398,7 @@ export function HeroSection() {
 
       {/* Main Hero Content */}
       <div className="flex-1 flex items-center justify-center relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-12 text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-6 lg:py-8 text-center">
           <div className="max-w-6xl mx-auto">
             {/* Main Heading */}
             <motion.div

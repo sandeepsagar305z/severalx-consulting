@@ -11,7 +11,7 @@ import {
   type PostOrPage,
   type Tag
 } from '@/lib/ghost-client'
-import { BACKGROUND_GRADIENTS, BRAND_COLORS } from '@/lib/constants'
+import { BRAND_COLORS } from '@/lib/constants'
 
 // Constants
 const POSTS_LIMIT = 3
@@ -154,7 +154,7 @@ const Publications = () => {
    */
   const renderSectionHeader = () => (
     <>
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3">Insights</h2>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">Insights</h2>
       <p className="text-lg text-gray-300 max-w-4xl mb-6">
         Latest updates with featured consulting insights, technology trends, and industry best practices.
       </p>
@@ -206,10 +206,8 @@ const Publications = () => {
 
   if (loading) {
     return (
-      <section className={`py-8 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
+      <section className="pt-8 pb-12 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 relative overflow-hidden">
         {/* Background overlays for depth */}
-        <div className={BACKGROUND_GRADIENTS.radial.primary}></div>
-        <div className={BACKGROUND_GRADIENTS.radial.secondary}></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {renderSectionHeader()}
@@ -221,10 +219,8 @@ const Publications = () => {
 
   if (error) {
     return (
-      <section className={`py-8 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
+      <section className="pt-8 pb-12 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 relative overflow-hidden">
         {/* Background overlays for depth */}
-        <div className={BACKGROUND_GRADIENTS.radial.primary}></div>
-        <div className={BACKGROUND_GRADIENTS.radial.secondary}></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {renderSectionHeader()}
@@ -247,10 +243,8 @@ const Publications = () => {
 
   if (posts.length === 0) {
     return (
-      <section className={`py-8 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
+      <section className="pt-8 pb-12 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 relative overflow-hidden">
         {/* Background overlays for depth */}
-        <div className={BACKGROUND_GRADIENTS.radial.primary}></div>
-        <div className={BACKGROUND_GRADIENTS.radial.secondary}></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {renderSectionHeader()}
@@ -325,7 +319,7 @@ const Publications = () => {
             </span>
           )}
         </div>
-        <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">
+        <h3 className="text-xl font-semibold text-white mb-2 line-clamp-2">
           {post.title || 'Untitled'}
         </h3>
 
@@ -389,11 +383,13 @@ const Publications = () => {
   }
 
   return (
-    <section id="insights" className={`py-16 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
+    <section id="insights" className="pt-8 pb-12 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 relative overflow-hidden">
       {/* Background overlays for depth */}
-      <div className={BACKGROUND_GRADIENTS.radial.primary}></div>
-      <div className={BACKGROUND_GRADIENTS.radial.secondary}></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
+
+      {/* Professional border blending */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-950/20 via-transparent to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-950/20 via-transparent to-transparent"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {renderSectionHeader()}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

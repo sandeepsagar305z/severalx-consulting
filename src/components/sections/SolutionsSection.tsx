@@ -126,12 +126,16 @@ const managementTabs = [
 
 export function SolutionsSection() {
   return (
-    <section id="products" className="py-8 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
+    <section id="products" className="py-6 lg:py-8 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800"></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
+
+      {/* Professional border blending */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-950/20 via-transparent to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-950/20 via-transparent to-transparent"></div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
@@ -142,7 +146,7 @@ export function SolutionsSection() {
           transition={{ duration: 0.6 }}
           className="text-left mb-3 sm:mb-4"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
             Solutions
           </h2>
           <p className="text-base sm:text-lg text-white/80 max-w-4xl">
@@ -214,7 +218,7 @@ export function SolutionsSection() {
                                 transition={{ duration: 0.6, delay: 0.3 }}
                                 className="p-4 sm:p-5 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border-t border-white/10"
                               >
-                                <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 leading-tight">
+                                <h4 className="text-xl font-bold text-white mb-2 sm:mb-3 leading-tight">
                                   {image.title}
                                 </h4>
                                 <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed">

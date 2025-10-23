@@ -58,12 +58,16 @@ const inspirationalQuotes = [
  */
 export function ConsultingVerticalsSection() {
   return (
-    <section id="consulting-verticals" className="py-8 relative overflow-hidden">
+    <section id="consulting-verticals" className="py-6 lg:py-8 relative overflow-hidden">
       {/* Background Effects */}
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
+
+      {/* Professional border blending */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-800/15 via-transparent to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-800/15 via-transparent to-transparent"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -73,7 +77,7 @@ export function ConsultingVerticalsSection() {
           transition={{ duration: 0.6 }}
           className="text-left mb-8"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-3">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
             Consulting Verticals
           </h2>
 
@@ -159,7 +163,7 @@ export function ConsultingVerticalsSection() {
             className="space-y-8"
           >
             <div className="text-center mb-6">
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
                 Client Testimonials
               </h3>
               <p className="text-gray-400">

@@ -119,12 +119,16 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-8 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
+    <section id="contact" className="py-4 lg:py-6 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
+
+      {/* Professional border blending */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-800/15 via-transparent to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-800/15 via-transparent to-transparent"></div>
 
       <div className="container mx-auto px-3 sm:px-4 lg:px-6 relative z-10">
         {/* Header */}
@@ -132,7 +136,7 @@ export function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-8"
+          className="text-left mb-6"
           viewport={{ once: true }}
         >
           <motion.h2
@@ -140,7 +144,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
           >
             Contact Us
           </motion.h2>
@@ -155,10 +159,10 @@ export function ContactSection() {
           </motion.p>
         </motion.div>
 
-        <div className="flex flex-col xl:flex-row gap-5 lg:gap-6 items-stretch">
+        <div className="flex flex-col xl:flex-row gap-4 lg:gap-5 items-stretch">
           {/* Left Section: Team Member Information */}
-          <div className="flex flex-col gap-4 lg:gap-5 flex-1 justify-between h-full">
-            <div className="flex flex-col gap-4 lg:gap-5 h-full justify-between">
+          <div className="flex flex-col gap-3 lg:gap-4 flex-1 justify-between h-full">
+            <div className="flex flex-col gap-3 lg:gap-4 h-full justify-between">
               {/* Jesse Miller - Managing Director Profile */}
               <TeamMember
                 imageSrc="/profile-jesse-miller.jpg"
@@ -192,9 +196,9 @@ export function ContactSection() {
             className="relative bg-white/10 backdrop-blur-xl border border-white/30 rounded-3xl shadow-2xl w-full max-w-xl flex-1 flex flex-col justify-center self-stretch min-h-full p-0 overflow-hidden ring-1 ring-white/20"
           >
             {/* Form Header */}
-            <div className="px-3 py-2 flex flex-col gap-2">
+            <div className="px-3 py-1 flex flex-col gap-1">
               <div className="flex items-center gap-3 mb-1">
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-0">
+                <h3 className="text-xl font-bold text-white mb-0">
                   Schedule Your Free Consultation
                 </h3>
               </div>
@@ -231,11 +235,11 @@ export function ContactSection() {
               </AnimatePresence>
 
               {/* Contact Form Fields */}
-              <form onSubmit={handleSubmit} className="space-y-3 mt-1">
+              <form onSubmit={handleSubmit} className="space-y-2 mt-1">
                 {/* Name and Email Fields */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 md:gap-2">
                   <div>
-                    <label htmlFor="name" className="flex items-center text-sm font-medium mb-2 text-white">
+                    <label htmlFor="name" className="flex items-center text-sm font-medium mb-1 text-white">
                       <User className="w-4 h-4 mr-2 text-[#63b583]" />
                       Name <span className="text-white">*</span>
                     </label>
@@ -251,7 +255,7 @@ export function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="flex items-center text-sm font-medium mb-2 text-white">
+                    <label htmlFor="email" className="flex items-center text-sm font-medium mb-1 text-white">
                       <Mail className="w-4 h-4 mr-2 text-[#63b583]" />
                       Email <span className="text-white">*</span>
                     </label>
@@ -269,9 +273,9 @@ export function ContactSection() {
                 </div>
 
                 {/* Phone and Service Fields */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 md:gap-2">
                   <div>
-                    <label htmlFor="phone" className="flex items-center text-sm font-medium mb-2 text-white">
+                    <label htmlFor="phone" className="flex items-center text-sm font-medium mb-1 text-white">
                       <Phone className="w-4 h-4 mr-2 text-[#63b583]" />
                       Phone Number
                     </label>
@@ -286,7 +290,7 @@ export function ContactSection() {
                     />
                   </div>
                   <div className="relative">
-                    <label htmlFor="service" className="flex items-center text-sm font-medium mb-2 text-white">
+                    <label htmlFor="service" className="flex items-center text-sm font-medium mb-1 text-white">
                       <FileText className="w-4 h-4 mr-2 text-[#63b583]" />
                       Service Interest
                     </label>
@@ -320,7 +324,7 @@ export function ContactSection() {
 
                 {/* Message Field */}
                 <div>
-                    <label htmlFor="message" className="flex items-center text-sm font-medium mb-2 text-white">
+                    <label htmlFor="message" className="flex items-center text-sm font-medium mb-1 text-white">
                       <MessageSquare className="w-4 h-4 mr-2 text-[#63b583]" />
                     How can we help you? <span className="text-white">*</span>
                     </label>
@@ -329,7 +333,7 @@ export function ContactSection() {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 min-h-[120px] resize-none"
+                    className="bg-white/5 border-white/20 text-white !placeholder-gray-400 focus:border-[#63b583] focus:ring-2 focus:ring-[#63b583]/30 focus:bg-white/10 hover:border-white/30 hover:bg-white/8 transition-all duration-300 min-h-[80px] resize-none"
                     rows={4}
                     placeholder="Tell us about your project, challenge, or question..."
                     required
