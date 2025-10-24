@@ -119,7 +119,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-4 lg:py-6 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
+    <section id="contact" className="py-4 lg:py-6 !pt-4 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.contact.main}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.contact.radial1}`}></div>
@@ -144,7 +144,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
           >
             Contact Us
           </motion.h2>

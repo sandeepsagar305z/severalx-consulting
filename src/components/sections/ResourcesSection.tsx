@@ -38,7 +38,7 @@ const resources = [
  */
 export function ResourcesSection() {
   return (
-    <section id="resources" className={`${COMMON_STYLES.section}`} style={{ scrollMarginTop: '80px' }}>
+    <section id="resources" className={`${COMMON_STYLES.section} !pt-4`} style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.main}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.radial1}`}></div>
@@ -55,7 +55,7 @@ export function ResourcesSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-8"
+          className="text-left mb-4"
           viewport={{ once: true }}
         >
           <motion.h2
@@ -63,7 +63,7 @@ export function ResourcesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
           >
             Resources
           </motion.h2>
