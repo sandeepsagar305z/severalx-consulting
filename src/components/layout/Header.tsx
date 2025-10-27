@@ -136,7 +136,7 @@ export function Header() {
                 alt="Severalx Consulting"
                 width={32}
                 height={32}
-                className="h-22 w-42 object-contain"
+                className="h-18 w-36 object-contain"
                 unoptimized
               />
             </Link>

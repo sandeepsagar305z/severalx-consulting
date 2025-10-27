@@ -130,8 +130,13 @@ export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthM
           onClose();
         }
       }}
+      modal={true}
     >
-      <DialogContent className="sm:max-w-md bg-gray-900/95 backdrop-blur-xl border border-white/20 shadow-2xl">
+      <DialogContent 
+        className="sm:max-w-md bg-gray-900/95 backdrop-blur-xl border border-white/20 shadow-2xl"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        onCloseAutoFocus={(e) => e.preventDefault()}
+      >
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
             Access Severalx Chat

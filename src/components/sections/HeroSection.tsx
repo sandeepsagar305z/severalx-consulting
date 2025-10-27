@@ -304,6 +304,9 @@ export function HeroSection() {
     const userProvided = typeof nextUser !== "undefined";
     const userPayload = userProvided ? nextUser ?? null : undefined;
 
+    // Store current scroll position to prevent unwanted scrolling
+    const scrollY = window.scrollY;
+
     persistAuthState(userPayload);
     if (userProvided) {
       setHasLibreChatSession(Boolean(nextUser));
@@ -315,6 +318,11 @@ export function HeroSection() {
     if (sanitizedQuestion.length > 0) {
       setInputValue(sanitizedQuestion);
     }
+
+    // Restore scroll position after modal closes
+    requestAnimationFrame(() => {
+      window.scrollTo(0, scrollY);
+    });
   };
 
   return (
@@ -437,6 +445,12 @@ export function HeroSection() {
                     placeholder="Chat with our AI about your consulting business..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleChatAccess();
+                      }
+                    }}
                     className="flex-1 border-0 text-base sm:text-lg text-white placeholder:text-white/60 focus-visible:ring-0 bg-transparent min-h-[44px] sm:min-h-0"
                   />
                   <Button
