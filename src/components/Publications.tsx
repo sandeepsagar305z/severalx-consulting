@@ -155,7 +155,7 @@ const Publications = () => {
   const renderSectionHeader = () => (
     <>
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">Insights</h2>
-      <p className="text-lg text-white/80 max-w-4xl mb-6">
+      <p className="text-base sm:text-lg text-white/80 max-w-4xl mb-6">
         Latest updates with featured consulting insights, technology trends, and industry best practices.
       </p>
     </>
@@ -325,12 +325,12 @@ const Publications = () => {
             </span>
           )}
         </div>
-        <h3 className="text-xl font-semibold text-white mb-2 line-clamp-2">
+        <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
           {post.title || 'Untitled'}
         </h3>
 
         {/* Content */}
-        <p className="text-sm text-gray-300 mb-3 line-clamp-3">
+        <p className="text-sm sm:text-base text-gray-300 mb-3 line-clamp-3">
           {getPostExcerpt(post, 120)}
         </p>
 

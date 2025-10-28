@@ -72,7 +72,7 @@ export function ResourcesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="text-lg text-white/80 max-w-4xl leading-relaxed"
+            className="text-base sm:text-lg text-white/80 max-w-4xl leading-relaxed"
           >
             Comprehensive solutions to support your business growth and ensure success with our products.
           </motion.p>
@@ -103,10 +103,10 @@ export function ResourcesSection() {
                   <div className="w-16 h-16 bg-gradient-to-br from-[#63b583] to-[#4a9666] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-2xl group-hover:shadow-[#63b583]/30 transition-all duration-500 group-hover:scale-110">
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl mb-4 text-white group-hover:text-[#63b583] transition-colors duration-300">
+                  <CardTitle className="text-xl sm:text-2xl mb-4 text-white group-hover:text-[#63b583] transition-colors duration-300">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-400 text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                  <CardDescription className="text-gray-400 text-sm sm:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                     {service.description}
                   </CardDescription>
                 </CardHeader>

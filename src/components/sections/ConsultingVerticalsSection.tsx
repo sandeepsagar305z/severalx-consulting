@@ -87,7 +87,7 @@ export function ConsultingVerticalsSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="max-w-3xl"
           >
-            <p className="text-lg md:text-xl text-white leading-relaxed">
+            <p className="text-base sm:text-lg text-white leading-relaxed">
             Our consulting verticals, powered by the Several X Platform
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-[#61b280] to-[#4a9666] mt-6 rounded-full"></div>
@@ -128,7 +128,7 @@ export function ConsultingVerticalsSection() {
                   </div>
                 </CardHeader>
                 <CardContent className="text-center pb-16">
-                  <CardDescription className="text-gray-600 leading-relaxed text-lg font-semibold">
+                  <CardDescription className="text-gray-600 leading-relaxed text-base sm:text-lg font-semibold">
                     {website.description}
                   </CardDescription>
                 </CardContent>
@@ -163,10 +163,10 @@ export function ConsultingVerticalsSection() {
             className="space-y-8"
           >
             <div className="text-center mb-6">
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
                 Client Testimonials
               </h3>
-              <p className="text-white/80">
+              <p className="text-sm sm:text-base text-white/70">
                 Inspiring quotes about the power of partnerships
               </p>
             </div>
@@ -194,14 +194,14 @@ export function ConsultingVerticalsSection() {
                       </div>
 
                       {/* Quote Content */}
-                      <blockquote className="text-sm text-gray-200 leading-relaxed text-center mb-3 italic">
+                      <blockquote className="text-sm sm:text-base text-gray-200 leading-relaxed text-center mb-3 italic">
                         &ldquo;{quote.quote}&rdquo;
                       </blockquote>
 
                       {/* Author Info */}
                       <div className="flex items-center justify-center space-x-3">
                         <div className="text-center">
-                          <div className="font-semibold text-[#61b280] text-sm">
+                          <div className="font-semibold text-[#61b280] text-xs sm:text-sm">
                             — {quote.author}
                           </div>
                         </div>

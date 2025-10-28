@@ -120,7 +120,7 @@ export function AboutSection() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
                 About Severalx Consulting
               </h2>
-              <p className="mt-3 text-lg text-white/80 max-w-xl">
+              <p className="mt-3 text-base sm:text-lg text-white/80 max-w-xl">
                 Technology consulting experts specializing in digital transformation, business process optimization, and innovative technology solutions. We help companies leverage cutting-edge technologies to drive growth and competitive advantage.
               </p>
             </motion.div>
@@ -145,8 +145,8 @@ export function AboutSection() {
                              <service.icon className="w-6 h-6" />
                         </div>
                         <div>
-                            <h3 className="text-base font-bold text-white">{service.title}</h3>
-                            <p className="text-sm text-white/80 mt-1">{service.description}</p>
+                            <h3 className="text-lg font-bold text-white">{service.title}</h3>
+                            <p className="text-sm sm:text-base text-white/70 mt-1">{service.description}</p>
                         </div>
                     </motion.div>
                 ))}
@@ -162,12 +162,12 @@ export function AboutSection() {
               viewport={{ once: true, margin: "-50px" }}
               className="bg-white/10 backdrop-blur-sm rounded-xl p-5 shadow-sm border border-white/20"
             >
-              <h3 className="text-xl font-bold text-white mb-2">Our Impact</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Our Impact</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                 {impactMetrics.map((metric) => (
                   <div key={metric.label} className="text-center sm:text-left">
                     <p className="text-2xl lg:text-3xl font-bold text-white">{metric.value}</p>
-                    <p className="text-xs text-white/80 mt-1">{metric.label}</p>
+                    <p className="text-xs sm:text-sm text-white/70 mt-1">{metric.label}</p>
                   </div>
                 ))}
               </div>
@@ -180,12 +180,12 @@ export function AboutSection() {
               viewport={{ once: true, margin: "-50px" }}
               className="bg-white/10 backdrop-blur-sm rounded-xl p-5 shadow-sm border border-white/20"
             >
-              <h3 className="text-xl font-bold text-white mb-3">Why Choose Severalx Consulting?</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">Why Choose Severalx Consulting?</h3>
               <ul className="space-y-3">
                 {whyChoosePoints.map((point, index) => (
                   <li key={index} className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-white/80">{point}</span>
+                    <span className="text-sm sm:text-base text-white/70">{point}</span>
                   </li>
                 ))}
               </ul>
@@ -212,7 +212,7 @@ export function AboutSection() {
                <Card className="bg-white/10 backdrop-blur-sm rounded-xl p-5 h-full shadow-sm border border-white/20 hover:bg-white/15 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 ease-in-out">
                    <CardContent className="p-0">
                        <h4 className="text-xl font-bold text-white mb-2">{card.title}</h4>
-                       <p className="text-sm text-white/80">{card.description}</p>
+                       <p className="text-sm sm:text-base text-white/70">{card.description}</p>
                    </CardContent>
                </Card>
             </motion.div>

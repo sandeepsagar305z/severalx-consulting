@@ -153,7 +153,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="text-lg text-white/80 max-w-3xl leading-relaxed"
+            className="text-base sm:text-lg text-white/80 max-w-3xl leading-relaxed"
           >
             Get in touch with our team. We&apos;re here to help you succeed.
           </motion.p>
@@ -198,12 +198,12 @@ export function ContactSection() {
             {/* Form Header */}
             <div className="px-3 py-1 flex flex-col gap-1">
               <div className="flex items-center gap-3 mb-1">
-                <h3 className="text-xl font-bold text-white mb-0">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-0">
                   Schedule Your Free Consultation
                 </h3>
               </div>
 
-              <p className="text-sm sm:text-base text-white/80 mb-3 sm:mb-4">
+              <p className="text-sm sm:text-base text-white/70 mb-3 sm:mb-4">
                 Connect with our marketing technology experts today. We&apos;ll help you build, implement, and optimize marketing stacks that drive growth and deliver exceptional customer experiences.
               </p>
 
