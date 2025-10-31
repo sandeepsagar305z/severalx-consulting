@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Building2, Brain, Users, Target } from "lucide-react";
+import { Send, Building2, Brain, Users, Target, AlertTriangle } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BACKGROUND_GRADIENTS, BRAND_COLORS } from "@/lib/constants";
 import { AuthModal } from "@/components/AuthModal";
 import { useAuthModal } from "@/context/AuthModalContext";
 import { fetchLibreChatUser, persistAuthState, subscribeToAuthChanges } from "@/lib/librechatSession";
 import type { LibreChatUser } from "@/lib/librechatSession";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 /**
  * Animated floating shape component for background decoration
@@ -184,6 +185,7 @@ export function HeroSection() {
   const [inputValue, setInputValue] = useState("");
   const [hasLibreChatSession, setHasLibreChatSession] = useState<boolean | null>(null);
   const checkingPromise = useRef<Promise<boolean> | null>(null);
+  const [showCautionDialog, setShowCautionDialog] = useState(false);
 
   const {
     isOpen: isAuthModalOpen,
@@ -323,6 +325,11 @@ export function HeroSection() {
     requestAnimationFrame(() => {
       window.scrollTo(0, scrollY);
     });
+
+    // Show caution dialog after successful login
+    setTimeout(() => {
+      setShowCautionDialog(true);
+    }, 300); // Small delay to let auth modal close first
   };
 
   return (
@@ -496,6 +503,38 @@ export function HeroSection() {
         onSuccess={handleAuthSuccess}
         pendingQuestion={pendingQuestion}
       />
+
+      {/* Caution Dialog */}
+      <Dialog open={showCautionDialog} onOpenChange={setShowCautionDialog}>
+        <DialogContent className="sm:max-w-md bg-gray-900/95 backdrop-blur-xl border border-white/20 shadow-2xl">
+          <div className="flex flex-col items-center text-center space-y-4 py-2">
+            {/* Icon */}
+            <div className="w-16 h-16 rounded-full bg-[#63b583]/10 border border-[#63b583]/30 flex items-center justify-center">
+              <AlertTriangle className="h-8 w-8 text-[#63b583]" />
+            </div>
+            
+            {/* Title */}
+            <div className="space-y-2">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
+                Important Notice
+              </h3>
+              <p className="text-base text-gray-300 leading-relaxed">
+                You can send up to 5 messages within a 24-hour period.
+                <br />
+                Thank you for your understanding and support.
+              </p>
+            </div>
+
+            {/* Close Button */}
+            <Button
+              onClick={() => setShowCautionDialog(false)}
+              className={`${BRAND_COLORS.gradient.primary} w-full text-white py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1`}
+            >
+              I Understand
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
