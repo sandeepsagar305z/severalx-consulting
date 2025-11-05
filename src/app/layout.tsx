@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { AuthModalProvider } from "@/context/AuthModalContext";
+import { ChatBar } from "@/components/ChatBar";
 
 // Configure Google Fonts for the application
 const geistSans = Geist({
@@ -62,6 +63,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <ChatBar />
         </AuthModalProvider>
       </body>
     </html>
