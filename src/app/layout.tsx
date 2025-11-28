@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { AuthModalProvider } from "@/context/AuthModalContext";
+import { ChatBar } from "@/components/ChatBar";
 
 // Configure Google Fonts for the application
 const geistSans = Geist({
@@ -55,11 +57,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 relative`}
       >
-        <Header />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <AuthModalProvider>
+          <Header />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <ChatBar />
+        </AuthModalProvider>
       </body>
     </html>
   );

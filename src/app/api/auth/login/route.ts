@@ -1,17 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as bcrypt from 'bcryptjs';
-
-// This is a simple in-memory store - in production, you'd use a database
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  company: string;
-  password: string;
-  createdAt: string;
-}
-
-const users: User[] = [];
+const LIBRECHAT_API_BASE =
+  process.env.LIBRECHAT_API_BASE ??
+  process.env.NEXT_PUBLIC_LIBRECHAT_URL ??
+  '';
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,22 +12,41 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Email and password are required' }, { status: 400 });
     }
 
-    // Find user
-    const user = users.find(user => user.email === email);
-    if (!user) {
-      return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+    if (!LIBRECHAT_API_BASE) {
+      throw new Error('LIBRECHAT_API_BASE is not configured');
     }
 
-    // Check password
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
-      return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+    const libreChatResponse = await fetch(`${LIBRECHAT_API_BASE.replace(/\/$/, '')}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+      redirect: 'manual',
+    });
+
+    const payload = await libreChatResponse.json().catch(() => ({}));
+    const sanitizedPayload =
+      payload && typeof payload === 'object' && payload !== null ? { ...payload } : payload;
+
+    if (sanitizedPayload && typeof sanitizedPayload === 'object') {
+      delete sanitizedPayload.token;
     }
 
-    // In a real app, you'd create a JWT token here
-    // For now, we'll just return success
+    const response = NextResponse.json(sanitizedPayload ?? {}, { status: libreChatResponse.status });
 
-    return NextResponse.json({ message: 'Login successful' });
+    const headers = libreChatResponse.headers as unknown as { getSetCookie?: () => string[] };
+    const setCookieHeaders = headers.getSetCookie?.();
+    if (setCookieHeaders && setCookieHeaders.length > 0) {
+      setCookieHeaders.forEach((cookie) => {
+        response.headers.append('set-cookie', cookie);
+      });
+    } else {
+      const rawCookie = libreChatResponse.headers.get('set-cookie');
+      if (rawCookie) {
+        response.headers.append('set-cookie', rawCookie);
+      }
+    }
+
+    return response;
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json({ message: 'Internal server error' }, { status: 500 });

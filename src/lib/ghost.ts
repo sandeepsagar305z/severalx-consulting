@@ -1,5 +1,6 @@
 import 'server-only'
 import { ofetch } from 'ofetch'
+import { ensureAbsoluteUrl } from '@/lib/url'
 import type { PostOrPage, Pagination } from '@tryghost/content-api'
 
 // Re-export official Ghost types
@@ -42,11 +43,19 @@ export class GhostAPIError extends Error {
 
 // Credentials resolver
 const getCredentials = () => {
-  const url = process.env.GHOST_CONTENT_API_URL
+  const rawUrl = process.env.GHOST_CONTENT_API_URL
   const key = process.env.GHOST_CONTENT_API_KEY
 
-  if (!url || !key) {
+  if (!rawUrl || !key) {
     throw new GhostAPIError('Ghost API credentials not configured', 500)
+  }
+
+  let url: string
+  try {
+    url = ensureAbsoluteUrl(rawUrl)
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : 'Unknown error'
+    throw new GhostAPIError(`Ghost API URL is invalid - ${reason}`, 500)
   }
 
   return { url, key }
@@ -59,7 +68,13 @@ const ghostFetch = async (
   include: readonly string[]
 ): Promise<GhostPostsResponse> => {
   const { url, key } = getCredentials()
-  const endpoint = new URL('/ghost/api/content/posts/', url)
+  let endpoint: URL
+  try {
+    endpoint = new URL('/ghost/api/content/posts/', url)
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : 'Unknown error'
+    throw new GhostAPIError(`Invalid Ghost API URL - ${reason}`, 500)
+  }
 
   try {
     return await ofetch<GhostPostsResponse>(endpoint.toString(), {

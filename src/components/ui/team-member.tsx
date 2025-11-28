@@ -42,7 +42,7 @@ export function TeamMember({
       <div className="flex-1 flex flex-col items-center md:items-start w-full">
         {/* Contact details */}
         <div className="flex flex-col text-center md:text-left mb-4">
-          <h3 className="text-lg font-bold text-white">{name}</h3>
+          <h3 className="text-xl font-bold text-white">{name}</h3>
           <p className="text-base text-gray-300 font-semibold">{title}</p>
           <p className="text-sm text-gray-400">{location}</p>
           <a

@@ -1,17 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as bcrypt from 'bcryptjs';
-
-// This is a simple in-memory store - in production, you'd use a database
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  company: string;
-  password: string;
-  createdAt: string;
-}
-
-const users: User[] = [];
+const LIBRECHAT_API_BASE =
+  process.env.LIBRECHAT_API_BASE ??
+  process.env.NEXT_PUBLIC_LIBRECHAT_URL ??
+  '';
 
 async function createTransporter() {
   // Reuse the same transporter logic from contact route
@@ -64,26 +55,37 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'All fields are required' }, { status: 400 });
     }
 
-    // Check if user already exists
-    const existingUser = users.find(user => user.email === email);
-    if (existingUser) {
-      return NextResponse.json({ message: 'User already exists' }, { status: 400 });
+    const username = email.split('@')[0];
+
+    if (!LIBRECHAT_API_BASE) {
+      throw new Error('LIBRECHAT_API_BASE is not configured');
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const libreChatResponse = await fetch(`${LIBRECHAT_API_BASE.replace(/\/$/, '')}/api/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        username,
+        password,
+        confirm_password: password,
+      }),
+    });
 
-    // Create user
-    const user = {
-      id: Date.now().toString(),
-      name,
-      email,
-      company,
-      password: hashedPassword,
-      createdAt: new Date().toISOString(),
-    };
+    if (!libreChatResponse.ok) {
+      let errorMessage = 'Failed to create LibreChat account';
+      try {
+        const error = await libreChatResponse.json();
+        if (error?.message) {
+          errorMessage = error.message;
+        }
+      } catch (error) {
+        console.error('Error parsing LibreChat signup response:', error);
+      }
 
-    users.push(user);
+      return NextResponse.json({ message: errorMessage }, { status: libreChatResponse.status });
+    }
 
     // Send welcome email
     try {

@@ -38,12 +38,16 @@ const resources = [
  */
 export function ResourcesSection() {
   return (
-    <section id="resources" className={`${COMMON_STYLES.section}`} style={{ scrollMarginTop: '80px' }}>
+    <section id="resources" className={`${COMMON_STYLES.section} !pt-4`} style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
-      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.main}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.radial1}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.radial2}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.resources.radial3}`}></div>
+
+      {/* Seamless border blending - extended and ultra-subtle */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -51,7 +55,7 @@ export function ResourcesSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-12"
+          className="text-left mb-4"
           viewport={{ once: true }}
         >
           <motion.h2
@@ -59,7 +63,7 @@ export function ResourcesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight"
           >
             Resources
           </motion.h2>
@@ -68,7 +72,7 @@ export function ResourcesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="text-lg text-gray-300 max-w-4xl leading-relaxed"
+            className="text-base sm:text-lg text-white/80 max-w-4xl leading-relaxed"
           >
             Comprehensive solutions to support your business growth and ensure success with our products.
           </motion.p>
@@ -99,10 +103,10 @@ export function ResourcesSection() {
                   <div className="w-16 h-16 bg-gradient-to-br from-[#63b583] to-[#4a9666] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-2xl group-hover:shadow-[#63b583]/30 transition-all duration-500 group-hover:scale-110">
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl mb-4 text-white group-hover:text-[#63b583] transition-colors duration-300">
+                  <CardTitle className="text-xl sm:text-2xl mb-4 text-white group-hover:text-[#63b583] transition-colors duration-300">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-400 text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                  <CardDescription className="text-gray-400 text-sm sm:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                     {service.description}
                   </CardDescription>
                 </CardHeader>

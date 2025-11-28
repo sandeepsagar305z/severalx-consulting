@@ -11,7 +11,7 @@ import {
   type PostOrPage,
   type Tag
 } from '@/lib/ghost-client'
-import { BACKGROUND_GRADIENTS, BRAND_COLORS } from '@/lib/constants'
+import { BRAND_COLORS, BACKGROUND_GRADIENTS } from '@/lib/constants'
 
 // Constants
 const POSTS_LIMIT = 3
@@ -154,8 +154,8 @@ const Publications = () => {
    */
   const renderSectionHeader = () => (
     <>
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">Insights</h2>
-      <p className="text-lg text-gray-300 max-w-4xl mb-8">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">Insights</h2>
+      <p className="text-base sm:text-lg text-white/80 max-w-4xl mb-6">
         Latest updates with featured consulting insights, technology trends, and industry best practices.
       </p>
     </>
@@ -206,10 +206,10 @@ const Publications = () => {
 
   if (loading) {
     return (
-      <section className={`py-16 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
+      <section className={`pt-8 pb-12 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
         {/* Background overlays for depth */}
-        <div className={BACKGROUND_GRADIENTS.radial.primary}></div>
-        <div className={BACKGROUND_GRADIENTS.radial.secondary}></div>
+        <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+        <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {renderSectionHeader()}
@@ -221,10 +221,10 @@ const Publications = () => {
 
   if (error) {
     return (
-      <section className={`py-16 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
+      <section className={`pt-8 pb-12 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
         {/* Background overlays for depth */}
-        <div className={BACKGROUND_GRADIENTS.radial.primary}></div>
-        <div className={BACKGROUND_GRADIENTS.radial.secondary}></div>
+        <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+        <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {renderSectionHeader()}
@@ -247,10 +247,10 @@ const Publications = () => {
 
   if (posts.length === 0) {
     return (
-      <section className={`py-16 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
+      <section className={`pt-8 pb-12 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
         {/* Background overlays for depth */}
-        <div className={BACKGROUND_GRADIENTS.radial.primary}></div>
-        <div className={BACKGROUND_GRADIENTS.radial.secondary}></div>
+        <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+        <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {renderSectionHeader()}
@@ -314,8 +314,8 @@ const Publications = () => {
       </div>
 
       {/* Header */}
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-3">
+      <div className="p-5">
+        <div className="flex items-center justify-between mb-2">
           <span className={`text-xs font-medium text-[${BRAND_COLORS.primary}] bg-[${BRAND_COLORS.primary}]/10 px-2 py-1 rounded`}>
             {post.published_at ? formatPostDate(post.published_at) : 'No date'}
           </span>
@@ -325,18 +325,18 @@ const Publications = () => {
             </span>
           )}
         </div>
-        <h3 className="text-lg font-semibold text-white mb-3 line-clamp-2">
+        <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
           {post.title || 'Untitled'}
         </h3>
 
         {/* Content */}
-        <p className="text-sm text-gray-300 mb-4 line-clamp-3">
+        <p className="text-sm sm:text-base text-gray-300 mb-3 line-clamp-3">
           {getPostExcerpt(post, 120)}
         </p>
 
         {/* Post Tags */}
         {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-3">
             {post.tags.slice(0, 3).map((tag: Tag) => (
               <span
                 key={tag.id}
@@ -375,7 +375,7 @@ const Publications = () => {
     }
 
     return (
-      <div className="text-center mt-8">
+      <div className="text-center mt-6">
         <Link
           href={href}
           target="_blank"
@@ -389,11 +389,12 @@ const Publications = () => {
   }
 
   return (
-    <section id="insights" className={`py-16 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
+    <section id="insights" className={`pt-8 pb-12 ${BACKGROUND_GRADIENTS.section} relative overflow-hidden`}>
       {/* Background overlays for depth */}
-      <div className={BACKGROUND_GRADIENTS.radial.primary}></div>
-      <div className={BACKGROUND_GRADIENTS.radial.secondary}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
+      <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {renderSectionHeader()}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

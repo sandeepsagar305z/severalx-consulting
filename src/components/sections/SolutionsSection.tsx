@@ -126,26 +126,30 @@ const managementTabs = [
 
 export function SolutionsSection() {
   return (
-    <section id="products" className="py-16 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
+    <section id="products" className="py-5 lg:py-6 relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Background Effects */}
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.section}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.primary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.secondary}`}></div>
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.radial.tertiary}`}></div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Seamless border blending - extended and ultra-subtle */}
+      <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
+      
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 relative z-10">
 
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-8 sm:mb-12"
+          className="text-left mb-3 sm:mb-3.5"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
             Solutions
           </h2>
-          <p className="text-base sm:text-lg text-white/80 max-w-4xl">
+          <p className="text-base sm:text-lg text-white/80 max-w-3xl">
             Comprehensive business management solutions designed to streamline your operations and drive growth
           </p>
         </motion.div>
@@ -155,29 +159,29 @@ export function SolutionsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-7xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
           <Tabs defaultValue="project-management" className="w-full">
-            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 mb-6 sm:mb-8 h-auto md:h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-2 md:p-0 gap-2 md:gap-0">
+            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 mb-2 h-auto md:h-11 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-1.5 md:p-0 gap-1.5 md:gap-0">
               {managementTabs.map((tab) => (
                 <TabsTrigger
                   key={tab.id}
                   value={tab.id}
-                  className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 font-medium text-sm md:text-base h-12 rounded-xl transition-all duration-300 flex items-center justify-center md:justify-start px-3 md:px-4"
+                  className="data-[state=active]:bg-white/20 data-[state=active]:text-white text-white/70 font-medium text-sm md:text-sm h-9 rounded-lg transition-all duration-300 flex items-center justify-center md:justify-start px-2 md:px-3"
                 >
-                  <tab.icon className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-2 flex-shrink-0" />
+                  <tab.icon className="w-4 h-4 md:w-4 md:h-4 mr-1.5 md:mr-1.5 flex-shrink-0" />
                   <span className="truncate">{tab.title}</span>
                 </TabsTrigger>
               ))}
             </TabsList>
 
             {managementTabs.map((tab) => (
-              <TabsContent key={tab.id} value={tab.id} className="space-y-8">
+              <TabsContent key={tab.id} value={tab.id} className="space-y-0">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="space-y-6"
+                  className="space-y-0"
                 >
                   {/* Only show slideshow if images exist for this tab */}
                   {managementImages[tab.id] && managementImages[tab.id].length > 0 ? (
@@ -187,7 +191,7 @@ export function SolutionsSection() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="relative w-full overflow-hidden rounded-2xl shadow-2xl bg-white/5 backdrop-blur-sm border border-white/10"
+                        className="relative w-full overflow-hidden rounded-xl shadow-2xl bg-white/5 backdrop-blur-sm border border-white/10"
                       >
 
                         <Carousel className="w-full">
@@ -196,12 +200,12 @@ export function SolutionsSection() {
                           <CarouselItem key={image.id}>
                             <div className="flex flex-col">
                               {/* Image Container */}
-                              <div className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] overflow-hidden group">
+                              <div className="relative w-full h-[38vh] sm:h-[43vh] md:h-[48vh] lg:h-[53vh] overflow-hidden group">
                                 <Image
                                   src={image.image}
                                   alt={image.title}
-                                  width={800}
-                                  height={500}
+                                  width={640}
+                                  height={400}
                                   className="w-full h-full object-cover"
                                 />
 
@@ -212,12 +216,12 @@ export function SolutionsSection() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.3 }}
-                                className="p-6 sm:p-8 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border-t border-white/10"
+                                className="p-3.5 sm:p-4 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border-t border-white/10"
                               >
-                                <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+                                <h4 className="text-xl font-bold text-white mb-2 sm:mb-2 leading-tight">
                                   {image.title}
                                 </h4>
-                                <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed">
+                                <p className="text-sm sm:text-base text-white/70 leading-relaxed">
                                   {image.description}
                                 </p>
                               </motion.div>
@@ -227,10 +231,10 @@ export function SolutionsSection() {
                       </CarouselContent>
 
                       {/* Enhanced Slideshow Controls */}
-                      <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 left-1/2 -translate-x-1/2 flex items-center space-x-3 md:space-x-4 bg-black/40 backdrop-blur-md rounded-full px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 border border-white/10">
-                        <CarouselPrevious className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 shadow-sm" />
-                        <CarouselDots className="space-x-2 md:space-x-3" />
-                        <CarouselNext className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 shadow-sm" />
+                      <div className="absolute bottom-11 sm:bottom-12 md:bottom-13 left-1/2 -translate-x-1/2 flex items-center space-x-2.5 md:space-x-3 bg-black/40 backdrop-blur-md rounded-full px-3.5 py-2 sm:px-4 sm:py-2 md:px-5 md:py-2.5 border border-white/10">
+                        <CarouselPrevious className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-8 w-8 sm:h-8 sm:w-8 md:h-9 md:w-9 shadow-sm" />
+                        <CarouselDots className="space-x-2 md:space-x-2.5" />
+                        <CarouselNext className="bg-black/5 backdrop-blur-sm hover:bg-black/15 text-white hover:text-gray-200 border-white/10 h-8 w-8 sm:h-8 sm:w-8 md:h-9 md:w-9 shadow-sm" />
                       </div>
                     </Carousel>
                   </motion.div>

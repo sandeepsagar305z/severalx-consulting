@@ -30,13 +30,29 @@ export const BACKGROUND_GRADIENTS = {
     quaternary: 'bg-[radial-gradient(circle_at_30%_20%,rgba(99,181,131,0.025),transparent_75%)]',
   },
 
-  // Hero section specific backgrounds - consistent with base theme
+  // Hero section specific backgrounds - grey-focused theme
   hero: {
-    main: 'bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950',
-    radial1: 'bg-[radial-gradient(circle_at_30%_40%,rgba(99,181,131,0.03),transparent_70%)]',
-    radial2: 'bg-[radial-gradient(circle_at_70%_80%,rgba(99,181,131,0.02),transparent_70%)]',
-    radial3: 'bg-[radial-gradient(circle_at_20%_80%,rgba(99,181,131,0.02),transparent_80%)]',
-    radial4: 'bg-[radial-gradient(circle_at_50%_20%,rgba(99,181,131,0.025),transparent_80%)]',
+    main: 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900',
+    radial1: 'bg-[radial-gradient(circle_at_30%_40%,rgba(148,163,184,0.06),transparent_70%)]',
+    radial2: 'bg-[radial-gradient(circle_at_70%_80%,rgba(100,116,139,0.04),transparent_70%)]',
+    radial3: 'bg-[radial-gradient(circle_at_20%_80%,rgba(148,163,184,0.05),transparent_80%)]',
+    radial4: 'bg-[radial-gradient(circle_at_50%_20%,rgba(148,163,184,0.055),transparent_80%)]',
+  },
+
+  // Consulting Verticals section - matches hero theme
+  consultingVerticals: {
+    main: 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900',
+    radial1: 'bg-[radial-gradient(circle_at_30%_40%,rgba(148,163,184,0.06),transparent_70%)]',
+    radial2: 'bg-[radial-gradient(circle_at_70%_80%,rgba(100,116,139,0.04),transparent_70%)]',
+    radial3: 'bg-[radial-gradient(circle_at_20%_80%,rgba(148,163,184,0.05),transparent_80%)]',
+  },
+
+  // Resources section - matches hero theme
+  resources: {
+    main: 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900',
+    radial1: 'bg-[radial-gradient(circle_at_30%_40%,rgba(148,163,184,0.06),transparent_70%)]',
+    radial2: 'bg-[radial-gradient(circle_at_70%_80%,rgba(100,116,139,0.04),transparent_70%)]',
+    radial3: 'bg-[radial-gradient(circle_at_20%_80%,rgba(148,163,184,0.05),transparent_80%)]',
   },
 
   // Solutions section backgrounds - consistent with base theme
@@ -46,14 +62,12 @@ export const BACKGROUND_GRADIENTS = {
     radial2: 'bg-[radial-gradient(circle_at_20%_80%,rgba(74,150,102,0.02),transparent_70%)]',
   },
 
-  // Contact section backgrounds - consistent with base theme
+  // Contact section - matches hero theme
   contact: {
-    main: 'bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950',
-  },
-
-  // Resources section backgrounds - consistent with base theme
-  resources: {
-    main: 'bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950',
+    main: 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900',
+    radial1: 'bg-[radial-gradient(circle_at_30%_40%,rgba(148,163,184,0.06),transparent_70%)]',
+    radial2: 'bg-[radial-gradient(circle_at_70%_80%,rgba(100,116,139,0.04),transparent_70%)]',
+    radial3: 'bg-[radial-gradient(circle_at_20%_80%,rgba(148,163,184,0.05),transparent_80%)]',
   },
 
   // Grid pattern overlays
@@ -62,7 +76,7 @@ export const BACKGROUND_GRADIENTS = {
 
 // Common styling classes
 export const COMMON_STYLES = {
-  section: 'py-16 lg:py-24 relative overflow-hidden',
+  section: 'py-6 lg:py-8 relative overflow-hidden',
   container: 'container mx-auto px-4 sm:px-6 lg:px-8 relative z-10',
   card: 'bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all duration-300',
   button: {

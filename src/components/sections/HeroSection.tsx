@@ -3,10 +3,14 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Building2, Brain, Users, Target } from "lucide-react";
-import { useState } from "react";
+import { Send, Building2, Brain, Users, Target, AlertTriangle } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BACKGROUND_GRADIENTS, BRAND_COLORS } from "@/lib/constants";
 import { AuthModal } from "@/components/AuthModal";
+import { useAuthModal } from "@/context/AuthModalContext";
+import { fetchLibreChatUser, persistAuthState, subscribeToAuthChanges } from "@/lib/librechatSession";
+import type { LibreChatUser } from "@/lib/librechatSession";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 /**
  * Animated floating shape component for background decoration
@@ -22,7 +26,7 @@ const FloatingShape = ({
   delay = 0,
   duration = 20,
   size = 60,
-  color = "rgba(99,181,131,0.1)"
+  color = "rgba(148,163,184,0.12)"
 }: FloatingShapeProps) => (
   <motion.div
     className="absolute rounded-full blur-sm"
@@ -58,7 +62,7 @@ interface CircuitLineProps {
 
 const CircuitLine = ({ delay = 0 }: CircuitLineProps) => (
   <motion.div
-    className="absolute h-px bg-gradient-to-r from-transparent via-green-400/40 to-transparent"
+    className="absolute h-px bg-gradient-to-r from-transparent via-slate-400/40 to-transparent"
     style={{
       width: "250px",
       top: "50%",
@@ -116,7 +120,7 @@ const ParticleField = () => {
       {particlePositions.map((position, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-green-400/50 rounded-full"
+          className="absolute w-1 h-1 bg-slate-400/50 rounded-full"
           style={{
             left: position.left,
             top: position.top,
@@ -149,11 +153,11 @@ const GradientWave = ({ delay = 0 }: GradientWaveProps) => (
   <motion.div
     className="absolute inset-0 opacity-25"
     style={{
-      background: "radial-gradient(circle at 20% 50%, rgba(99,181,131,0.12) 0%, transparent 50%)",
+      background: "radial-gradient(circle at 20% 50%, rgba(148,163,184,0.15) 0%, transparent 50%)",
     }}
     animate={{
       scale: [1, 1.4, 1],
-      opacity: [0.12, 0.4, 0.12],
+      opacity: [0.15, 0.45, 0.15],
     }}
     transition={{
       duration: 6,
@@ -179,16 +183,153 @@ const serviceSuggestions = [
  */
 export function HeroSection() {
   const [inputValue, setInputValue] = useState("");
-  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [hasLibreChatSession, setHasLibreChatSession] = useState<boolean | null>(null);
+  const checkingPromise = useRef<Promise<boolean> | null>(null);
+  const [showCautionDialog, setShowCautionDialog] = useState(false);
 
-  const handleChatAccess = () => {
-    setShowAuthModal(true);
+  const {
+    isOpen: isAuthModalOpen,
+    openAuthModal,
+    closeAuthModal,
+    pendingQuestion,
+    setPendingQuestion,
+  } = useAuthModal();
+
+  const chatUrl = process.env.NEXT_PUBLIC_LIBRECHAT_URL ?? "";
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthChanges(({ user }) => {
+      setHasLibreChatSession(Boolean(user));
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const getBaseDomain = (hostname: string) => {
+    if (hostname === "localhost" || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
+      return hostname;
+    }
+    const segments = hostname.split(".");
+    if (segments.length <= 2) {
+      return hostname;
+    }
+    return segments.slice(-2).join(".");
   };
 
-  const handleAuthSuccess = () => {
-    setShowAuthModal(false);
-    // Redirect to chat in new tab
-    window.open('https://chat.severalxconsulting.com', '_blank');
+  const persistPendingQuery = (question: string) => {
+    try {
+      localStorage.setItem("pending_chat_query", question);
+    } catch (error) {
+      console.warn("Unable to store pending query in localStorage", error);
+    }
+
+    try {
+      const targetHost = new URL(chatUrl).hostname;
+      const currentHost = window.location.hostname;
+
+      if (targetHost === currentHost || targetHost === "localhost") {
+        document.cookie = `pending_chat_query=${encodeURIComponent(question)}; path=/; domain=${targetHost}; SameSite=Lax`;
+        return;
+      }
+
+      const baseDomain = getBaseDomain(targetHost);
+      if (baseDomain && currentHost.endsWith(baseDomain)) {
+        document.cookie = `pending_chat_query=${encodeURIComponent(question)}; path=/; domain=.${baseDomain}; SameSite=Lax`;
+      }
+    } catch (error) {
+      console.warn("Unable to set pending query cookie", error);
+    }
+  };
+
+  const redirectToChat = (question?: string) => {
+    try {
+      const target = new URL(chatUrl);
+      const sanitized = question?.trim();
+      if (sanitized && sanitized.length > 0) {
+        target.searchParams.set("q", sanitized);
+        persistPendingQuery(sanitized);
+      }
+      const opened = window.open(target.toString(), "_blank", "noopener,noreferrer");
+      if (!opened) {
+        console.warn("Popup blocked: enable popups to open SeveralX Chat in a new tab.");
+      }
+    } catch (error) {
+      console.error("Unable to open chat window", error);
+    }
+  };
+
+  const checkSession = useCallback(() => {
+    if (checkingPromise.current) {
+      return checkingPromise.current;
+    }
+
+    const promise = (async () => {
+      const result = await fetchLibreChatUser();
+      setHasLibreChatSession(result.ok);
+      return result.ok;
+    })()
+      .catch((error) => {
+        console.warn("Unable to verify LibreChat session", error);
+        setHasLibreChatSession(false);
+        return false;
+      })
+      .finally(() => {
+        checkingPromise.current = null;
+      });
+
+    checkingPromise.current = promise;
+    return promise;
+  }, []);
+
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
+
+  const handleChatAccess = async () => {
+    const trimmedQuestion = inputValue.trim();
+    let sessionActive = hasLibreChatSession;
+
+    if (sessionActive !== true) {
+      sessionActive = await checkSession();
+    }
+
+    if (sessionActive) {
+      redirectToChat(trimmedQuestion.length > 0 ? trimmedQuestion : undefined);
+      return;
+    }
+
+    openAuthModal(trimmedQuestion);
+  };
+
+  const handleAuthSuccess = (question?: string, nextUser?: LibreChatUser | null) => {
+    const sanitizedQuestion = question?.trim() || inputValue.trim();
+    const userProvided = typeof nextUser !== "undefined";
+    const userPayload = userProvided ? nextUser ?? null : undefined;
+
+    // Store current scroll position to prevent unwanted scrolling
+    const scrollY = window.scrollY;
+
+    persistAuthState(userPayload);
+    if (userProvided) {
+      setHasLibreChatSession(Boolean(nextUser));
+    } else {
+      void checkSession();
+    }
+    closeAuthModal();
+    setPendingQuestion("");
+    if (sanitizedQuestion.length > 0) {
+      setInputValue(sanitizedQuestion);
+    }
+
+    // Restore scroll position after modal closes
+    requestAnimationFrame(() => {
+      window.scrollTo(0, scrollY);
+    });
+
+    // Show caution dialog after successful login
+    setTimeout(() => {
+      setShowCautionDialog(true);
+    }, 300); // Small delay to let auth modal close first
   };
 
   return (
@@ -201,6 +342,9 @@ export function HeroSection() {
       <div className={`absolute inset-0 ${BACKGROUND_GRADIENTS.hero.radial4}`}></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
 
+      {/* Seamless border blending - extended and ultra-subtle */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900/40 via-gray-900/10 to-transparent pointer-events-none"></div>
+
       {/* Animated Background Elements */}
       {/* Gradient waves for depth */}
       <GradientWave delay={0} />
@@ -208,10 +352,10 @@ export function HeroSection() {
       <GradientWave delay={4} />
 
       {/* Floating geometric shapes */}
-      <FloatingShape delay={0} duration={25} size={80} color="rgba(99,181,131,0.08)" />
-      <FloatingShape delay={2} duration={30} size={60} color="rgba(74,150,102,0.06)" />
-      <FloatingShape delay={4} duration={35} size={100} color="rgba(99,181,131,0.05)" />
-      <FloatingShape delay={6} duration={28} size={70} color="rgba(74,150,102,0.07)" />
+      <FloatingShape delay={0} duration={25} size={80} color="rgba(148,163,184,0.10)" />
+      <FloatingShape delay={2} duration={30} size={60} color="rgba(100,116,139,0.08)" />
+      <FloatingShape delay={4} duration={35} size={100} color="rgba(148,163,184,0.07)" />
+      <FloatingShape delay={6} duration={28} size={70} color="rgba(100,116,139,0.09)" />
 
       {/* Circuit-like lines for tech aesthetic */}
       <div className="absolute top-1/4 left-1/4">
@@ -229,7 +373,7 @@ export function HeroSection() {
 
       {/* Additional floating elements */}
       <motion.div
-        className={`absolute top-20 left-10 w-32 h-32 bg-[${BRAND_COLORS.primary}]/12 rounded-full blur-xl`}
+        className="absolute top-20 left-10 w-32 h-32 bg-slate-400/12 rounded-full blur-xl"
         animate={{
           scale: [1, 1.4, 1],
           opacity: [0.12, 0.25, 0.12],
@@ -241,7 +385,7 @@ export function HeroSection() {
         }}
       />
       <motion.div
-        className={`absolute bottom-32 right-16 w-24 h-24 bg-[${BRAND_COLORS.primary}]/10 rounded-full blur-lg`}
+        className="absolute bottom-32 right-16 w-24 h-24 bg-slate-400/10 rounded-full blur-lg"
         animate={{
           scale: [1, 1.3, 1],
           opacity: [0.1, 0.2, 0.1],
@@ -254,7 +398,7 @@ export function HeroSection() {
         }}
       />
       <motion.div
-        className={`absolute top-1/2 left-1/4 w-16 h-16 bg-[${BRAND_COLORS.primary}]/8 rounded-full blur-md`}
+        className="absolute top-1/2 left-1/4 w-16 h-16 bg-slate-400/8 rounded-full blur-md"
         animate={{
           scale: [1, 1.5, 1],
           opacity: [0.08, 0.16, 0.08],
@@ -269,16 +413,16 @@ export function HeroSection() {
 
       {/* Main Hero Content */}
       <div className="flex-1 flex items-center justify-center relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16 text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-6 lg:py-8 text-center">
           <div className="max-w-6xl mx-auto">
             {/* Main Heading */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-              className="mb-4 sm:mb-6"
+              className="mb-2 sm:mb-3"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] sm:leading-tight mb-4 sm:mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] sm:leading-tight mb-2 sm:mb-3">
                 <span className="block bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
                   The Platform for 10x Consultants
                 </span>
@@ -290,7 +434,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-2"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed font-light px-2"
             >
               Technology to power your consulting business from End-to-End
             </motion.p>
@@ -300,15 +444,21 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
-              className="max-w-2xl mx-auto mb-6 px-4"
+              className="max-w-2xl mx-auto mb-4 px-4"
             >
-              <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-3 sm:p-4 hover:bg-white/15 transition-all duration-300">
+              <div className="relative bg-white/15 backdrop-blur-md rounded-2xl shadow-2xl border border-white/30 p-3 sm:p-4 hover:bg-white/20 transition-all duration-300">
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <Input
                     placeholder="Chat with our AI about your consulting business..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    className="flex-1 border-0 text-base sm:text-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 focus-visible:ring-0 bg-transparent min-h-[44px] sm:min-h-0"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleChatAccess();
+                      }
+                    }}
+                    className="flex-1 border-0 text-base sm:text-lg text-white placeholder:text-white/60 focus-visible:ring-0 bg-transparent min-h-[44px] sm:min-h-0"
                   />
                   <Button
                     size="lg"
@@ -326,7 +476,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.7, ease: "easeOut" }}
-              className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-12 sm:mb-16 px-2"
+              className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-8 px-2"
             >
               {serviceSuggestions.map((service, index) => (
                 <motion.button
@@ -334,7 +484,7 @@ export function HeroSection() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.9 + index * 0.08, ease: "easeOut" }}
-                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-xs sm:text-sm font-medium text-gray-300 hover:bg-white/10 hover:border-[#63b583]/30 hover:text-[#63b583] transition-all duration-300 hover:shadow-lg hover:shadow-[#63b583]/10 hover:-translate-y-1 group whitespace-nowrap"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white/8 backdrop-blur-sm border border-white/20 rounded-full text-xs sm:text-sm font-medium text-white hover:bg-white/15 hover:border-[#63b583]/30 hover:text-[#63b583] transition-all duration-300 hover:shadow-lg hover:shadow-[#63b583]/10 hover:-translate-y-1 group whitespace-nowrap"
                   onClick={() => setInputValue(`I need help with ${service.label.toLowerCase()}`)}
                 >
                   <service.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#63b583]" />
@@ -348,10 +498,43 @@ export function HeroSection() {
 
       {/* Auth Modal */}
       <AuthModal
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
+        isOpen={isAuthModalOpen}
+        onClose={closeAuthModal}
         onSuccess={handleAuthSuccess}
+        pendingQuestion={pendingQuestion}
       />
+
+      {/* Caution Dialog */}
+      <Dialog open={showCautionDialog} onOpenChange={setShowCautionDialog}>
+        <DialogContent className="sm:max-w-md bg-gray-900/95 backdrop-blur-xl border border-white/20 shadow-2xl">
+          <div className="flex flex-col items-center text-center space-y-4 py-2">
+            {/* Icon */}
+            <div className="w-16 h-16 rounded-full bg-[#63b583]/10 border border-[#63b583]/30 flex items-center justify-center">
+              <AlertTriangle className="h-8 w-8 text-[#63b583]" />
+            </div>
+            
+            {/* Title */}
+            <div className="space-y-2">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
+                Important Notice
+              </h3>
+              <p className="text-base text-gray-300 leading-relaxed">
+                You can send up to 5 messages within a 24-hour period.
+                <br />
+                Thank you for your understanding and support.
+              </p>
+            </div>
+
+            {/* Close Button */}
+            <Button
+              onClick={() => setShowCautionDialog(false)}
+              className={`${BRAND_COLORS.gradient.primary} w-full text-white py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1`}
+            >
+              I Understand
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

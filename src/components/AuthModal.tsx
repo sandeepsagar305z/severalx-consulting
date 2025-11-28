@@ -17,8 +17,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BRAND_COLORS } from "@/lib/constants";
+import type { LibreChatUser } from "@/lib/librechatSession";
 
-// Validation schemas
 const signUpSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
@@ -37,12 +37,15 @@ type LoginForm = z.infer<typeof loginSchema>;
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: () => void;
+  onSuccess: (question?: string, user?: LibreChatUser | null) => void;
+  pendingQuestion?: string;
 }
 
-export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
+export function AuthModal({ isOpen, onClose, onSuccess, pendingQuestion }: AuthModalProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<"signup" | "login">("signup");
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const signUpForm = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
@@ -63,7 +66,7 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
   });
 
   const handleSignUp = async (data: SignUpForm) => {
-    setIsLoading(true);
+    setIsSigningUp(true);
     try {
       const response = await fetch("/api/auth/signup", {
         method: "POST",
@@ -72,20 +75,22 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
       });
 
       if (response.ok) {
-        onSuccess();
+        signUpForm.reset();
+        setActiveTab("login");
       } else {
-        const error = await response.json();
-        signUpForm.setError("root", { message: error.message });
+        const error = await response.json().catch(() => ({}));
+        signUpForm.setError("root", { message: error?.message ?? "Unable to create account" });
       }
-    } catch {
+    } catch (error) {
+      console.error("Signup error:", error);
       signUpForm.setError("root", { message: "An error occurred. Please try again." });
     } finally {
-      setIsLoading(false);
+      setIsSigningUp(false);
     }
   };
 
   const handleLogin = async (data: LoginForm) => {
-    setIsLoading(true);
+    setIsLoggingIn(true);
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -94,22 +99,44 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
       });
 
       if (response.ok) {
-        onSuccess();
+        const payload = await response.json().catch(() => ({}));
+
+        if (payload?.twoFAPending) {
+          loginForm.setError("root", { message: "Two-factor authentication is not supported in this flow." });
+          return;
+        }
+
+        const user = payload?.user as LibreChatUser | undefined;
+
+        loginForm.reset();
+        onSuccess(pendingQuestion, user);
       } else {
-        const error = await response.json();
-        loginForm.setError("root", { message: error.message });
+        const error = await response.json().catch(() => ({}));
+        loginForm.setError("root", { message: error?.message ?? "Invalid credentials" });
       }
-    } catch {
+    } catch (error) {
+      console.error("Login error:", error);
       loginForm.setError("root", { message: "An error occurred. Please try again." });
     } finally {
-      setIsLoading(false);
+      setIsLoggingIn(false);
     }
   };
 
-
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-gray-900/95 backdrop-blur-xl border border-white/20 shadow-2xl">
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          onClose();
+        }
+      }}
+      modal={true}
+    >
+      <DialogContent 
+        className="sm:max-w-md bg-gray-900/95 backdrop-blur-xl border border-white/20 shadow-2xl"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        onCloseAutoFocus={(e) => e.preventDefault()}
+      >
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-[#63b583] via-[#4a9666] to-[#63b583] bg-clip-text text-transparent">
             Access Severalx Chat
@@ -119,7 +146,7 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs defaultValue="signup" className="w-full mt-6">
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "signup" | "login")} className="w-full mt-6">
           <TabsList className="grid w-full grid-cols-2 bg-gray-800/50 backdrop-blur-sm border border-white/10">
             <TabsTrigger
               value="signup"
@@ -145,7 +172,7 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
                 <Input
                   {...signUpForm.register("name")}
                   placeholder="Enter your full name"
-                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
+                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
                 />
                 {signUpForm.formState.errors.name && (
                   <p className="text-sm text-red-400">{signUpForm.formState.errors.name.message}</p>
@@ -161,7 +188,7 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
                   {...signUpForm.register("email")}
                   type="email"
                   placeholder="Enter your email address"
-                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
+                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
                 />
                 {signUpForm.formState.errors.email && (
                   <p className="text-sm text-red-400">{signUpForm.formState.errors.email.message}</p>
@@ -176,7 +203,7 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
                 <Input
                   {...signUpForm.register("company")}
                   placeholder="Enter your company name"
-                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
+                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
                 />
                 {signUpForm.formState.errors.company && (
                   <p className="text-sm text-red-400">{signUpForm.formState.errors.company.message}</p>
@@ -193,12 +220,12 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
                     {...signUpForm.register("password")}
                     type={showPassword ? "text" : "password"}
                     placeholder="Create a secure password"
-                    className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300 pr-10"
+                    className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300 pr-10"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#63b583] transition-colors duration-200"
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-white"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -209,17 +236,15 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
               </div>
 
               {signUpForm.formState.errors.root && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
-                  <p className="text-sm text-red-400 text-center">{signUpForm.formState.errors.root.message}</p>
-                </div>
+                <p className="text-sm text-red-400 text-center">{signUpForm.formState.errors.root.message}</p>
               )}
 
               <Button
                 type="submit"
-                disabled={isLoading}
-                className={`w-full ${BRAND_COLORS.gradient.primary} text-white border-0 shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1 py-3 font-semibold`}
+                disabled={isSigningUp}
+                className={`${BRAND_COLORS.gradient.primary} w-full text-white py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1`}
               >
-                {isLoading ? "Creating Account..." : "Sign Up & Access Chat"}
+                {isSigningUp ? "Creating account..." : "Create account"}
               </Button>
             </form>
           </TabsContent>
@@ -235,7 +260,7 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
                   {...loginForm.register("email")}
                   type="email"
                   placeholder="Enter your email address"
-                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
+                  className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300"
                 />
                 {loginForm.formState.errors.email && (
                   <p className="text-sm text-red-400">{loginForm.formState.errors.email.message}</p>
@@ -252,12 +277,12 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
                     {...loginForm.register("password")}
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder-gray-400 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300 pr-10"
+                    className="bg-gray-800/50 backdrop-blur-sm border-white/20 text-white placeholder:!text-gray-200 focus:border-[#63b583] focus:ring-[#63b583]/20 transition-all duration-300 pr-10"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#63b583] transition-colors duration-200"
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-white"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -268,17 +293,15 @@ export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
               </div>
 
               {loginForm.formState.errors.root && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
-                  <p className="text-sm text-red-400 text-center">{loginForm.formState.errors.root.message}</p>
-                </div>
+                <p className="text-sm text-red-400 text-center">{loginForm.formState.errors.root.message}</p>
               )}
 
               <Button
                 type="submit"
-                disabled={isLoading}
-                className={`w-full ${BRAND_COLORS.gradient.primary} text-white border-0 shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1 py-3 font-semibold`}
+                disabled={isLoggingIn}
+                className={`${BRAND_COLORS.gradient.primary} w-full text-white py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-[#63b583]/30 transition-all duration-300 hover:-translate-y-1`}
               >
-                {isLoading ? "Signing In..." : "Login & Access Chat"}
+                {isLoggingIn ? "Logging in..." : "Log in"}
               </Button>
             </form>
           </TabsContent>
